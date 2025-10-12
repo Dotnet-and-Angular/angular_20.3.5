@@ -1,0 +1,65 @@
+<div class="auth-wrapper">
+    <div class="auth-card" role="region" aria-labelledby="loginHeading">
+        <div class="auth-header">
+            <h2 id="loginHeading">Welcome back</h2>
+            <p class="muted">Sign in to continue to your dashboard</p>
+        </div>
+
+        <div class="auth-toggle" role="tablist" aria-label="Sign-in method">
+            <button type="button" class="toggle-btn" [class.active]="!phoneMode()"
+                (click)="setPhoneMode(false)">Username</button>
+            <button type="button" class="toggle-btn" [class.active]="phoneMode()"
+                (click)="setPhoneMode(true)">Phone</button>
+        </div>
+
+        <div class="card-inner">
+            @if (!phoneMode()) {
+            <form [formGroup]="form()" (ngSubmit)="onSubmit()" class="login-form" aria-label="username-login">
+                <label class="field">
+                    <span class="field-label">Username</span>
+                    <input formControlName="username" type="text" placeholder="Enter username"
+                        autocomplete="username" />
+                </label>
+                <label class="field">
+                    <span class="field-label">Password</span>
+                    <input formControlName="password" type="password" placeholder="Enter password"
+                        autocomplete="current-password" />
+                </label>
+                <div class="actions">
+                    <button type="submit" class="primary" [disabled]="!form().valid">Sign in</button>
+                </div>
+            </form>
+            }
+
+            @if (phoneMode()) {
+            <form [formGroup]="phoneForm()" (ngSubmit)="sendOtp()" class="phone-form" aria-label="phone-login">
+                <label class="field">
+                    <span class="field-label">Phone</span>
+                    <input formControlName="phone" type="tel" placeholder="Enter phone number" autocomplete="tel" />
+                </label>
+                <div class="actions">
+                    <button type="submit" class="primary" [disabled]="!phoneForm().valid || otpSent()">Send OTP</button>
+                </div>
+            </form>
+            }
+
+            @if (otpSent()) {
+            <form [formGroup]="otpForm()" (ngSubmit)="verifyOtp()" class="otp-form" aria-label="otp-verification">
+                <label class="field">
+                    <span class="field-label">Enter OTP</span>
+                    <div class="otp-inputs">
+                        <input formControlName="otp" type="text" maxlength="6" placeholder="------" />
+                    </div>
+                </label>
+                <div class="actions">
+                    <button type="submit" class="primary" [disabled]="!otpForm().valid">Verify</button>
+                </div>
+            </form>
+            }
+        </div>
+
+        <div class="auth-footer">
+            <small class="muted">Need an account? <a routerLink="/register">Register</a></small>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<section class="about-hero">
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-text">
+                <h1>Build modern apps faster</h1>
+                <p class="sub">MyApp is a starter demo showcasing best practices: signals, route guards, forms, and
+                    clean API integration.</p>
+                <div class="cta">
+                    <a routerLink="/register" class="btn btn-primary">Get Started</a>
+                    <a routerLink="/about" class="btn btn-ghost">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+                <div class="card live">
+                    <div class="card-header">Live stats</div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Users</strong> {{ users() }}</li>
+                            <li><strong>Active</strong> {{ active() }}</li>
+                            <li><strong>Errors</strong> {{ errors() }}</li>
+                        </ul>
+                        <svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true">
+                            <polyline points="0,20 20,10 40,15 60,8 80,12 100,5" fill="none" stroke="#0f172a"
+                                stroke-width="2" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-features">
+    <div class="container">
+        <h2>Why MyApp</h2>
+        <div class="features-grid">
+            <article class="feature">
+                <h3>Signals-first</h3>
+                <p>Small, predictable state using Angular signals for cleaner templates and fewer side-effects.</p>
+            </article>
+            <article class="feature">
+                <h3>Secure by default</h3>
+                <p>Route guards and an HTTP interceptor demonstrate a practical auth flow you can extend.</p>
+            </article>
+            <article class="feature">
+                <h3>Developer-first</h3>
+                <p>Lightweight starter structure that focuses on reusability and fast iteration.</p>
+            </article>
+        </div>
+    </div>
+</section>

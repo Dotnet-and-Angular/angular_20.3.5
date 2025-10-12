@@ -1,0 +1,19 @@
+<header class="header">
+    <div class="header-title">Website</div>
+    <nav class="header-nav">
+        <!-- show register/login when NOT authenticated and not on their respective pages -->
+        @if (!isAuthenticated) {
+        @if (!isRegisterRoute) {
+        <button routerLink="/register" class="header-btn">Register</button>
+        }
+        @if (!isLoginRoute) {
+        <button routerLink="/login" class="header-btn">Login</button>
+        }
+        }
+
+        <!-- show logout only when on dashboard and authenticated -->
+        @if (isDashboard && isAuthenticated) {
+        <button type="button" class="header-btn logout" (click)="logout()">Logout</button>
+        }
+    </nav>
+</header>
