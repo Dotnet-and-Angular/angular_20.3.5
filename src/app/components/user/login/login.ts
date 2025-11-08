@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, signal, output, inject } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { UserLogin } from '../../../services/user-login';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class Login {
   private http = inject(HttpClient);
+  private userLogin = inject(UserLogin);
   private router = inject(Router);
 
   phoneMode = signal(false);
@@ -43,8 +45,7 @@ export class Login {
 
   onSubmit() {
     if (this.form().valid) {
-      console.log(this.form().value);
-      this.http.post('http://localhost:5297/api/auth/token', this.form().value).subscribe({
+      this.userLogin.login(this.form().value as any).subscribe({
         next: (response: any) => {
           localStorage.setItem('token', response.token);
           const token = window.localStorage.getItem('token');
@@ -61,8 +62,8 @@ export class Login {
 
   sendOtp() {
     if (this.phoneForm().valid) {
-      const data = { phone: this.phoneForm().value.phone, code: '' };
-      this.http.post('http://localhost:5297/api/auth/send-otp', data).subscribe({
+      const phone = this.phoneForm().value.phone ?? '';
+      this.userLogin.sendOtp(phone).subscribe({
         next: (response: any) => {
           console.log('OTP Generated successfully', response);
         },
@@ -77,8 +78,10 @@ export class Login {
 
   verifyOtp() {
     if (this.otpForm().valid) {
-      const data = { phone: this.phoneForm().value.phone, code: this.otpForm().value.otp };
-      this.http.post('http://localhost:5297/api/auth/verify-otp', data).subscribe({
+      const phone = this.phoneForm().value.phone ?? '';
+      const otp = this.otpForm().value.otp ?? '';
+
+      this.userLogin.verifyOtp(phone, otp).subscribe({
         next: (response: any) => {
           localStorage.setItem('token', response.token);
           const token = window.localStorage.getItem('token');

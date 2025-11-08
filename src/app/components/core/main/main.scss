@@ -1,7 +1,56 @@
 .main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-height: calc(100vh - 64px - 64px);
-  padding: 2rem 1rem 3.5rem 1rem;
-  box-sizing: border-box;
-  margin-top: 64px;
-  margin-bottom: 64px;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Optional: Add some animation to the dots and lines for dynamism */
+.dot {
+  animation: pulse 4s infinite ease-in-out alternate;
+}
+
+.line {
+  animation: glowFade 5s infinite ease-in-out alternate;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+@keyframes glowFade {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 0.9;
+  }
+}
+
+.content-overlay {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

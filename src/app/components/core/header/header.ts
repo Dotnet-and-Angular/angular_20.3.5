@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-header',
   templateUrl: './header.html',
-  styleUrl: './header.scss',
+  styleUrls: ['./header.scss'],
   imports: [RouterModule]
 })
 export class Header implements OnDestroy {

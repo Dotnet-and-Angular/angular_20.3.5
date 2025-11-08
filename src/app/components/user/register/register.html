@@ -1,1 +1,49 @@
-<p>register works!</p>
+<div class="auth-wrapper">
+    <div class="auth-card" role="region" aria-labelledby="registerHeading">
+        <div class="auth-header">
+            <h2 id="registerHeading">Create an account</h2>
+            <p class="muted">Join us — it's quick and free.</p>
+        </div>
+
+        <form [formGroup]="form()" (ngSubmit)="onSubmit()" class="login-form">
+            <div class="auth-form">
+                <label class="field">
+                    <span class="field-label">Username</span>
+                    <input formControlName="username" type="text" placeholder="Choose a username" />
+                    @if (form().get('username')?.errors?.['minLength'] && form().get('username')?.touched) {
+                    <small class="error">Username is required (min 3 chars).</small>
+                    }
+                </label>
+
+                <label class="field">
+                    <span class="field-label">Password</span>
+                    <input formControlName="password" type="password" placeholder="Create password" />
+                    @if (form().get('password')?.invalid && form().get('password')?.touched) {
+                    <small class="error">Password is required (min 6 chars).</small>
+                    }
+                </label>
+
+                <label class="field">
+                    <span class="field-label">Confirm password</span>
+                    <input formControlName="confirmPassword" type="password" placeholder="Confirm password" />
+                    @if (form().get('confirmPassword')?.hasError('mismatch')) {
+                    <small class="error">Passwords do not match.</small>
+                    }
+                </label>
+
+                <div class="actions">
+                    <button type="submit" class="primary" [disabled]="!form().valid">Register</button>
+                </div>
+            </div>
+        </form>
+
+        @if (form().get('username')?.invalid && form().get('username')?.errors?.['conflict']) {
+        <small class="error">Username already exists.</small>
+        }
+
+        <div class="auth-footer">
+            <small class="muted">Already have an account? <button class="secondary" routerLink="/login">Sign
+                    in</button></small>
+        </div>
+    </div>
+</div>

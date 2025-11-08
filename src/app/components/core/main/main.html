@@ -1,5 +1,231 @@
 <app-header></app-header>
 <main class="main-content">
-    <router-outlet />
+    <!-- Animated SVG Background -->
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" class="animated-bg-svg">
+        <defs>
+            <radialGradient id="backgroundGradient" cx="50%" cy="50%" r="75%">
+                <stop offset="0%" style="stop-color:#1c3c6e; stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#0d1a2f; stop-opacity:1" />
+            </radialGradient>
+
+            <linearGradient id="triangleGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#4a90e2; stop-opacity:0.6" />
+                <stop offset="100%" style="stop-color:#1c3c6e; stop-opacity:0.8" />
+            </linearGradient>
+            <linearGradient id="triangleGradient2" x1="100%" y1="0%" x2="0%" y2="100%"></linearGradient>
+            <stop offset="0%" style="stop-color:#2e64a7; stop-opacity:0.6" />
+            <stop offset="100%" style="stop-color:#0f2240; stop-opacity:0.8" />
+
+            <linearGradient id="triangleGradient3" x1="50%" y1="0%" x2="50%" y2="100%"></linearGradient>
+            <stop offset="0%" style="stop-color:#3a7ed0; stop-opacity:0.7" />
+            <stop offset="100%" style="stop-color:#142d5c; stop-opacity:0.9" />
+
+
+            <filter id="glow">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+                <feFlood flood-color="#a0f0ff" flood-opacity="0.8" result="flood" />
+                <feComposite in="flood" in2="blur" operator="in" result="glowEffect" />
+                <feMerge>
+                    <feMergeNode in="glowEffect" />
+                    <feMergeNode in="SourceGraphic" />
+                </feMerge>
+            </filter>
+
+            <filter id="backgroundBlur">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.05" numOctaves="2" result="noise" />
+                <feDiffuseLighting in="noise" lighting-color="#a0f0ff" surfaceScale="2" result="diffuse" />
+                <feGaussianBlur in="diffuse" stdDeviation="15" result="blurredNoise" />
+                <feComposite in="blurredNoise" in2="SourceGraphic" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" />
+            </filter>
+        </defs>
+
+        <rect x="0" y="0" width="100%" height="100%" fill="url(#backgroundGradient)">
+            <animate attributeName="opacity" values="1;0.95;1" dur="10s" repeatCount="indefinite" />
+        </rect>
+
+        <g filter="url(#backgroundBlur)">
+            <rect x="0" y="0" width="100%" height="100%" fill="transparent" />
+        </g>
+
+        <!-- Animated Triangles -->
+        <g>
+            <polygon points="600,100 800,250 700,400" fill="url(#triangleGradient1)" opacity="0.7">
+                <animateTransform attributeName="transform" type="translate" from="0 0" to="20 10" dur="8s"
+                    repeatCount="indefinite" direction="alternate" />
+            </polygon>
+            <polygon points="700,400 850,300 950,500" fill="url(#triangleGradient2)" opacity="0.8">
+                <animateTransform attributeName="transform" type="translate" from="0 0" to="-15 20" dur="7s"
+                    repeatCount="indefinite" direction="alternate" />
+            </polygon>
+            <polygon points="800,250 900,150 950,500" fill="url(#triangleGradient3)" opacity="0.6">
+                <animateTransform attributeName="transform" type="translate" from="0 0" to="10 -10" dur="9s"
+                    repeatCount="indefinite" direction="alternate" />
+            </polygon>
+            <polygon points="500,400 700,550 600,700" fill="url(#triangleGradient2)" opacity="0.75">
+                <animateTransform attributeName="transform" type="translate" from="0 0" to="10 15" dur="10s"
+                    repeatCount="indefinite" direction="alternate" />
+            </polygon>
+            <polygon points="600,700 800,600 750,800" fill="url(#triangleGradient1)" opacity="0.8">
+                <animateTransform attributeName="transform" type="translate" from="0 0" to="-10 10" dur="11s"
+                    repeatCount="indefinite" direction="alternate" />
+            </polygon>
+            <polygon points="700,550 850,500 750,800" fill="url(#triangleGradient3)" opacity="0.65">
+                <animateTransform attributeName="transform" type="translate" from="0 0" to="15 -10" dur="12s"
+                    repeatCount="indefinite" direction="alternate" />
+            </polygon>
+            <polygon points="400,750 600,900 500,1050" fill="url(#triangleGradient1)" opacity="0.7">
+                <animateTransform attributeName="transform" type="translate" from="0 0" to="10 10" dur="13s"
+                    repeatCount="indefinite" direction="alternate" />
+            </polygon>
+            <polygon points="500,1050 700,950 650,1150" fill="url(#triangleGradient2)" opacity="0.8">
+                <animateTransform attributeName="transform" type="translate" from="0 0" to="-10 -10" dur="14s"
+                    repeatCount="indefinite" direction="alternate" />
+            </polygon>
+            <polygon points="600,900 750,850 650,1150" fill="url(#triangleGradient3)" opacity="0.6">
+                <animateTransform attributeName="transform" type="translate" from="0 0" to="10 0" dur="15s"
+                    repeatCount="indefinite" direction="alternate" />
+            </polygon>
+        </g>
+
+        <!-- Animated Dots and Lines -->
+        <g stroke="#a0f0ff" stroke-width="1" fill="#a0f0ff" filter="url(#glow)" opacity="0.7">
+            <circle class="dot" cx="200" cy="300" r="4">
+                <animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite" />
+            </circle>
+            <circle class="dot" cx="150" cy="450" r="4">
+                <animate attributeName="r" values="4;5;4" dur="2.5s" repeatCount="indefinite" />
+            </circle>
+            <circle class="dot" cx="300" cy="500" r="4">
+                <animate attributeName="r" values="4;6;4" dur="2.2s" repeatCount="indefinite" />
+            </circle>
+
+            <circle class="dot" cx="100" cy="600" r="4"></circle>
+            <animate attributeName="r" values="4;5;4" dur="2.8s" repeatCount="indefinite" />
+
+            <circle class="dot" cx="250" cy="700" r="4">
+                <animate attributeName="r" values="4;6;4" dur="2.1s" repeatCount="indefinite" />
+            </circle>
+            <circle class="dot" cx="400" cy="400" r="4">
+                <animate attributeName="r" values="4;5;4" dur="2.6s" repeatCount="indefinite" />
+            </circle>
+            <circle class="dot" cx="350" cy="650" r="4">
+                <animate attributeName="r" values="4;6;4" dur="2.3s" repeatCount="indefinite" />
+            </circle>
+
+            <line class="line" x1="200" y1="300" x2="150" y2="450">
+                <animate attributeName="opacity" values="0.7;1;0.7" dur="3s" repeatCount="indefinite" />
+            </line>
+            <line class="line" x1="150" y1="450" x2="300" y2="500">
+                <animate attributeName="opacity" values="0.7;1;0.7" dur="3.2s" repeatCount="indefinite" />
+            </line>
+            <line class="line" x1="300" y1="500" x2="100" y2="600">
+                <animate attributeName="opacity" values="0.7;1;0.7" dur="3.4s" repeatCount="indefinite" />
+            </line>
+            <line class="line" x1="100" y1="600" x2="250" y2="700">
+                <animate attributeName="opacity" values="0.7;1;0.7" dur="3.6s" repeatCount="indefinite" />
+            </line>
+            <line class="line" x1="200" y1="300" x2="400" y2="400">
+                <animate attributeName="opacity" values="0.7;1;0.7" dur="3.8s" repeatCount="indefinite" />
+            </line>
+            <line class="line" x1="400" y1="400" x2="300" y2="500">
+                <animate attributeName="opacity" values="0.7;1;0.7" dur="4s" repeatCount="indefinite" />
+            </line>
+            <line class="line" x1="250" y1="700" x2="350" y2="650">
+                <animate attributeName="opacity" values="0.7;1;0.7" dur="4.2s" repeatCount="indefinite" />
+            </line>
+            <line class="line" x1="300" y1="500" x2="350" y2="650">
+                <animate attributeName="opacity" values="0.7;1;0.7" dur="4.4s" repeatCount="indefinite" />
+            </line>
+
+            <circle class="dot" cx="1200" cy="200" r="4">
+                <animate attributeName="r" values="4;6;4" dur="2.2s" repeatCount="indefinite" />
+            </circle>
+            <circle class="dot" cx="1400" cy="150" r="4">
+                <animate attributeName="r" values="4;5;4" dur="2.7s" repeatCount="indefinite" />
+            </circle>
+            <circle class="dot" cx="1500" cy="300" r="4">
+                <animate attributeName="r" values="4;6;4" dur="2.3s" repeatCount="indefinite" />
+            </circle>
+            <circle class="dot" cx="1300" cy="400" r="4">
+                <animate attributeName="r" values="4;5;4" dur="2.9s" repeatCount="indefinite" />
+            </circle>
+            <circle class="dot" cx="1600" cy="450" r="4">
+                <animate attributeName="r" values="4;6;4" dur="2.4s" repeatCount="indefinite" />
+            </circle>
+
+            <line class="line" x1="1200" y1="200" x2="1400" y2="150">
+                <animate attributeName="opacity" values="0.7;1;0.7" dur="3.1s" repeatCount="indefinite" />
+            </line>
+            <line class="line" x1="1400" y1="150" x2="1500" y2="300">
+                <animate attributeName="opacity" values="0.7;1;0.7" dur="3.3s" repeatCount="indefinite" />
+            </line>
+            <line class="line" x1="1500" y1="300" x2="1300" y2="400">
+                <animate attributeName="opacity" values="0.7;1;0.7" dur="3.5s" repeatCount="indefinite" />
+            </line>
+            <line class="line" x1="1300" y1="400" x2="1200" y2="200">
+                <animate attributeName="opacity" values="0.7;1;0.7" dur="3.7s" repeatCount="indefinite" />
+            </line>
+            <line class="line" x1="1500" y1="300" x2="1600" y2="450">
+                <animate attributeName="opacity" values="0.7;1;0.7" dur="3.9s" repeatCount="indefinite" />
+            </line>
+        </g>
+
+        <!-- Floating Small Dots -->
+        <g fill="#e0faff" opacity="0.5">
+            <circle cx="50" cy="50" r="1.5">
+                <animate attributeName="cy" values="50;70;50" dur="6s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="150" cy="120" r="1">
+                <animate attributeName="cy" values="120;140;120" dur="7s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="800" cy="70" r="1.5">
+                <animate attributeName="cy" values="70;90;70" dur="8s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="1000" cy="100" r="1">
+                <animate attributeName="cy" values="100;120;100" dur="6.5s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="400" cy="200" r="1.5">
+                <animate attributeName="cy" values="200;220;200" dur="7.5s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="600" cy="300" r="1">
+                <animate attributeName="cy" values="300;320;300" dur="8.5s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="100" cy="800" r="1.5">
+                <animate attributeName="cy" values="800;820;800" dur="9s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="700" cy="900" r="1">
+                <animate attributeName="cy" values="900;920;900" dur="7.2s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="1500" cy="800" r="1.5">
+                <animate attributeName="cy" values="800;820;800" dur="8.2s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="1800" cy="950" r="1">
+                <animate attributeName="cy" values="950;970;950" dur="7.8s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="1700" cy="100" r="1.5">
+                <animate attributeName="cy" values="100;120;100" dur="8.8s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="1600" cy="600" r="1">
+                <animate attributeName="cy" values="600;620;600" dur="9.2s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="900" cy="500" r="1.5">
+                <animate attributeName="cy" values="500;520;500" dur="7.6s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="200" cy="950" r="1">
+                <animate attributeName="cy" values="950;970;950" dur="8.4s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="450" cy="50" r="1.5">
+                <animate attributeName="cy" values="50;70;50" dur="6.7s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="1100" cy="700" r="1">
+                <animate attributeName="cy" values="700;720;700" dur="7.1s" repeatCount="indefinite" />
+            </circle>
+        </g>
+    </svg>
+
+    <div class="content-overlay">
+        <router-outlet />
+    </div>
 </main>
 <app-footer></app-footer>

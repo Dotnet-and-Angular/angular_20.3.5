@@ -16,6 +16,10 @@
   background: #f4f6f8;
 }
 
+.table-content {
+  background: #fafafa;
+}
+
 .primary {
   background: linear-gradient(90deg, #2563eb, #0ea5e9);
   color: #fff;
@@ -65,7 +69,7 @@ form[formGroup] input {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.25rem;
+  padding: 1rem 0em;
   border-bottom: 1px solid #f1f5f9;
 }
 
