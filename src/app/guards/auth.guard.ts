@@ -1,14 +1,26 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { getAuthToken } from '../components/user/user-state-store/user.selector';
+import { logout } from '../components/user/user-state-store/user.actions';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
-    constructor(private router: Router) { }
+    private token = '';
+    constructor(private router: Router, private store: Store) { }
 
     canActivate(): boolean | UrlTree {
-        const token = localStorage.getItem('token');
-        if (token) {
+        this.store.pipe(select(getAuthToken)).subscribe((token) => {
+            this.token = token;
+        });
+        console.log(this.router.url);
+
+        if (this.token) {
             return true;
+        }
+        if (!this.router.url) {
+            this.store.dispatch(logout());
+            return this.router.parseUrl('/login');
         }
         return this.router.parseUrl('/login');
     }

@@ -7,11 +7,12 @@ import { About } from './components/core/about/about';
 import { Main } from './components/core/main/main';
 
 export const routes: Routes = [
+    { path: '', redirectTo: 'about', pathMatch: 'full' },
     {
         path: '',
         component: Main,
         children: [
-            { path: '', component: About },
+            { path: 'about', component: About },
             { path: 'register', component: Register },
             { path: 'login', component: Login },
             { path: 'dashboard', component: Dashboard, canActivate: [AuthGuard] }

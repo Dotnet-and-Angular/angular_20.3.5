@@ -2,6 +2,11 @@ import { Component, signal, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
+import { newUser } from '../user-state-store/user.interface';
+import { select, Store } from '@ngrx/store';
+import { setUser } from '../user-state-store/user.actions';
+import { selectUser } from '../user-state-store/user.selector';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -12,6 +17,8 @@ import { Router, RouterModule } from '@angular/router';
 export class Register {
   private http = inject(HttpClient);
   private router = inject(Router);
+  private store = inject(Store<newUser>);
+
   alreadyExists = signal(false);
 
   form = signal(new FormGroup({
@@ -28,8 +35,13 @@ export class Register {
       this.form().get('confirmPassword')?.setErrors({ mismatch: true });
       return;
     }
+    const payload = { username: v.username, password: v.password, confirmPassword: v.confirmPassword };
 
-    const payload = { username: v.username, password: v.password };
+    this.store.dispatch(setUser(payload));
+    this.store.pipe(select(selectUser)).pipe(take(1)).subscribe(userState => {
+      console.log('Current User State:', userState);
+    });
+
     this.http.post('http://localhost:5297/api/admin/register', payload).subscribe({
       next: (res) => {
         console.log('Registration successful', res);

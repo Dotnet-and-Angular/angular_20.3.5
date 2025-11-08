@@ -3,6 +3,9 @@ import { Component, signal, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { UserLogin } from '../../../services/user-login';
+import { Store } from '@ngrx/store';
+import { loadUser, setToken } from '../user-state-store/user.actions';
+
 
 @Component({
   selector: 'app-login',
@@ -14,6 +17,8 @@ export class Login {
   private http = inject(HttpClient);
   private userLogin = inject(UserLogin);
   private router = inject(Router);
+  private store = inject(Store);
+
 
   phoneMode = signal(false);
   otpSent = signal(false);
@@ -45,18 +50,19 @@ export class Login {
 
   onSubmit() {
     if (this.form().valid) {
-      this.userLogin.login(this.form().value as any).subscribe({
-        next: (response: any) => {
-          localStorage.setItem('token', response.token);
-          const token = window.localStorage.getItem('token');
-          if (token) {
-            this.router.navigate(['/dashboard']);
-          }
-        },
-        error: (error) => {
-          console.error('Login failed', error);
-        }
-      });
+
+      this.store.dispatch(loadUser({
+        username: this.form().value.username ?? '',
+        password: this.form().value.password ?? ''
+      }));
+      // this.userLogin.login(this.form().value as any).subscribe({
+      //   next: (response: any) => {
+      //     
+      //   },
+      //   error: (error) => {
+      //     console.error('Login failed', error);
+      //   }
+      // });
     }
   }
 
@@ -83,9 +89,8 @@ export class Login {
 
       this.userLogin.verifyOtp(phone, otp).subscribe({
         next: (response: any) => {
-          localStorage.setItem('token', response.token);
-          const token = window.localStorage.getItem('token');
-          if (token) {
+          this.store.dispatch(setToken({ token: response.token }));
+          if (response.token) {
             this.router.navigate(['/dashboard']);
           }
         },
