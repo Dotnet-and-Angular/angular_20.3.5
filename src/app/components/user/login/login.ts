@@ -91,7 +91,7 @@ export class Login {
         next: (response: any) => {
           this.store.dispatch(setToken({ token: response.token }));
           if (response.token) {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/user/dashboard']);
           }
         },
         error: (error) => {

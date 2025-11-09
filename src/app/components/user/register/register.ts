@@ -39,22 +39,8 @@ export class Register {
 
     this.store.dispatch(setUser(payload));
     this.store.pipe(select(selectUser)).pipe(take(1)).subscribe(userState => {
-      console.log('Current User State:', userState);
-    });
-
-    this.http.post('http://localhost:5297/api/admin/register', payload).subscribe({
-      next: (res) => {
-        console.log('Registration successful', res);
-        // navigate to login after successful registration
-        this.router.navigate(['/login']);
-      },
-      error: (err) => {
-        if (err.status === 409) {
-          this.alreadyExists.set(true);
-          this.form().get('username')?.setErrors({ conflict: true });
-          return;
-        }
-      },
+      console.log('Registration successful', userState);
+      this.router.navigate(['/login']);
     });
   }
 }

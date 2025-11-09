@@ -13,8 +13,6 @@ export class AuthGuard implements CanActivate {
         this.store.pipe(select(getAuthToken)).subscribe((token) => {
             this.token = token;
         });
-        console.log(this.router.url);
-
         if (this.token) {
             return true;
         }

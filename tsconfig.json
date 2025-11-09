@@ -15,7 +15,16 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    "module": "preserve",
+
+     // customized paths
+    "baseUrl": "./", 
+    "paths": {
+      "@Material": ["src/app/material/index"],
+      // "@Shared/components": ["src/app/shared/index"],
+      // "@Utills": ["src/app/utills/validators/index"],
+      // "@Utills/interfaces": ["src/app/utills/Interface/index"]
+    },
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

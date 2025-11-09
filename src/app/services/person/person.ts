@@ -8,7 +8,7 @@ export class Person {
   private base = 'http://localhost:5297/api/person';
   private http = inject(HttpClient);
 
-  all(): Observable<IPerson[]> {
+  getAll(): Observable<IPerson[]> {
     return this.http.get<IPerson[]>(`${this.base}/all`);
   }
 

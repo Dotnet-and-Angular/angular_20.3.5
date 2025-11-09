@@ -12,13 +12,13 @@ export class App {
   protected readonly title = signal('angular_20.3.5');
 
 
-  constructor(private router: Router) {
-    this.router.events
-      .pipe(
-        filter(event => event instanceof NavigationStart)
-      )
-      .subscribe((event: NavigationEvent) => {
-        console.log('Navigation Started:', event);
-      });
-  }
+  // constructor(private router: Router) {
+  //   this.router.events
+  //     .pipe(
+  //       filter(event => event instanceof NavigationStart)
+  //     )
+  //     .subscribe((event: NavigationEvent) => {
+  //       console.log('Navigation Started:', event);
+  //     });
+  // }
 }

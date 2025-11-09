@@ -1,0 +1,70 @@
+<mat-sidenav-container class="sidenav-container" style="height: auto">
+    <mat-sidenav-content style="margin-left: 0px !important">
+        <mat-toolbar class="app-toolbar" color="primary" class="sidenav-toolbar">
+            <mat-sidenav #drawer mode="side" [opened]="drawerOpened" (openedChange)="drawerOpened = $event">
+                <mat-nav-list style="display: flex; justify-content: space-between">
+                    <div class="sidenav-header"
+                        [ngClass]="{'sidenav-header-opened': drawerOpened, 'sidenav-header-closed': !drawerOpened}">
+                        <div class="sidenav-title">
+                            <ul class="sidenav-list">
+                                @for (item of sidenavItems; track trackBySidenavItem($index,
+                                item)) {
+                                <li class="sidenav-item">
+                                    <a mat-list-item [routerLink]="item.route" routerLinkActive="active-link"
+                                        [routerLinkActiveOptions]="{exact: true}" class="sidenav-link"
+                                        [attr.aria-current]="item.route === '/' ? 'page' : null">
+                                        <i class="material-icons" aria-hidden="true">{{ item.icon }}</i>
+                                        <span>{{ item.label }}</span>
+                                    </a>
+
+                                    @if (item.children && item.children.length > 0) {
+                                    <ul class="sidenav-submenu" [attr.aria-label]="item.label + ' submenu'">
+                                        @for (child of item.children; track
+                                        trackBySidenavChildItem($index, child)) {
+                                        <li class="sidenav-submenu-item">
+                                            <a mat-list-item [routerLink]="child.route"
+                                                routerLinkActive="active-sub-link"
+                                                [routerLinkActiveOptions]="{exact: true}" class="sidenav-submenu-link">
+                                                <i class="material-icons" aria-hidden="true">{{ child.icon }}</i>
+                                                <span>{{ child.label }}</span>
+                                            </a>
+                                        </li>
+                                        } @empty { }
+                                    </ul>
+                                    }
+                                </li>
+                                } @empty {
+                                <li class="no-items">No navigation items available.</li>
+                                }
+                            </ul>
+                        </div>
+
+                        <div class="sidenav-footer">
+                            <p class="footer-text">
+                                &copy; {{ currentYear }} HLF Portal. All rights reserved.
+                            </p>
+                        </div>
+                    </div>
+                </mat-nav-list>
+            </mat-sidenav>
+
+            <!--  Toolbar content -->
+            <div class="align-center-spacebetween">
+                <div>
+                    <button mat-icon-button (click)="drawer.toggle()" [attr.aria-label]="'Toggle sidenav'">
+                        <mat-icon style="color: aliceblue">menu</mat-icon>
+                    </button>
+                    <span style="margin-left: 8px">Admin Portal</span>
+                </div>
+                <button type="button" class="btn btn-danger" (click)="logout()">
+                    Logout
+                </button>
+            </div>
+        </mat-toolbar>
+
+        <!-- // Main content area -->
+        <div [ngClass]="{'main-content': drawerOpened, 'main-content-drawer': !drawerOpened}">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

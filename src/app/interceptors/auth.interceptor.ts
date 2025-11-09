@@ -16,7 +16,7 @@ export class AuthInterceptor implements HttpInterceptor {
         this.store.pipe(select(getAuthToken)).subscribe((token) => {
             this.token = token;
             if (token) {
-                this.router.navigate(['/dashboard']);
+                this.router.navigate(['/user/dashboard']);
             }
         });
         if (!this.token) {
