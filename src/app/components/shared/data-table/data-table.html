@@ -1,0 +1,64 @@
+<div class="data-table-wrapper">
+    <!-- Search Bar -->
+    <div class="table-controls">
+        <div class="search-box">
+            <input type="text" placeholder="Search data..." class="search-input"
+                (input)="onSearch($any($event.target).value)" [value]="searchTerm()" aria-label="Search table data" />
+            <span class="search-icon">🔍</span>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-container">
+        <table class="data-table" [class.striped]="striped()" [class.hoverable]="hoverable()"
+            [class.bordered]="bordered()" role="table" aria-label="Data table">
+
+            <!-- Table Header -->
+            <thead class="table-header">
+                <tr role="row">
+                    @for (column of columns(); track column.key) {
+                    <th role="columnheader" [style.width]="column.width" [class.sortable]="column.sortable"
+                        (click)="column.sortable ? toggleSort(column) : null"
+                        [attr.aria-sort]="sortColumn() === column.key ? (sortDirection() === 'asc' ? 'ascending' : 'descending') : 'none'">
+                        <div class="header-cell">
+                            <span>{{ column.label }}</span>
+                            @if (column.sortable) {
+                            <span class="sort-icon" [class.active]="sortColumn() === column.key">
+                                {{ getSortIcon(column) }}
+                            </span>
+                            }
+                        </div>
+                    </th>
+                    }
+                </tr>
+            </thead>
+
+            <!-- Table Body -->
+            <tbody class="table-body">
+                @if (filteredAndSortedData().length > 0) {
+                @for (row of filteredAndSortedData(); track trackByIndex($index); let idx = $index) {
+                <tr class="table-row" [class.even]="idx % 2 === 0" role="row" (click)="onRowClick(row)"
+                    (dblclick)="onRowDoubleClick(row)" tabindex="0">
+                    @for (column of columns(); track column.key) {
+                    <td role="cell" [style.width]="column.width">
+                        <span class="cell-content">{{ getCellValue(row, column) }}</span>
+                    </td>
+                    }
+                </tr>
+                }
+                } @else {
+                <tr class="empty-row">
+                    <td [attr.colspan]="columns().length" class="empty-message">
+                        No data available
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Table Footer -->
+    <div class="table-footer">
+        <span class="row-count">Showing {{ filteredAndSortedData().length }} of {{ data().length }} rows</span>
+    </div>
+</div>

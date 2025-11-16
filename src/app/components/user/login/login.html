@@ -1,66 +1,114 @@
-<div class="auth-wrapper">
-    <div class="auth-card" role="region" aria-labelledby="loginHeading">
-        <div class="auth-header">
-            <h2 id="loginHeading">Welcome back</h2>
-            <p class="muted">Sign in to continue to your dashboard</p>
-        </div>
+<div class="auth-container">
+    <!-- Left Side: Dark Blue Section with Offers -->
+    <div class="auth-left">
+        <div class="left-content">
+            <p class="left-tagline">Thank you for banking with us!</p>
+            <h2 class="left-heading">Unlock your exclusive<br>offers.</h2>
 
-        <div class="auth-toggle" role="tablist" aria-label="Sign-in method">
-            <button type="button" class="toggle-btn" [class.active]="!phoneMode()"
-                (click)="setPhoneMode(false)">Username</button>
-            <button type="button" class="toggle-btn" [class.active]="phoneMode()"
-                (click)="setPhoneMode(true)">Phone</button>
-        </div>
+            <div class="offers-illustration">
+                <!-- Simplified illustration representation -->
+                <div class="illustration-placeholder">🎁</div>
+            </div>
 
-        <div class="card-inner">
-            @if (!phoneMode()) {
-            <form [formGroup]="form()" (ngSubmit)="onSubmit()" class="login-form" aria-label="username-login">
-                <label class="field">
-                    <span class="field-label">Username</span>
-                    <input formControlName="username" type="text" placeholder="Enter username"
-                        autocomplete="username" />
-                </label>
-                <label class="field">
-                    <span class="field-label">Password</span>
-                    <input formControlName="password" type="password" placeholder="Enter password"
-                        autocomplete="current-password" />
-                </label>
-                <div class="actions">
-                    <button type="submit" class="primary" [disabled]="!form().valid">Sign in</button>
-                </div>
-            </form>
+            <p class="left-subheading">Curated just for you!</p>
+            <p class="left-description">Click here to discover deals built around your needs.</p>
+        </div>
+    </div>
+
+    <!-- Right Side: Login Form -->
+    <div class="auth-right">
+        <div class="right-content">
+            <!-- Logo -->
+            <div class="bank-logo">
+                <span class="logo-text">🏦</span>
+                <span class="logo-name">Nexus Bank</span>
+            </div>
+
+            <!-- Session Alert (Optional) -->
+            @if (showSessionAlert()) {
+            <div class="session-alert">
+                <span class="alert-icon">ℹ️</span>
+                <span class="alert-text">You are logged out because the session expired!</span>
+            </div>
             }
 
-            @if (phoneMode()) {
-            <form [formGroup]="phoneForm()" (ngSubmit)="sendOtp()" class="phone-form" aria-label="phone-login">
-                <label class="field">
-                    <span class="field-label">Phone</span>
-                    <input formControlName="phone" type="tel" placeholder="Enter phone number" autocomplete="tel" />
-                </label>
-                <div class="actions">
-                    <button type="submit" class="primary" [disabled]="!phoneForm().valid || otpSent()">Send OTP</button>
-                </div>
-            </form>
-            }
+            <!-- Login Form -->
+            <div class="form-container">
+                <h3 class="form-title">Welcome back</h3>
+                <p class="form-subtitle">Sign in to continue to your dashboard</p>
 
-            @if (otpSent()) {
-            <form [formGroup]="otpForm()" (ngSubmit)="verifyOtp()" class="otp-form" aria-label="otp-verification">
-                <label class="field">
-                    <span class="field-label">Enter OTP</span>
-                    <div class="otp-inputs">
-                        <input formControlName="otp" type="text" maxlength="6" placeholder="------" />
+                <!-- Login Method Toggle -->
+                <div class="auth-toggle">
+                    <button type="button" class="toggle-btn" [class.active]="!phoneMode()"
+                        (click)="setPhoneMode(false)">Username</button>
+                    <button type="button" class="toggle-btn" [class.active]="phoneMode()"
+                        (click)="setPhoneMode(true)">Phone</button>
+                </div>
+
+                <!-- Username/Password Login -->
+                @if (!phoneMode()) {
+                <form [formGroup]="form()" (ngSubmit)="onSubmit()" class="login-form">
+                    <label class="field">
+                        <span class="field-label">Username</span>
+                        <input formControlName="username" type="text" placeholder="Enter username"
+                            autocomplete="username" />
+                    </label>
+                    <label class="field">
+                        <span class="field-label">Password</span>
+                        <input formControlName="password" type="password" placeholder="Enter password"
+                            autocomplete="current-password" />
+                    </label>
+                    <div class="actions">
+                        <button type="submit" class="primary" [disabled]="!form().valid">Sign in</button>
                     </div>
-                </label>
-                <div class="actions">
-                    <button type="submit" class="primary" [disabled]="!otpForm().valid">Verify</button>
-                </div>
-            </form>
-            }
+                </form>
+                }
+
+                <!-- Phone Login Form -->
+                @if (phoneMode()) {
+                <form [formGroup]="phoneForm()" (ngSubmit)="sendOtp()" class="phone-form">
+                    <label class="field">
+                        <span class="field-label">Phone</span>
+                        <input formControlName="phone" type="tel" placeholder="Enter phone number" autocomplete="tel" />
+                    </label>
+                    <div class="actions">
+                        <button type="submit" class="primary" [disabled]="!phoneForm().valid || otpSent()">Send
+                            OTP</button>
+                    </div>
+                </form>
+                }
+
+                <!-- OTP Verification Form -->
+                @if (otpSent()) {
+                <form [formGroup]="otpForm()" (ngSubmit)="verifyOtp()" class="otp-form">
+                    <label class="field">
+                        <span class="field-label">Enter OTP</span>
+                        <input formControlName="otp" type="text" maxlength="6" placeholder="------" />
+                    </label>
+                    <div class="actions">
+                        <button type="submit" class="primary" [disabled]="!otpForm().valid">Verify</button>
+                    </div>
+                </form>
+                }
+            </div>
+
+            <!-- Feedback Section (Optional) -->
+            <div class="feedback-section">
+                <p class="feedback-title">We value your feedback</p>
+                <p class="feedback-description">Help us serve you better by completing a<br>short survey.</p>
+                <button type="button" class="survey-btn" (click)="onGoToSurvey()">
+                    Go to Survey
+                </button>
+            </div>
         </div>
 
+        <!-- Footer -->
         <div class="auth-footer">
-            <small class="muted">Need an account? <button class="secondary"
-                    routerLink="/register">Register</button></small>
+            <p class="footer-text">
+                Need an account? <a href="javascript:void(0)" routerLink="/register" class="footer-link">Register
+                    here</a> |
+                © Copyright Nexus Bank Ltd.
+            </p>
         </div>
     </div>
 </div>

@@ -3,7 +3,7 @@ import { authToken, newUser } from "./user.interface";
 
 
 export const initialState: newUser = {
-    username: 'John Doe',
+    username: 'Gunasekhar Raju',
     password: 'password123',
     confirmPassword: 'password123'
 };

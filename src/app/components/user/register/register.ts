@@ -1,4 +1,4 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
@@ -7,12 +7,15 @@ import { select, Store } from '@ngrx/store';
 import { setUser } from '../user-state-store/user.actions';
 import { selectUser } from '../user-state-store/user.selector';
 import { take } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
+  standalone: true,
+  imports: [ReactiveFormsModule, RouterModule, CommonModule],
   templateUrl: './register.html',
   styleUrls: ['./register.scss'],
-  imports: [ReactiveFormsModule, RouterModule]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Register {
   private http = inject(HttpClient);

@@ -47,7 +47,8 @@ export const routes: Routes = [
                     { path: '', redirectTo: 'view', pathMatch: 'full' }
                 ]
             },
-            { path: 'analytics', component: AnalyticsComponent }
+            { path: 'analytics', component: AnalyticsComponent },
+            { path: '', redirectTo: 'user-data', pathMatch: 'full' }
         ]
     },
 ];

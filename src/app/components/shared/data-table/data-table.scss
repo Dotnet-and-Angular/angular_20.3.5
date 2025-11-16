@@ -1,0 +1,298 @@
+// ========================================
+// Advanced Data Table Component Styles
+// ========================================
+
+$primary-color: #3b82f6;
+$primary-light: rgba(59, 130, 246, 0.1);
+$text-primary: #1f2937;
+$text-secondary: #6b7280;
+$border-color: #e5e7eb;
+$hover-bg: #f3f4f6;
+$success-color: #10b981;
+$row-height: 48px;
+$transition-speed: 0.2s;
+
+.data-table-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid $border-color;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+// ========================================
+// Controls Section
+// ========================================
+.table-controls {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid $border-color;
+  background: #fafbfc;
+  gap: 1rem;
+}
+
+.search-box {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all $transition-speed ease;
+  outline: none;
+
+  &:focus {
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px $primary-light;
+  }
+
+  &::placeholder {
+    color: $text-secondary;
+  }
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 1rem;
+}
+
+// ========================================
+// Table Container
+// ========================================
+.table-container {
+  overflow-x: auto;
+  flex: 1;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+
+  &.striped tbody tr:nth-child(even) {
+    background: #fafbfc;
+  }
+
+  &.hoverable tbody tr {
+    transition: background $transition-speed ease;
+
+    &:hover {
+      background: $hover-bg;
+    }
+  }
+
+  &.bordered {
+    border: 1px solid $border-color;
+
+    th,
+    td {
+      border: 1px solid $border-color;
+    }
+  }
+}
+
+// ========================================
+// Table Header
+// ========================================
+.table-header {
+  background: linear-gradient(180deg, #f9fafb 0%, #f3f4f6 100%);
+  border-bottom: 2px solid $border-color;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: $text-primary;
+    user-select: none;
+
+    &.sortable {
+      cursor: pointer;
+      transition: background $transition-speed ease;
+
+      &:hover {
+        background: rgba(59, 130, 246, 0.05);
+      }
+    }
+  }
+}
+
+.header-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: space-between;
+
+  span:first-child {
+    flex: 1;
+  }
+}
+
+.sort-icon {
+  font-size: 0.75rem;
+  opacity: 0.4;
+  transition: opacity $transition-speed ease;
+
+  &.active {
+    opacity: 1;
+    color: $primary-color;
+  }
+}
+
+// ========================================
+// Table Body
+// ========================================
+tbody tr {
+  transition: all $transition-speed ease;
+  cursor: pointer;
+}
+
+tbody tr.table-row:hover {
+  background: $hover-bg;
+}
+
+tbody tr.table-row:focus {
+  outline: 2px solid $primary-color;
+  outline-offset: -2px;
+}
+
+tbody tr.even {
+  background: #fafbfc;
+}
+
+tbody tr.even:hover {
+  background: #f6f7f8;
+}
+
+tbody tr td {
+  padding: 1rem;
+  color: $text-primary;
+  height: $row-height;
+  vertical-align: middle;
+}
+
+tbody tr.empty-row td {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: $text-secondary;
+  font-style: italic;
+}
+
+.cell-content {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+// ========================================
+// Table Footer
+// ========================================
+.table-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid $border-color;
+  background: #fafbfc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: $text-secondary;
+}
+
+.row-count {
+  font-weight: 500;
+}
+
+// ========================================
+// Responsive Design
+// ========================================
+@media (max-width: 768px) {
+  .table-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-box {
+    max-width: none;
+  }
+
+  .table-header th {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .table-body tbody tr td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .header-cell {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .sort-icon {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .table-controls {
+    padding: 1rem;
+  }
+
+  .table-header th {
+    padding: 0.6rem 0.4rem;
+    font-size: 0.8rem;
+  }
+
+  .table-body tbody tr td {
+    padding: 0.6rem 0.4rem;
+    height: 40px;
+  }
+
+  .cell-content {
+    font-size: 0.85rem;
+  }
+
+  .table-footer {
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
+  }
+}
+
+// ========================================
+// Scrollbar Styling
+// ========================================
+.table-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

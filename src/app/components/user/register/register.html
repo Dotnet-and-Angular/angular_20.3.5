@@ -1,49 +1,76 @@
-<div class="auth-wrapper">
-    <div class="auth-card" role="region" aria-labelledby="registerHeading">
-        <div class="auth-header">
-            <h2 id="registerHeading">Create an account</h2>
-            <p class="muted">Join us — it's quick and free.</p>
+<div class="auth-container">
+    <!-- Left Side: Dark Blue Section with Offers -->
+    <div class="auth-left">
+        <div class="left-content">
+            <p class="left-tagline">Join our growing community!</p>
+            <h2 class="left-heading">Create your account<br>in seconds.</h2>
+
+            <div class="offers-illustration">
+                <div class="illustration-placeholder">✨</div>
+            </div>
+
+            <p class="left-subheading">Easy & Secure</p>
+            <p class="left-description">Get instant access to exclusive benefits and manage your finances with ease.</p>
+        </div>
+    </div>
+
+    <!-- Right Side: Registration Form -->
+    <div class="auth-right">
+        <div class="right-content">
+            <!-- Logo -->
+            <div class="bank-logo">
+                <span class="logo-text">🏦</span>
+                <span class="logo-name">Nexus Bank</span>
+            </div>
+
+            <!-- Register Form -->
+            <div class="form-container">
+                <h3 class="form-title" id="registerHeading">Create an account</h3>
+                <p class="form-subtitle">Join us — it's quick and free.</p>
+
+                <form [formGroup]="form()" (ngSubmit)="onSubmit()" class="register-form">
+                    <label class="field">
+                        <span class="field-label">Username</span>
+                        <input formControlName="username" type="text" placeholder="Choose a username" />
+                        @if (form().get('username')?.errors?.['minLength'] && form().get('username')?.touched) {
+                        <small class="error">Username is required (min 3 chars).</small>
+                        }
+                    </label>
+
+                    <label class="field">
+                        <span class="field-label">Password</span>
+                        <input formControlName="password" type="password" placeholder="Create password" />
+                        @if (form().get('password')?.invalid && form().get('password')?.touched) {
+                        <small class="error">Password is required (min 6 chars).</small>
+                        }
+                    </label>
+
+                    <label class="field">
+                        <span class="field-label">Confirm Password</span>
+                        <input formControlName="confirmPassword" type="password" placeholder="Confirm password" />
+                        @if (form().get('confirmPassword')?.hasError('mismatch')) {
+                        <small class="error">Passwords do not match.</small>
+                        }
+                    </label>
+
+                    <div class="actions">
+                        <button type="submit" class="primary" [disabled]="!form().valid">Register</button>
+                    </div>
+                </form>
+
+                @if (form().get('username')?.invalid && form().get('username')?.errors?.['conflict']) {
+                <small class="error">Username already exists.</small>
+                }
+            </div>
         </div>
 
-        <form [formGroup]="form()" (ngSubmit)="onSubmit()" class="login-form">
-            <div class="auth-form">
-                <label class="field">
-                    <span class="field-label">Username</span>
-                    <input formControlName="username" type="text" placeholder="Choose a username" />
-                    @if (form().get('username')?.errors?.['minLength'] && form().get('username')?.touched) {
-                    <small class="error">Username is required (min 3 chars).</small>
-                    }
-                </label>
-
-                <label class="field">
-                    <span class="field-label">Password</span>
-                    <input formControlName="password" type="password" placeholder="Create password" />
-                    @if (form().get('password')?.invalid && form().get('password')?.touched) {
-                    <small class="error">Password is required (min 6 chars).</small>
-                    }
-                </label>
-
-                <label class="field">
-                    <span class="field-label">Confirm password</span>
-                    <input formControlName="confirmPassword" type="password" placeholder="Confirm password" />
-                    @if (form().get('confirmPassword')?.hasError('mismatch')) {
-                    <small class="error">Passwords do not match.</small>
-                    }
-                </label>
-
-                <div class="actions">
-                    <button type="submit" class="primary" [disabled]="!form().valid">Register</button>
-                </div>
-            </div>
-        </form>
-
-        @if (form().get('username')?.invalid && form().get('username')?.errors?.['conflict']) {
-        <small class="error">Username already exists.</small>
-        }
-
+        <!-- Footer -->
         <div class="auth-footer">
-            <small class="muted">Already have an account? <button class="secondary" routerLink="/login">Sign
-                    in</button></small>
+            <p class="footer-text">
+                Already have an account? <a href="javascript:void(0)" routerLink="/login" class="footer-link">Sign in
+                    here</a> |
+                © Copyright Nexus Bank Ltd.
+            </p>
         </div>
     </div>
 </div>

@@ -1,5 +1,5 @@
 
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { Person } from '../../../services/person/person';
 
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -7,18 +7,31 @@ import { select, Store } from '@ngrx/store';
 import { loadPersons, loadPersonsSuccess } from '../user-state-store/user.actions';
 import { Subject, takeUntil } from 'rxjs';
 import { IPerson } from '../dashboard/interface/person';
+import { DataTableComponent, TableColumn } from '../../shared/data-table';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-userdata',
-  imports: [ReactiveFormsModule],
+  standalone: true,
+  imports: [ReactiveFormsModule, DataTableComponent, CommonModule],
   templateUrl: './userdata.html',
   styleUrl: './userdata.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Userdata {
   people = signal<IPerson[]>([]);
   showAdd = signal(false);
+  selectedRow = signal<IPerson | null>(null);
   private store = inject(Store);
   private destroy$ = new Subject<void>();
+
+  tableColumns: TableColumn[] = [
+    { key: 'id', label: 'ID', sortable: true, width: '80px' },
+    { key: 'name', label: 'Name', sortable: true, width: '200px' },
+    { key: 'age', label: 'Age', sortable: true, width: '100px', format: (v: any) => v ? v.toString() : '-' },
+    { key: 'email', label: 'Email', sortable: true, width: '250px', format: (v: any) => v || '-' },
+    { key: 'phone', label: 'Phone', sortable: false, width: '150px', format: (v: any) => v || '-' }
+  ];
 
   addPersonForm = signal(new FormGroup({
     name: new FormControl('', Validators.required),
@@ -53,6 +66,13 @@ export class Userdata {
     });
   }
 
+  onRowSelected(row: IPerson): void {
+    this.selectedRow.set(row);
+  }
+
+  onRowDoubleClicked(row: IPerson): void {
+    console.log('Row double clicked:', row);
+  }
 
   trackById(index: number, item: IPerson) {
     return item.id;

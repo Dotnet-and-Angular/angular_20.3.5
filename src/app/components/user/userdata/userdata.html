@@ -47,27 +47,8 @@
     }
 
     @if (!showAdd()) {
-    <table class="people-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Email</th>
-                <th>Phone</th>
-            </tr>
-        </thead>
-        <tbody class="table-content">
-            @for (item of people(); track item.id) {
-            <tr>
-                <td>{{item.id}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.age}}</td>
-                <td>{{item.email || '-'}}</td>
-                <td>{{item.phone || '-'}}</td>
-            </tr>
-            }
-        </tbody>
-    </table>
+    <app-data-table [data]="people()" [columns]="tableColumns" [striped]="true" [hoverable]="true" [bordered]="true"
+        (rowSelected)="onRowSelected($event)" (rowDoubleClicked)="onRowDoubleClicked($event)">
+    </app-data-table>
     }
 </section>
