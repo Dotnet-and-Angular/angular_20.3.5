@@ -1,43 +1,47 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, output } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { getAuthToken } from '../../user/user-state-store/user.selector';
+import { getAuthToken, selectUser } from '../../user/user-state-store/user.selector';
 import { logout } from '../../user/user-state-store/user.actions';
 
 @Component({
   selector: 'app-header',
+  standalone: true,
   templateUrl: './header.html',
   styleUrls: ['./header.scss'],
   imports: [RouterModule]
 })
 export class Header implements OnDestroy {
+  toggleSideNav = output<void>();
   currentUrl = '';
   private token = '';
-
-  private sub: Subscription | null = null;
+  username = '';
+  private subs: Subscription[] = [];
 
   constructor(private router: Router, private store: Store) {
-    // track current route to conditionally render buttons
     this.currentUrl = this.router.url || '';
-    this.sub = this.router.events.subscribe((e) => {
+    this.subs.push(this.router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
         this.currentUrl = e.urlAfterRedirects || e.url;
       }
-    });
+    }));
+
+    this.subs.push(this.store.pipe(select(getAuthToken)).subscribe((res: any) => {
+      this.token = res || '';
+    }));
+
+    this.subs.push(this.store.pipe(select(selectUser)).subscribe((user: any) => {
+      this.username = user?.username || '';
+    }));
   }
 
   get isAuthenticated() {
-    this.store.pipe(select(getAuthToken)).subscribe({
-      next: (res: any) => {
-        this.token = res;
-      }
-    });
     return !!this.token;
   }
 
   get isDashboard() {
-    return this.currentUrl.startsWith('/user/dashboard');
+    return this.currentUrl.startsWith('/user');
   }
 
   get isLoginRoute() {
@@ -48,12 +52,24 @@ export class Header implements OnDestroy {
     return this.currentUrl.startsWith('/register');
   }
 
-  logout() {
+  get usernameInitials() {
+    if (!this.username) return '';
+    const parts = this.username.split(/\s+/).filter(Boolean);
+    if (parts.length === 0) return '';
+    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+
+  toggleMenu(): void {
+    this.toggleSideNav.emit();
+  }
+
+  logout(): void {
     this.store.dispatch(logout());
     this.router.navigate(['/login']);
   }
 
   ngOnDestroy(): void {
-    this.sub?.unsubscribe();
+    this.subs.forEach(s => s.unsubscribe());
   }
 }

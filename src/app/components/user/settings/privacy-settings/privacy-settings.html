@@ -1,0 +1,161 @@
+<div class="privacy-settings-container">
+    <h1>Privacy Settings</h1>
+
+    <div class="privacy-sections">
+        <div class="privacy-card">
+            <div class="card-header">
+                <span class="icon">👥</span>
+                <h3>Profile Visibility</h3>
+            </div>
+            <div class="card-content">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>Profile Public</h4>
+                        <p>Allow others to view your profile</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" [(ngModel)]="settings.profilePublic" name="profilePublic"
+                            (change)="onSettingChange('profile')" />
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>Show Email Address</h4>
+                        <p>Display your email on your profile</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" [(ngModel)]="settings.showEmail" name="showEmail"
+                            (change)="onSettingChange('email')" />
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>Show Online Status</h4>
+                        <p>Let others know when you're online</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" [(ngModel)]="settings.showOnlineStatus" name="showOnlineStatus"
+                            (change)="onSettingChange('status')" />
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="privacy-card">
+            <div class="card-header">
+                <span class="icon">🔒</span>
+                <h3>Data & Privacy</h3>
+            </div>
+            <div class="card-content">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>Activity Log</h4>
+                        <p>Keep track of your account activity</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" [(ngModel)]="settings.activityLog" name="activityLog"
+                            (change)="onSettingChange('activity')" />
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>Allow Analytics</h4>
+                        <p>Help us improve by sharing usage data</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" [(ngModel)]="settings.allowAnalytics" name="allowAnalytics"
+                            (change)="onSettingChange('analytics')" />
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>Third-party Apps</h4>
+                        <p>Allow third-party applications to access your data</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" [(ngModel)]="settings.thirdPartyAccess" name="thirdPartyAccess"
+                            (change)="onSettingChange('third-party')" />
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="privacy-card">
+            <div class="card-header">
+                <span class="icon">📧</span>
+                <h3>Communication</h3>
+            </div>
+            <div class="card-content">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>Marketing Emails</h4>
+                        <p>Receive updates about new features</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" [(ngModel)]="settings.marketingEmails" name="marketingEmails"
+                            (change)="onSettingChange('marketing')" />
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>Security Alerts</h4>
+                        <p>Get notified about security events</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" [(ngModel)]="settings.securityAlerts" name="securityAlerts"
+                            (change)="onSettingChange('security')" />
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="privacy-card">
+            <div class="card-header">
+                <span class="icon">🗑️</span>
+                <h3>Data Management</h3>
+            </div>
+            <div class="card-content">
+                <div class="data-action">
+                    <h4>Download Your Data</h4>
+                    <p>Export all your personal data in a standard format</p>
+                    <button class="btn btn-secondary" (click)="onDownloadData()">
+                        Download
+                    </button>
+                </div>
+
+                <div class="data-action">
+                    <h4>Delete Personal Data</h4>
+                    <p>Permanently delete all your personal data</p>
+                    <button class="btn btn-danger" (click)="onDeleteData()">
+                        Delete Data
+                    </button>
+                </div>
+
+                <div class="data-action">
+                    <h4>Clear Cache</h4>
+                    <p>Clear temporary files and cache</p>
+                    <button class="btn btn-secondary" (click)="onClearCache()">
+                        Clear Cache
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="savedMessage" class="alert alert-success">
+        {{ savedMessage }}
+    </div>
+</div>

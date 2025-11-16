@@ -1,0 +1,175 @@
+<div class="notification-settings-container">
+    <h1>Notification Settings</h1>
+
+    <div class="notification-sections">
+        <div class="notification-card">
+            <div class="card-header">
+                <span class="icon">📧</span>
+                <h3>Email Notifications</h3>
+            </div>
+            <div class="card-content">
+                <div class="notification-item">
+                    <div class="notification-info">
+                        <h4>New Messages</h4>
+                        <p>Get notified when you receive a new message</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" [(ngModel)]="emailNotifications.newMessages" name="newMessages" />
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="notification-item">
+                    <div class="notification-info">
+                        <h4>Account Updates</h4>
+                        <p>Notifications about account changes and updates</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" [(ngModel)]="emailNotifications.accountUpdates" name="accountUpdates" />
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="notification-item">
+                    <div class="notification-info">
+                        <h4>System Alerts</h4>
+                        <p>Important system and security alerts</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" [(ngModel)]="emailNotifications.systemAlerts" name="systemAlerts" />
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="notification-item">
+                    <div class="notification-info">
+                        <h4>Weekly Digest</h4>
+                        <p>Receive a weekly summary of activities</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" [(ngModel)]="emailNotifications.weeklyDigest" name="weeklyDigest" />
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="notification-card">
+            <div class="card-header">
+                <span class="icon">🔔</span>
+                <h3>Push Notifications</h3>
+            </div>
+            <div class="card-content">
+                <div class="notification-item">
+                    <div class="notification-info">
+                        <h4>Browser Notifications</h4>
+                        <p>Enable push notifications in your browser</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" [(ngModel)]="pushNotifications.browser" name="browserNotif" />
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="notification-item">
+                    <div class="notification-info">
+                        <h4>Desktop Notifications</h4>
+                        <p>Receive desktop alerts for important events</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" [(ngModel)]="pushNotifications.desktop" name="desktopNotif" />
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="notification-item">
+                    <div class="notification-info">
+                        <h4>Sound Alerts</h4>
+                        <p>Play sound for important notifications</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" [(ngModel)]="pushNotifications.sound" name="soundNotif" />
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="notification-item">
+                    <div class="notification-info">
+                        <h4>Vibration</h4>
+                        <p>Vibration alerts on compatible devices</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" [(ngModel)]="pushNotifications.vibration" name="vibration" />
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="notification-card">
+            <div class="card-header">
+                <span class="icon">⏰</span>
+                <h3>Notification Quiet Hours</h3>
+            </div>
+            <div class="card-content">
+                <p class="section-desc">Set times when you don't want to receive notifications</p>
+
+                <div class="quiet-hours-setting">
+                    <label class="toggle">
+                        <input type="checkbox" [(ngModel)]="quietHours.enabled" name="quietHoursEnabled"
+                            (change)="onQuietHoursChange()" />
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span>Enable Quiet Hours</span>
+                </div>
+
+                <div *ngIf="quietHours.enabled" class="time-settings">
+                    <div class="time-group">
+                        <label for="quietStart">From</label>
+                        <input type="time" id="quietStart" [(ngModel)]="quietHours.startTime" name="quietStart" />
+                    </div>
+
+                    <div class="time-group">
+                        <label for="quietEnd">To</label>
+                        <input type="time" id="quietEnd" [(ngModel)]="quietHours.endTime" name="quietEnd" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="notification-card">
+            <div class="card-header">
+                <span class="icon">🔗</span>
+                <h3>Connected Devices</h3>
+            </div>
+            <div class="card-content">
+                <p class="section-desc">Manage notifications across your devices</p>
+
+                <div class="device-list">
+                    <div *ngFor="let device of devices" class="device-item">
+                        <div class="device-info">
+                            <span class="device-icon">{{ device.icon }}</span>
+                            <div>
+                                <h5>{{ device.name }}</h5>
+                                <p>{{ device.lastActive }}</p>
+                            </div>
+                        </div>
+                        <label class="toggle">
+                            <input type="checkbox" [(ngModel)]="device.notificationsEnabled" [name]="device.id" />
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="btn btn-primary" (click)="onSaveSettings()">
+            Save All Changes
+        </button>
+        <button class="btn btn-secondary" (click)="onResetDefaults()">
+            Reset to Defaults
+        </button>
+    </div>
+</div>

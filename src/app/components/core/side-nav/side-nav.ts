@@ -1,37 +1,53 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject } from '@angular/core';
-import { MaterialModule } from '@Material';
+import { Component, signal, input, computed } from '@angular/core';
 import { SIDENAV_ITEMS, SidenavItem } from './side-nav-list';
-import { Router, RouterModule } from '@angular/router';
-
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-side-nav',
-  imports: [RouterModule, CommonModule, MaterialModule],
+  standalone: true,
+  imports: [RouterModule, CommonModule],
   templateUrl: './side-nav.html',
   styleUrl: './side-nav.scss',
 })
 export class SideNav {
-  private router = inject(Router);
-  drawerOpened = true;
-  sidenavItems: SidenavItem[] = [];
-  currentYear: number = new Date().getFullYear();
+  // Input for drawer state from parent
+  isOpen = input(true);
 
-  ngOnInit(): void {
-    this.sidenavItems = SIDENAV_ITEMS;
-  }
+  sidenavItems = signal<SidenavItem[]>(SIDENAV_ITEMS);
+  expandedItems = signal<Set<string>>(new Set());
+
+  currentYear = new Date().getFullYear();
+
+  // Check if item is expanded
+  isItemExpanded = computed(() => {
+    const expanded = this.expandedItems();
+    return (itemId: string) => expanded.has(itemId);
+  });
+
   trackBySidenavItem(index: number, item: SidenavItem): string {
-    console.log(item);
-
     return item.id;
   }
 
   trackBySidenavChildItem(index: number, item: SidenavItem): string {
     return item.id;
   }
-  logout() {
-    this.router.navigate(['/login']);
-    console.log('User logged out successfully');
 
+  toggleExpanded(itemId: string, event: Event): void {
+    event.preventDefault();
+    const expanded = new Set(this.expandedItems());
+    if (expanded.has(itemId)) {
+      expanded.delete(itemId);
+    } else {
+      expanded.add(itemId);
+    }
+    this.expandedItems.set(expanded);
+  }
+
+  onNavClick(): void {
+    // Close side-nav on mobile after navigation
+    if (window.innerWidth <= 768) {
+      // Parent component manages closing via toggleSideNav
+    }
   }
 }

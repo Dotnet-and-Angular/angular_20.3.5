@@ -1,0 +1,95 @@
+<div class="edit-profile-container">
+    <h1>Edit Profile</h1>
+
+    <form (ngSubmit)="onSubmit()" class="profile-form">
+        <div class="form-section">
+            <h3>Personal Information</h3>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" [(ngModel)]="formData.firstName" name="firstName"
+                        placeholder="Enter first name" />
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" [(ngModel)]="formData.lastName" name="lastName"
+                        placeholder="Enter last name" />
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" [(ngModel)]="formData.email" name="email"
+                    placeholder="Enter email address" />
+            </div>
+
+            <div class="form-group full-width">
+                <label for="bio">Bio</label>
+                <textarea id="bio" [(ngModel)]="formData.bio" name="bio" placeholder="Write a short bio about yourself"
+                    rows="4"></textarea>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Contact Information</h3>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" [(ngModel)]="formData.phone" name="phone"
+                        placeholder="Enter phone number" />
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" [(ngModel)]="formData.location" name="location"
+                        placeholder="Enter location" />
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="website">Website</label>
+                <input type="url" id="website" [(ngModel)]="formData.website" name="website"
+                    placeholder="https://example.com" />
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Professional Information</h3>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="department">Department</label>
+                    <input type="text" id="department" [(ngModel)]="formData.department" name="department"
+                        placeholder="Enter department" />
+                </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select id="role" [(ngModel)]="formData.role" name="role">
+                        <option value="">Select Role</option>
+                        <option value="user">User</option>
+                        <option value="moderator">Moderator</option>
+                        <option value="admin">Administrator</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="skills">Skills</label>
+                <input type="text" id="skills" [(ngModel)]="formData.skills" name="skills"
+                    placeholder="Comma-separated skills" />
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="button" class="btn btn-secondary" (click)="onCancel()">
+                Cancel
+            </button>
+        </div>
+    </form>
+
+    <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+    </div>
+</div>

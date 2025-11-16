@@ -1,70 +1,65 @@
-<mat-sidenav-container class="sidenav-container" style="height: auto">
-    <mat-sidenav-content style="margin-left: 0px !important">
-        <mat-toolbar class="app-toolbar" color="primary" class="sidenav-toolbar">
-            <mat-sidenav #drawer mode="side" [opened]="drawerOpened" (openedChange)="drawerOpened = $event">
-                <mat-nav-list style="display: flex; justify-content: space-between">
-                    <div class="sidenav-header"
-                        [ngClass]="{'sidenav-header-opened': drawerOpened, 'sidenav-header-closed': !drawerOpened}">
-                        <div class="sidenav-title">
-                            <ul class="sidenav-list">
-                                @for (item of sidenavItems; track trackBySidenavItem($index,
-                                item)) {
-                                <li class="sidenav-item">
-                                    <a mat-list-item [routerLink]="item.route" routerLinkActive="active-link"
-                                        [routerLinkActiveOptions]="{exact: true}" class="sidenav-link"
-                                        [attr.aria-current]="item.route === '/' ? 'page' : null">
-                                        <i class="material-icons" aria-hidden="true">{{ item.icon }}</i>
-                                        <span>{{ item.label }}</span>
-                                    </a>
+<!-- Advanced Premium Side-Navigation with Smooth Animations & Modern Design -->
+<nav class="sidenav" [class.sidenav-closed]="!isOpen()" role="navigation" aria-label="Main navigation">
 
-                                    @if (item.children && item.children.length > 0) {
-                                    <ul class="sidenav-submenu" [attr.aria-label]="item.label + ' submenu'">
-                                        @for (child of item.children; track
-                                        trackBySidenavChildItem($index, child)) {
-                                        <li class="sidenav-submenu-item">
-                                            <a mat-list-item [routerLink]="child.route"
-                                                routerLinkActive="active-sub-link"
-                                                [routerLinkActiveOptions]="{exact: true}" class="sidenav-submenu-link">
-                                                <i class="material-icons" aria-hidden="true">{{ child.icon }}</i>
-                                                <span>{{ child.label }}</span>
-                                            </a>
-                                        </li>
-                                        } @empty { }
-                                    </ul>
-                                    }
-                                </li>
-                                } @empty {
-                                <li class="no-items">No navigation items available.</li>
-                                }
-                            </ul>
-                        </div>
+    <!-- Navigation List - Main Menu Items -->
+    <ul class="sidenav-list" role="menu">
+        @for (item of sidenavItems(); track trackBySidenavItem($index, item)) {
+        <li class="sidenav-item" [class.has-children]="item.children && item.children.length > 0" role="presentation">
+            <!-- Main Menu Link -->
+            <div class="sidenav-link-wrapper">
+                <a class="sidenav-link" [routerLink]="item.route" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: !item.children || item.children.length === 0 }"
+                    [attr.aria-current]="item.route === '/user/user-data' ? 'page' : null" role="menuitem"
+                    (click)="item.children && item.children.length > 0 ? toggleExpanded(item.id, $event) : onNavClick()">
+                    <!-- Icon -->
+                    <span class="sidenav-icon" aria-hidden="true">
+                        {{ item.icon || '▸' }}
+                    </span>
+                    <!-- Label Text -->
+                    <span class="sidenav-label" [class.hidden]="!isOpen()">{{ item.label }}</span>
+                </a>
 
-                        <div class="sidenav-footer">
-                            <p class="footer-text">
-                                &copy; {{ currentYear }} HLF Portal. All rights reserved.
-                            </p>
-                        </div>
-                    </div>
-                </mat-nav-list>
-            </mat-sidenav>
-
-            <!--  Toolbar content -->
-            <div class="align-center-spacebetween">
-                <div>
-                    <button mat-icon-button (click)="drawer.toggle()" [attr.aria-label]="'Toggle sidenav'">
-                        <mat-icon style="color: aliceblue">menu</mat-icon>
-                    </button>
-                    <span style="margin-left: 8px">Admin Portal</span>
-                </div>
-                <button type="button" class="btn btn-danger" (click)="logout()">
-                    Logout
+                <!-- Expand/Collapse Indicator -->
+                @if (item.children && item.children.length > 0) {
+                <button class="sidenav-expand-btn" [class.expanded]="isItemExpanded()(item.id)"
+                    [attr.aria-expanded]="isItemExpanded()(item.id)" (click)="toggleExpanded(item.id, $event)"
+                    [attr.aria-label]="'Toggle ' + item.label + ' submenu'">
+                    <span class="expand-icon">›</span>
                 </button>
+                }
             </div>
-        </mat-toolbar>
 
-        <!-- // Main content area -->
-        <div [ngClass]="{'main-content': drawerOpened, 'main-content-drawer': !drawerOpened}">
-            <router-outlet></router-outlet>
+            <!-- Submenu Section - Nested Items -->
+            @if (item.children && item.children.length > 0 && isItemExpanded()(item.id)) {
+            <ul class="sidenav-submenu" role="menu" [attr.aria-label]="item.label + ' submenu'">
+                @for (child of item.children; track trackBySidenavChildItem($index, child)) {
+                <li class="sidenav-submenu-item" role="presentation">
+                    <a class="sidenav-submenu-link" [routerLink]="child.route" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }" role="menuitem" (click)="onNavClick()">
+                        <!-- Submenu Icon -->
+                        @if (child.icon) {
+                        <span class="sidenav-icon" aria-hidden="true">{{ child.icon }}</span>
+                        }
+                        <!-- Submenu Label -->
+                        <span class="sidenav-label" [class.hidden]="!isOpen()">{{ child.label }}</span>
+                    </a>
+                </li>
+                }
+            </ul>
+            }
+        </li>
+        } @empty {
+        <li class="sidenav-item sidenav-empty" role="status" aria-live="polite">
+            <span>No navigation items</span>
+        </li>
+        }
+    </ul>
+
+    <!-- Sidenav Footer - Copyright & Info -->
+    <div class="sidenav-footer" role="contentinfo">
+        <div class="footer-content" [class.hidden]="!isOpen()">
+            <p>&copy; {{ currentYear }} Dashboard</p>
+            <p class="version">v1.0.0</p>
         </div>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+    </div>
+</nav>
