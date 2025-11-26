@@ -1,0 +1,94 @@
+<div class="admin-analytics">
+    <div class="analytics-header">
+        <h2>📊 System Analytics</h2>
+        <p>Real-time system performance and usage metrics</p>
+    </div>
+
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div class="metric-icon">👥</div>
+            <div class="metric-content">
+                <h4>Total Users</h4>
+                <p class="metric-value">{{ analyticsData().totalUsers }}</p>
+                <span class="metric-label">Registered users</span>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-icon">🟢</div>
+            <div class="metric-content">
+                <h4>Active Users</h4>
+                <p class="metric-value">{{ analyticsData().activeUsers }}</p>
+                <span class="metric-label">Currently online</span>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-icon">✨</div>
+            <div class="metric-content">
+                <h4>New Users</h4>
+                <p class="metric-value">{{ analyticsData().newUsersThisMonth }}</p>
+                <span class="metric-label">This month</span>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-icon">⬆️</div>
+            <div class="metric-content">
+                <h4>Uptime</h4>
+                <p class="metric-value">{{ analyticsData().systemUptime }}</p>
+                <span class="metric-label">System availability</span>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-icon">⚡</div>
+            <div class="metric-content">
+                <h4>Response Time</h4>
+                <p class="metric-value">{{ analyticsData().averageResponseTime }}</p>
+                <span class="metric-label">Average response</span>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-icon">📈</div>
+            <div class="metric-content">
+                <h4>System Load</h4>
+                <p class="metric-value">{{ analyticsData().systemLoad }}</p>
+                <span class="metric-label">CPU usage</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="charts-grid">
+        <div class="chart-card">
+            <h3>User Activity (Last 7 Days)</h3>
+            <div class="bar-chart">
+                @for (data of userActivityData(); track data.label) {
+                <div class="bar-container">
+                    <div class="bar" [style.height.%]="getPercentage(data.value, getMaxValue(userActivityData()))">
+                    </div>
+                    <span class="bar-label">{{ data.label }}</span>
+                    <span class="bar-value">{{ data.value }}</span>
+                </div>
+                }
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <h3>User Role Distribution</h3>
+            <div class="pie-chart">
+                @for (role of roleDistribution(); track role.label) {
+                <div class="pie-item">
+                    <span class="pie-label">{{ role.label }}</span>
+                    <span class="pie-value">{{ role.value }}</span>
+                    <div class="pie-bar">
+                        <div class="pie-fill" [style.width.%]="(role.value / 1250) * 100"
+                            [class]="role.label.toLowerCase()"></div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

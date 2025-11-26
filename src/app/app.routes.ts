@@ -3,6 +3,7 @@ import { Register } from './components/user/register/register';
 import { Login } from './components/user/login/login';
 import { Dashboard } from './components/user/dashboard/dashboard';
 import { AuthGuard } from './guards/auth.guard';
+import { RoleGuard } from './guards/role.guard';
 import { About } from './components/core/about/about';
 import { Main } from './components/core/main/main';
 import { Userdata } from './components/user/userdata/userdata';
@@ -47,8 +48,19 @@ export const routes: Routes = [
                     { path: '', redirectTo: 'view', pathMatch: 'full' }
                 ]
             },
-            { path: 'analytics', component: AnalyticsComponent },
+            {
+                path: 'analytics',
+                component: AnalyticsComponent,
+                canActivate: [RoleGuard],
+                data: { role: 'admin' }
+            },
             { path: '', redirectTo: 'user-data', pathMatch: 'full' }
         ]
+    },
+    {
+        path: 'admin',
+        canActivate: [AuthGuard, RoleGuard],
+        data: { role: 'admin' },
+        loadChildren: () => import('./components/admin/admin.routes').then(m => m.ADMIN_ROUTES)
     },
 ];

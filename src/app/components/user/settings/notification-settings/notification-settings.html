@@ -123,7 +123,8 @@
                     <span>Enable Quiet Hours</span>
                 </div>
 
-                <div *ngIf="quietHours.enabled" class="time-settings">
+                @if (quietHours.enabled) {
+                <div class="time-settings">
                     <div class="time-group">
                         <label for="quietStart">From</label>
                         <input type="time" id="quietStart" [(ngModel)]="quietHours.startTime" name="quietStart" />
@@ -134,6 +135,7 @@
                         <input type="time" id="quietEnd" [(ngModel)]="quietHours.endTime" name="quietEnd" />
                     </div>
                 </div>
+                }
             </div>
         </div>
 
@@ -146,7 +148,8 @@
                 <p class="section-desc">Manage notifications across your devices</p>
 
                 <div class="device-list">
-                    <div *ngFor="let device of devices" class="device-item">
+                    @for (device of devices; track device.id) {
+                    <div class="device-item">
                         <div class="device-info">
                             <span class="device-icon">{{ device.icon }}</span>
                             <div>
@@ -159,6 +162,7 @@
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
+                    }
                 </div>
             </div>
         </div>

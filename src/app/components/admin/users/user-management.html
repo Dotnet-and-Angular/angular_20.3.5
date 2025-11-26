@@ -1,0 +1,52 @@
+<div class="user-management">
+    <div class="management-header">
+        <h2>👥 User Management</h2>
+        <input type="text" placeholder="Search users..." class="search-input" (input)="onSearch($event.target.value)" />
+    </div>
+
+    <div class="table-container">
+        <table class="users-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Join Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (user of filteredUsers(); track user.id) {
+                <tr class="user-row" [class.inactive]="user.status === 'inactive'">
+                    <td class="username-cell">{{ user.username }}</td>
+                    <td class="email-cell">{{ user.email }}</td>
+                    <td class="role-cell">
+                        <span class="role-badge" [class]="user.role">{{ user.role }}</span>
+                    </td>
+                    <td class="status-cell">
+                        <span class="status-badge" [class]="user.status">{{ user.status }}</span>
+                    </td>
+                    <td class="date-cell">{{ user.joinDate }}</td>
+                    <td class="actions-cell">
+                        <button class="action-btn edit-btn" title="Edit">✏️</button>
+                        <button class="action-btn toggle-btn" (click)="toggleUserStatus(user.id)"
+                            [title]="user.status === 'active' ? 'Deactivate' : 'Activate'">
+                            {{ user.status === 'active' ? '⏸️' : '▶️' }}
+                        </button>
+                        <button class="action-btn delete-btn" (click)="deleteUser(user.id)" title="Delete">
+                            🗑️
+                        </button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (filteredUsers().length === 0) {
+    <div class="empty-state">
+        <p>No users found</p>
+    </div>
+    }
+</div>

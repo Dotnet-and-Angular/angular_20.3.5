@@ -1,10 +1,10 @@
 
-export interface newUser {
+export interface User {
     username: string;
-    password: string;
-    confirmPassword: string;
+    role: string;
 }
 
 export interface authToken {
     token: string;
+    role?: string;
 }

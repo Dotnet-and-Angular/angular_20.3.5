@@ -1,11 +1,9 @@
 import { createAction, props } from "@ngrx/store";
-import { authToken, newUser } from "./user.interface";
-import { IPerson } from "../dashboard/interface/person";
+import { authToken, User } from "./user.interface";
+import { IUser } from "../dashboard/interface/person";
 
 
 export enum USER_ACTIONS {
-    setUser = 'Create New User Action',
-
     // Auth Token Actions
     setToken = 'Set Auth Token Action',
     getToken = 'Get Auth Token Action',
@@ -22,23 +20,34 @@ export enum USER_ACTIONS {
     loadPersons = 'Load Persons Action',
     loadPersonsSuccess = 'Load Persons Success Action',
     loadPersonsFailure = 'Load Persons Failure Action',
+
+    createUser = 'Create User Action',
+    createUserSuccess = 'Create User Success Action',
+    createUserFailure = 'Create User Failure Action',
 }
 
-export const setUser = createAction(USER_ACTIONS.setUser, props<newUser>());
-
 // Auth Token Action Creators
-export const setToken = createAction(USER_ACTIONS.setToken, props<authToken>());
+export const setToken = createAction(USER_ACTIONS.setToken, props<authToken & { role?: string }>());
 export const getToken = createAction(USER_ACTIONS.getToken);
 
 // Logout Action
 export const logout = createAction(USER_ACTIONS.logout);
 
 // User Effects
-export const loadUser = createAction(USER_ACTIONS.loadUser, props<{ username: string; password: string }>());
+export const loadUser = createAction(USER_ACTIONS.loadUser, props<{ username: string; password: string; mockAsAdmin?: boolean }>());
 export const loadUserSuccess = createAction(USER_ACTIONS.loadUserSuccess, props<{ action: any }>());
 export const loadUserFailure = createAction(USER_ACTIONS.loadUserFailure, props<{ error: any }>());
 
 // Users List Effects
 export const loadPersons = createAction(USER_ACTIONS.loadPersons);
-export const loadPersonsSuccess = createAction(USER_ACTIONS.loadPersonsSuccess, props<{ persons: IPerson[] }>());
+export const loadPersonsSuccess = createAction(USER_ACTIONS.loadPersonsSuccess, props<{ persons: any }>());
 export const loadPersonsFailure = createAction(USER_ACTIONS.loadPersonsFailure, props<{ error: any }>());
+
+
+// Set user state during login (no API call)
+export const setUser = createAction('Set User Action', props<{ username: string; role: 'user' | 'admin' }>());
+
+//admin crate user
+export const createUser = createAction(USER_ACTIONS.createUser, props<{ username: string; password: string; role: 'user' | 'admin' }>());
+export const createUserSuccess = createAction(USER_ACTIONS.createUserSuccess, props<{ action: any }>());
+export const createUserFailure = createAction(USER_ACTIONS.createUserFailure, props<{ error: any }>());

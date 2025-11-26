@@ -24,6 +24,7 @@ export class Login {
   phoneMode = signal(false);
   otpSent = signal(false);
   showSessionAlert = signal(true);
+  mockAsAdmin = signal(true); // MOCK: Toggle between admin and user roles
 
   // signal-wrapped reactive form with username + password
   form = signal(new FormGroup({
@@ -57,7 +58,8 @@ export class Login {
     if (this.form().valid) {
       this.store.dispatch(loadUser({
         username: this.form().value.username ?? '',
-        password: this.form().value.password ?? ''
+        password: this.form().value.password ?? '',
+        mockAsAdmin: this.mockAsAdmin()
       }));
     }
   }
@@ -67,14 +69,13 @@ export class Login {
       const phone = this.phoneForm().value.phone ?? '';
       this.userLogin.sendOtp(phone).subscribe({
         next: (response: any) => {
-          console.log('OTP Generated successfully', response);
+          this.otpSent.set(true);
         },
         error: (error) => {
-          console.error('Login failed', error);
+          // Handle error
         }
       });
       // TODO: integrate SMS provider to send OTP
-      this.otpSent.set(true);
     }
   }
 

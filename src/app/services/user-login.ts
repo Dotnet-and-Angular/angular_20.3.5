@@ -12,6 +12,12 @@ export class UserLogin {
     return this.http.post('http://localhost:5297/api/auth/token', credentials);
   }
 
+
+  register(credentials: { username: string; password: string; confirmPassword?: string; role?: 'user' | 'admin' }) {
+    // Simulate an HTTP request for user login
+    return this.http.post('http://localhost:5297/api/admin/register', credentials);
+  }
+
   sendOtp(phone: string, otp?: string) {
     // Simulate an HTTP request to send OTP
     const data = { phone: phone, code: '' };

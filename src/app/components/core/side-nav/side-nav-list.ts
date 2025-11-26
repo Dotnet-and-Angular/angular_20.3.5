@@ -3,6 +3,7 @@ export interface SidenavItem {
     icon: string;
     label: string;
     route: string;
+    requiredRole?: 'user' | 'admin';
     children?: SidenavItem[];
 }
 
@@ -12,12 +13,6 @@ export const SIDENAV_ITEMS: SidenavItem[] = [
         icon: '📊',
         label: 'Dashboard',
         route: '/user/user-data',
-    },
-    {
-        id: 'analytics',
-        icon: '📈',
-        label: 'Analytics',
-        route: '/user/analytics',
     },
     {
         id: 'profile',
@@ -64,5 +59,36 @@ export const SIDENAV_ITEMS: SidenavItem[] = [
                 route: '/user/settings/notifications',
             },
         ],
+    },
+];
+
+export const ADMIN_ITEMS: SidenavItem[] = [
+    {
+        id: 'admin-dashboard',
+        icon: '🛡️',
+        label: 'Admin Panel',
+        route: '/admin',
+        requiredRole: 'admin',
+    },
+    {
+        id: 'user-management',
+        icon: '👥',
+        label: 'User Management',
+        route: '/admin/users',
+        requiredRole: 'admin',
+    },
+    {
+        id: 'permissions',
+        icon: '🔐',
+        label: 'Permissions',
+        route: '/admin/permissions',
+        requiredRole: 'admin',
+    },
+    {
+        id: 'admin-analytics',
+        icon: '📊',
+        label: 'Admin Analytics',
+        route: '/admin/analytics',
+        requiredRole: 'admin',
     },
 ];

@@ -2,12 +2,10 @@ import { Component, signal, inject, ChangeDetectionStrategy } from '@angular/cor
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
-import { newUser } from '../user-state-store/user.interface';
-import { select, Store } from '@ngrx/store';
-import { setUser } from '../user-state-store/user.actions';
-import { selectUser } from '../user-state-store/user.selector';
-import { take } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { createUser, } from '../user-state-store/user.actions';
 import { CommonModule } from '@angular/common';
+import { User } from '../user-state-store/user.interface';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +18,7 @@ import { CommonModule } from '@angular/common';
 export class Register {
   private http = inject(HttpClient);
   private router = inject(Router);
-  private store = inject(Store<newUser>);
+  private store = inject(Store<any>);
 
   alreadyExists = signal(false);
 
@@ -38,12 +36,8 @@ export class Register {
       this.form().get('confirmPassword')?.setErrors({ mismatch: true });
       return;
     }
-    const payload = { username: v.username, password: v.password, confirmPassword: v.confirmPassword };
-
-    this.store.dispatch(setUser(payload));
-    this.store.pipe(select(selectUser)).pipe(take(1)).subscribe(userState => {
-      console.log('Registration successful', userState);
-      this.router.navigate(['/login']);
-    });
+    const payload = { username: v.username, password: v.password, role: 'user' as const };
+    this.store.dispatch(createUser(payload));
+    this.router.navigate(['/login'])
   }
 }

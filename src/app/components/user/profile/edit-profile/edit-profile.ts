@@ -40,7 +40,6 @@ export class EditProfileComponent {
     successMessage = '';
 
     onSubmit() {
-        console.log('Form submitted with data:', this.formData);
         this.successMessage = 'Profile updated successfully!';
         setTimeout(() => {
             this.successMessage = '';

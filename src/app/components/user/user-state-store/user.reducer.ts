@@ -1,27 +1,8 @@
 import { createReducer, on } from "@ngrx/store";
-import { initialState, initialAuthToken, initialPersonState } from "./user.state";
-import { setUser, setToken, getToken, logout, loadPersonsSuccess, loadPersons, loadPersonsFailure } from "./user.actions";
-import { IPerson } from "../dashboard/interface/person";
+import { initialState, initialAuthToken } from "./user.state";
+import { setToken, getToken, logout, createUser, setUser } from "./user.actions";
+import { IUser } from "../dashboard/interface/person";
 
-
-export const storeReducer = createReducer(
-    initialState,
-    on(setUser, (state, action) => {
-
-        // if (err.status === 409) {
-        //   this.alreadyExists.set(true);
-        //   this.form().get('username')?.setErrors({ conflict: true });
-        //   return;
-        // }
-
-        return {
-            ...state,
-            username: action.username,
-            password: action.password,
-            confirmPassword: action.confirmPassword,
-        }
-    }),
-);
 
 export const authTokenReducer = createReducer(
     initialAuthToken,
@@ -29,6 +10,7 @@ export const authTokenReducer = createReducer(
         return {
             ...state,
             token: action.token,
+            role: action.role,
         }
     }),
     on(getToken, (state) => {
@@ -41,25 +23,27 @@ export const authTokenReducer = createReducer(
         return {
             ...state,
             token: '',
+            role: '',
         }
     })
 );
 
-export const personReducers = createReducer(
-    initialPersonState,
-    on(loadPersons, (state) => ({
-        ...state,
-        persons: []
-    })),
-    on(loadPersonsSuccess, (state, action) => {
+export const userReducer = createReducer(
+    initialState,
+    on(setUser, (state, action) => {
         return {
             ...state,
-            persons: action.persons?.map(person => ({ ...person })) as IPerson[]
+            name: action.username,
+            role: action.role,
         }
     }),
-    on(loadPersonsFailure, (state) => ({
-        ...state,
-        error: 'Failed to load persons'
-    }))
+    on(createUser, (state, action) => {
+        console.log(action);
 
+        return {
+            ...state,
+            name: action.username,
+            role: action.role,
+        }
+    }),
 );

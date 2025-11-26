@@ -1,0 +1,53 @@
+<div class="permissions-container">
+    <div class="permissions-header">
+        <h2>🔐 Manage Permissions</h2>
+        <p>Configure roles and their associated permissions</p>
+    </div>
+
+    <div class="permissions-grid">
+        <div class="roles-sidebar">
+            <h3>Roles</h3>
+            <div class="roles-list">
+                @for (role of roles(); track role.id) {
+                <button class="role-btn" [class.active]="selectedRole()?.id === role.id" (click)="selectRole(role)">
+                    {{ role.name }}
+                    <span class="permission-count">{{ role.permissions.length }}</span>
+                </button>
+                }
+            </div>
+        </div>
+
+        <div class="permissions-main">
+            @if (selectedRole(); as role) {
+            <div class="role-details">
+                <h3>{{ role.name }} Permissions</h3>
+                <div class="permissions-list">
+                    @for (permission of permissions(); track permission.id) {
+                    <div class="permission-item">
+                        <input type="checkbox" [id]="'perm_' + permission.id" [checked]="hasPermission(permission.id)"
+                            (change)="togglePermission(permission.id)" />
+                        <label [for]="'perm_' + permission.id">
+                            <div class="permission-info">
+                                <h4>{{ permission.name }}</h4>
+                                <p>{{ permission.description }}</p>
+                            </div>
+                            <span class="category">{{ permission.category }}</span>
+                        </label>
+                    </div>
+                    }
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-primary" (click)="saveChanges()">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+            } @else {
+            <div class="empty-state">
+                <p>Select a role to manage permissions</p>
+            </div>
+            }
+        </div>
+    </div>
+</div>

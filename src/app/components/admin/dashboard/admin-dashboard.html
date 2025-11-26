@@ -1,0 +1,34 @@
+<div class="admin-dashboard">
+    <div class="admin-header">
+        <h1>👨‍💼 Admin Dashboard</h1>
+        <p>Welcome, {{ (userRole$ | async)?.username }}!</p>
+    </div>
+
+    <div class="admin-grid">
+        <div class="admin-card">
+            <h3>👥 User Management</h3>
+            <p>Manage all users and their permissions</p>
+            <a routerLink="users" class="btn-link">View Users</a>
+        </div>
+
+        <div class="admin-card">
+            <h3>🔐 Permissions</h3>
+            <p>Configure user roles and permissions</p>
+            <a routerLink="permissions" class="btn-link">Manage Permissions</a>
+        </div>
+
+        <div class="admin-card">
+            <h3>📊 System Analytics</h3>
+            <p>View system-wide analytics and reports</p>
+            <a routerLink="analytics" class="btn-link">View Analytics</a>
+        </div>
+
+        <div class="admin-card">
+            <h3>📋 Activity Logs</h3>
+            <p>Monitor user activity and system events</p>
+            <a href="#" class="btn-link">View Logs</a>
+        </div>
+    </div>
+
+    <router-outlet></router-outlet>
+</div>

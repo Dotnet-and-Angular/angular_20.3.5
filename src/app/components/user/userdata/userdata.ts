@@ -6,7 +6,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { select, Store } from '@ngrx/store';
 import { loadPersons, loadPersonsSuccess } from '../user-state-store/user.actions';
 import { Subject, takeUntil } from 'rxjs';
-import { IPerson } from '../dashboard/interface/person';
+import { IUser } from '../dashboard/interface/person';
 import { DataTableComponent, TableColumn } from '../../shared/data-table';
 import { CommonModule } from '@angular/common';
 
@@ -19,9 +19,9 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Userdata {
-  people = signal<IPerson[]>([]);
+  people = signal<IUser[]>([]);
   showAdd = signal(false);
-  selectedRow = signal<IPerson | null>(null);
+  selectedRow = signal<IUser | null>(null);
   private store = inject(Store);
   private destroy$ = new Subject<void>();
 
@@ -66,15 +66,15 @@ export class Userdata {
     });
   }
 
-  onRowSelected(row: IPerson): void {
+  onRowSelected(row: IUser): void {
     this.selectedRow.set(row);
   }
 
-  onRowDoubleClicked(row: IPerson): void {
-    console.log('Row double clicked:', row);
+  onRowDoubleClicked(row: IUser): void {
+    // Handle double click
   }
 
-  trackById(index: number, item: IPerson) {
+  trackById(index: number, item: IUser) {
     return item.id;
   }
 

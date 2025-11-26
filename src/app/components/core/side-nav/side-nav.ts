@@ -1,7 +1,9 @@
 import { CommonModule } from "@angular/common";
-import { Component, signal, input, computed } from '@angular/core';
-import { SIDENAV_ITEMS, SidenavItem } from './side-nav-list';
+import { Component, signal, input, computed, inject } from '@angular/core';
+import { SIDENAV_ITEMS, ADMIN_ITEMS, SidenavItem } from './side-nav-list';
 import { RouterModule } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { selectUser } from '../../user/user-state-store/user.selector';
 
 @Component({
   selector: 'app-side-nav',
@@ -11,15 +13,26 @@ import { RouterModule } from '@angular/router';
   styleUrl: './side-nav.scss',
 })
 export class SideNav {
-  // Input for drawer state from parent
+  private store = inject(Store);
+
   isOpen = input(true);
+  userRole = signal<string>('');
 
-  sidenavItems = signal<SidenavItem[]>(SIDENAV_ITEMS);
+  sidenavItems = computed(() => {
+    const role = this.userRole();
+    const allItems = role === 'admin' ? [...SIDENAV_ITEMS, ...ADMIN_ITEMS] : SIDENAV_ITEMS;
+    return allItems.filter(item => !item.requiredRole || item.requiredRole === role);
+  });
+
   expandedItems = signal<Set<string>>(new Set());
-
   currentYear = new Date().getFullYear();
 
-  // Check if item is expanded
+  constructor() {
+    this.store.pipe(select(selectUser)).subscribe((user: any) => {
+      this.userRole.set(user?.role || 'user');
+    });
+  }
+
   isItemExpanded = computed(() => {
     const expanded = this.expandedItems();
     return (itemId: string) => expanded.has(itemId);
