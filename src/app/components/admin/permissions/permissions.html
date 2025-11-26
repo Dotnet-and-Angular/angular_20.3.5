@@ -8,7 +8,7 @@
         <div class="roles-sidebar">
             <h3>Roles</h3>
             <div class="roles-list">
-                @for (role of roles(); track role.id) {
+                @for (role of (roles$ | async); track role.id) {
                 <button class="role-btn" [class.active]="selectedRole()?.id === role.id" (click)="selectRole(role)">
                     {{ role.name }}
                     <span class="permission-count">{{ role.permissions.length }}</span>
@@ -22,7 +22,7 @@
             <div class="role-details">
                 <h3>{{ role.name }} Permissions</h3>
                 <div class="permissions-list">
-                    @for (permission of permissions(); track permission.id) {
+                    @for (permission of (permissions$ | async); track permission.id) {
                     <div class="permission-item">
                         <input type="checkbox" [id]="'perm_' + permission.id" [checked]="hasPermission(permission.id)"
                             (change)="togglePermission(permission.id)" />

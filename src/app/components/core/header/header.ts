@@ -4,6 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { getAuthToken, selectUser } from '../../user/user-state-store/user.selector';
 import { logout } from '../../user/user-state-store/user.actions';
+import { GLOBAL_MESSAGES } from '../../../constants/global-messages';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +19,7 @@ export class Header implements OnDestroy {
   private token = '';
   username = '';
   private subs: Subscription[] = [];
+  labels = GLOBAL_MESSAGES.HEADER;
 
   constructor(private router: Router, private store: Store) {
     this.currentUrl = this.router.url || '';

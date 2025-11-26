@@ -1,63 +1,64 @@
 <div class="view-profile-container">
-    <h1>View Profile</h1>
+    <h1>{{ labels.TITLE }}</h1>
 
+    @if (userData$ | async; as userData) {
     <div class="profile-display">
         <div class="profile-header">
             <div class="avatar-large">👤</div>
             <div class="header-info">
-                <h2>{{ userData.firstName }} {{ userData.lastName }}</h2>
-                <p class="bio">{{ userData.bio }}</p>
+                <h2>{{ userData?.firstName }} {{ userData?.lastName }}</h2>
+                <p class="bio">{{ userData?.bio }}</p>
             </div>
         </div>
 
         <div class="profile-sections">
             <div class="section">
-                <h3>Contact Information</h3>
+                <h3>{{ labels.CONTACT_INFO }}</h3>
                 <div class="info-item">
-                    <span class="label">Email:</span>
-                    <span class="value">{{ userData.email }}</span>
+                    <span class="label">{{ labels.EMAIL }}:</span>
+                    <span class="value">{{ userData?.email }}</span>
                 </div>
                 <div class="info-item">
-                    <span class="label">Phone:</span>
-                    <span class="value">{{ userData.phone }}</span>
+                    <span class="label">{{ labels.PHONE }}:</span>
+                    <span class="value">{{ userData?.phone }}</span>
                 </div>
                 <div class="info-item">
-                    <span class="label">Location:</span>
-                    <span class="value">{{ userData.location }}</span>
-                </div>
-            </div>
-
-            <div class="section">
-                <h3>Professional Information</h3>
-                <div class="info-item">
-                    <span class="label">Department:</span>
-                    <span class="value">{{ userData.department }}</span>
-                </div>
-                <div class="info-item">
-                    <span class="label">Role:</span>
-                    <span class="value">{{ userData.role }}</span>
-                </div>
-                <div class="info-item">
-                    <span class="label">Member Since:</span>
-                    <span class="value">{{ userData.memberSince }}</span>
+                    <span class="label">{{ labels.LOCATION }}:</span>
+                    <span class="value">{{ userData?.location }}</span>
                 </div>
             </div>
 
             <div class="section">
-                <h3>Account Status</h3>
+                <h3>{{ labels.PROFESSIONAL_INFO }}</h3>
                 <div class="info-item">
-                    <span class="label">Status:</span>
-                    <span class="value status-active">{{ userData.status }}</span>
+                    <span class="label">{{ labels.DEPARTMENT }}:</span>
+                    <span class="value">{{ userData?.department }}</span>
                 </div>
                 <div class="info-item">
-                    <span class="label">Last Login:</span>
-                    <span class="value">{{ userData.lastLogin }}</span>
+                    <span class="label">{{ labels.ROLE }}:</span>
+                    <span class="value">{{ userData?.role }}</span>
                 </div>
                 <div class="info-item">
-                    <span class="label">Account Verified:</span>
-                    <span class="value status-verified">✓ {{ userData.verified ? 'Yes' : 'No' }}</span>
+                    <span class="label">{{ labels.MEMBER_SINCE }}:</span>
+                    <span class="value">{{ userData?.memberSince }}</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>{{ labels.ACCOUNT_STATUS }}</h3>
+                <div class="info-item">
+                    <span class="label">{{ labels.STATUS }}:</span>
+                    <span class="value status-active">{{ userData?.status }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">{{ labels.LAST_LOGIN }}:</span>
+                    <span class="value">{{ userData?.lastLogin }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">{{ labels.VERIFIED }}:</span>
+                    <span class="value status-verified">✓ {{ userData?.verified ? labels.YES : labels.NO }}</span>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    }

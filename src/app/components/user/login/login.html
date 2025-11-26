@@ -2,16 +2,16 @@
     <!-- Left Side: Dark Blue Section with Offers -->
     <div class="auth-left">
         <div class="left-content">
-            <p class="left-tagline">Thank you for banking with us!</p>
-            <h2 class="left-heading">Unlock your exclusive<br>offers.</h2>
+            <p class="left-tagline">{{ labels.TAGLINE }}</p>
+            <h2 class="left-heading">{{ labels.HEADING }}<br>{{ labels.HEADING_BREAK }}</h2>
 
             <div class="offers-illustration">
                 <!-- Simplified illustration representation -->
                 <div class="illustration-placeholder">🎁</div>
             </div>
 
-            <p class="left-subheading">Curated just for you!</p>
-            <p class="left-description">Click here to discover deals built around your needs.</p>
+            <p class="left-subheading">{{ labels.SUBHEADING }}</p>
+            <p class="left-description">{{ labels.DESCRIPTION }}</p>
         </div>
     </div>
 
@@ -21,14 +21,14 @@
             <!-- Logo -->
             <div class="bank-logo">
                 <span class="logo-text">🏦</span>
-                <span class="logo-name">Nexus Bank</span>
+                <span class="logo-name">{{ labels.LOGO_NAME }}</span>
             </div>
 
             <!-- Session Alert (Optional) -->
             @if (showSessionAlert()) {
             <div class="session-alert">
                 <span class="alert-icon">ℹ️</span>
-                <span class="alert-text">You are logged out because the session expired!</span>
+                <span class="alert-text">{{ labels.SESSION_EXPIRED }}</span>
             </div>
             }
 
@@ -36,38 +36,40 @@
             <div class="mock-role-toggle">
                 <label class="role-toggle-label">
                     <input type="checkbox" [checked]="mockAsAdmin()" (change)="mockAsAdmin.set(!mockAsAdmin())" />
-                    <span class="toggle-text">Login as {{ mockAsAdmin() ? 'Admin' : 'User' }} 🧪</span>
+                    <span class="toggle-text">{{ labels.MOCK_ADMIN_LABEL }} {{ mockAsAdmin() ? labels.MOCK_ADMIN_ADMIN :
+                        labels.MOCK_ADMIN_USER }} {{ labels.MOCK_ADMIN_EMOJI }}</span>
                 </label>
             </div>
 
             <!-- Login Form -->
             <div class="form-container">
-                <h3 class="form-title">Welcome back</h3>
-                <p class="form-subtitle">Sign in to continue to your dashboard</p>
+                <h3 class="form-title">{{ labels.FORM_TITLE }}</h3>
+                <p class="form-subtitle">{{ labels.FORM_SUBTITLE }}</p>
 
                 <!-- Login Method Toggle -->
                 <div class="auth-toggle">
                     <button type="button" class="toggle-btn" [class.active]="!phoneMode()"
-                        (click)="setPhoneMode(false)">Username</button>
+                        (click)="setPhoneMode(false)">{{ labels.USERNAME_TAB }}</button>
                     <button type="button" class="toggle-btn" [class.active]="phoneMode()"
-                        (click)="setPhoneMode(true)">Phone</button>
+                        (click)="setPhoneMode(true)">{{ labels.PHONE_TAB }}</button>
                 </div>
 
                 <!-- Username/Password Login -->
                 @if (!phoneMode()) {
                 <form [formGroup]="form()" (ngSubmit)="onSubmit()" class="login-form">
                     <label class="field">
-                        <span class="field-label">Username</span>
-                        <input formControlName="username" type="text" placeholder="Enter username"
+                        <span class="field-label">{{ labels.USERNAME_LABEL }}</span>
+                        <input formControlName="username" type="text" [placeholder]="labels.USERNAME_PLACEHOLDER"
                             autocomplete="username" />
                     </label>
                     <label class="field">
-                        <span class="field-label">Password</span>
-                        <input formControlName="password" type="password" placeholder="Enter password"
+                        <span class="field-label">{{ labels.PASSWORD_LABEL }}</span>
+                        <input formControlName="password" type="password" [placeholder]="labels.PASSWORD_PLACEHOLDER"
                             autocomplete="current-password" />
                     </label>
                     <div class="actions">
-                        <button type="submit" class="primary" [disabled]="!form().valid">Sign in</button>
+                        <button type="submit" class="primary" [disabled]="!form().valid">{{ labels.SIGN_IN_BUTTON
+                            }}</button>
                     </div>
                 </form>
                 }
@@ -76,12 +78,13 @@
                 @if (phoneMode()) {
                 <form [formGroup]="phoneForm()" (ngSubmit)="sendOtp()" class="phone-form">
                     <label class="field">
-                        <span class="field-label">Phone</span>
-                        <input formControlName="phone" type="tel" placeholder="Enter phone number" autocomplete="tel" />
+                        <span class="field-label">{{ labels.PHONE_LABEL }}</span>
+                        <input formControlName="phone" type="tel" [placeholder]="labels.PHONE_PLACEHOLDER"
+                            autocomplete="tel" />
                     </label>
                     <div class="actions">
-                        <button type="submit" class="primary" [disabled]="!phoneForm().valid || otpSent()">Send
-                            OTP</button>
+                        <button type="submit" class="primary" [disabled]="!phoneForm().valid || otpSent()">{{
+                            labels.SEND_OTP_BUTTON }}</button>
                     </div>
                 </form>
                 }
@@ -90,11 +93,12 @@
                 @if (otpSent()) {
                 <form [formGroup]="otpForm()" (ngSubmit)="verifyOtp()" class="otp-form">
                     <label class="field">
-                        <span class="field-label">Enter OTP</span>
-                        <input formControlName="otp" type="text" maxlength="6" placeholder="------" />
+                        <span class="field-label">{{ labels.OTP_LABEL }}</span>
+                        <input formControlName="otp" type="text" maxlength="6" [placeholder]="labels.OTP_PLACEHOLDER" />
                     </label>
                     <div class="actions">
-                        <button type="submit" class="primary" [disabled]="!otpForm().valid">Verify</button>
+                        <button type="submit" class="primary" [disabled]="!otpForm().valid">{{ labels.VERIFY_OTP_BUTTON
+                            }}</button>
                     </div>
                 </form>
                 }
@@ -102,10 +106,11 @@
 
             <!-- Feedback Section (Optional) -->
             <div class="feedback-section">
-                <p class="feedback-title">We value your feedback</p>
-                <p class="feedback-description">Help us serve you better by completing a<br>short survey.</p>
+                <p class="feedback-title">{{ labels.FEEDBACK_TITLE }}</p>
+                <p class="feedback-description">{{ labels.FEEDBACK_DESCRIPTION }}<br>{{
+                    labels.FEEDBACK_DESCRIPTION_BREAK }}</p>
                 <button type="button" class="survey-btn" (click)="onGoToSurvey()">
-                    Go to Survey
+                    {{ labels.SURVEY_BUTTON }}
                 </button>
             </div>
         </div>
@@ -113,10 +118,11 @@
         <!-- Footer -->
         <div class="auth-footer">
             <p class="footer-text">
-                Need an account? <a routerLink="/register" class="footer-link">Register
-                    here</a> |
-                <a routerLink="/" class="footer-link">About</a> |
-                © Copyright Nexus Bank Ltd.
+                {{ labels.FOOTER_TEXT_PREFIX }} <a href="javascript:void(0)" routerLink="/register"
+                    class="footer-link">{{ labels.FOOTER_LINK_REGISTER }}</a> {{ labels.FOOTER_SEPARATOR }}
+                <a href="javascript:void(0)" routerLink="/" class="footer-link">{{ labels.FOOTER_LINK_ABOUT }}</a> {{
+                labels.FOOTER_SEPARATOR }}
+                {{ labels.FOOTER_COPYRIGHT }}
             </p>
         </div>
     </div>

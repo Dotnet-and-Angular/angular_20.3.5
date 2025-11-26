@@ -17,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                @for (user of filteredUsers(); track user.id) {
+                @for (user of (users$ | async); track user.id) {
                 <tr class="user-row" [class.inactive]="user.status === 'inactive'">
                     <td class="username-cell">{{ user.username }}</td>
                     <td class="email-cell">{{ user.email }}</td>
@@ -44,7 +44,7 @@
         </table>
     </div>
 
-    @if (filteredUsers().length === 0) {
+    @if ((users$ | async)?.length === 0) {
     <div class="empty-state">
         <p>No users found</p>
     </div>

@@ -2,9 +2,8 @@
     <div class="container">
         <div class="hero-grid">
             <div class="hero-text">
-                <h1>Build modern apps faster</h1>
-                <p class="sub">MyApp is a starter demo showcasing best practices: signals, route guards, forms, and
-                    clean API integration.</p>
+                <h1>{{ labels.TITLE }}</h1>
+                <p class="sub">{{ labels.DESCRIPTION }}</p>
                 <div class="cta">
                     <a routerLink="/register" class="btn btn-primary">Get Started</a>
                     <a routerLink="/about" class="btn btn-ghost">Learn More</a>
@@ -15,9 +14,9 @@
                     <div class="card-header">Live stats</div>
                     <div class="card-body">
                         <ul>
-                            <li><strong>Users</strong> {{ users() }}</li>
-                            <li><strong>Active</strong> {{ active() }}</li>
-                            <li><strong>Errors</strong> {{ errors() }}</li>
+                            <li><strong>{{ labels.USERS_LABEL }}</strong> {{ users() }}</li>
+                            <li><strong>{{ labels.ACTIVE_LABEL }}</strong> {{ active() }}</li>
+                            <li><strong>{{ labels.ERRORS_LABEL }}</strong> {{ errors() }}</li>
                         </ul>
                         <svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true">
                             <polyline points="0,20 20,10 40,15 60,8 80,12 100,5" fill="none" stroke="#0f172a"
@@ -32,15 +31,15 @@
 
 <section class="about-features">
     <div class="container">
-        <h2>Why MyApp</h2>
+        <h2>{{ labels.FEATURES }}</h2>
         <div class="features-grid">
             <article class="feature">
-                <h3>Signals-first</h3>
-                <p>Small, predictable state using Angular signals for cleaner templates and fewer side-effects.</p>
+                <h3>{{ labels.SIGNALS_FIRST }}</h3>
+                <p>{{ labels.SIGNALS_DESC }}</p>
             </article>
             <article class="feature">
-                <h3>Secure by default</h3>
-                <p>Route guards and an HTTP interceptor demonstrate a practical auth flow you can extend.</p>
+                <h3>{{ labels.SECURE }}</h3>
+                <p>{{ labels.SECURE_DESC }}</p>
             </article>
             <article class="feature">
                 <h3>Developer-first</h3>

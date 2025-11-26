@@ -3,7 +3,7 @@
     <div style="display: flex; align-items: center; gap: 8px;">
         <!-- Menu toggle button (only show when authenticated on dashboard) -->
         @if (isAuthenticated && isDashboard) {
-        <button class="header-btn menu-toggle" (click)="toggleMenu()" title="Toggle menu">
+        <button class="header-btn menu-toggle" (click)="toggleMenu()" [title]="labels.TOGGLE_MENU">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -33,27 +33,29 @@
                 </path>
             </g>
         </svg>
-        <div class="header-title">Nexus Bank </div>
+        <div class="header-title">{{ labels.BANK_NAME }} </div>
     </div>
     <nav class="header-nav">
         <!-- when not authenticated show Register/Login (but don't show link for current route) -->
         @if (!isAuthenticated) {
         @if (!isRegisterRoute) {
-        <button routerLink="/register" class="header-btn">Register</button>
+        <button routerLink="/register" class="header-btn">{{ labels.REGISTER }}</button>
         }
         @if (!isLoginRoute) {
-        <button routerLink="/login" class="header-btn">Login</button>
+        <button routerLink="/login" class="header-btn">{{ labels.LOGIN }}</button>
         }
         }
 
         <!-- when authenticated show profile info and logout -->
         @if (isAuthenticated) {
         <div class="header-profile">
-            <button routerLink="/user/settings" class="profile-link">
-                <span class="avatar">{{ usernameInitials }}</span>
-                <span class="profile-name">{{ username }}</span>
+            <button routerLink="/user/settings" class="profile-link" [title]="username || labels.USER_PROFILE">
+                <span class="avatar" [attr.aria-label]="usernameInitials || labels.USER_AVATAR">{{ usernameInitials ||
+                    '👤'
+                    }}</span>
+                <span class="profile-name">{{ username || labels.PROFILE }}</span>
             </button>
-            <button type="button" class="header-btn logout" (click)="logout()">Logout</button>
+            <button type="button" class="header-btn logout" (click)="logout()">{{ labels.LOGOUT }}</button>
         </div>
         }
     </nav>

@@ -4,6 +4,7 @@ import { SIDENAV_ITEMS, ADMIN_ITEMS, SidenavItem } from './side-nav-list';
 import { RouterModule } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { selectUser } from '../../user/user-state-store/user.selector';
+import { GLOBAL_MESSAGES } from '../../../constants/global-messages';
 
 @Component({
   selector: 'app-side-nav',
@@ -14,6 +15,8 @@ import { selectUser } from '../../user/user-state-store/user.selector';
 })
 export class SideNav {
   private store = inject(Store);
+
+  labels = GLOBAL_MESSAGES.SIDEBAR;
 
   isOpen = input(true);
   userRole = signal<string>('');

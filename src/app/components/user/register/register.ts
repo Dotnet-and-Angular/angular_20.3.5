@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { createUser, } from '../user-state-store/user.actions';
 import { CommonModule } from '@angular/common';
 import { User } from '../user-state-store/user.interface';
+import { USER_MESSAGES } from '../../../constants/user-messages';
 
 @Component({
   selector: 'app-register',
@@ -19,6 +20,8 @@ export class Register {
   private http = inject(HttpClient);
   private router = inject(Router);
   private store = inject(Store<any>);
+
+  labels = USER_MESSAGES.REGISTER;
 
   alreadyExists = signal(false);
 

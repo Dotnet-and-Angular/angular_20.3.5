@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Header } from '../../core/header/header';
 import { SideNav } from '../../core/side-nav/side-nav';
+import { ADMIN_MESSAGES } from '../../../constants/admin-messages';
 
 @Component({
     selector: 'app-admin-layout',
@@ -13,6 +14,7 @@ import { SideNav } from '../../core/side-nav/side-nav';
 })
 export class AdminLayout {
     sideNavOpen = signal(true);
+    labels = ADMIN_MESSAGES.LAYOUT;
 
     toggleSideNav(): void {
         this.sideNavOpen.update(state => !state);

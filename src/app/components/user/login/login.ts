@@ -6,6 +6,7 @@ import { UserLogin } from '../../../services/user-login';
 import { Store } from '@ngrx/store';
 import { loadUser, setToken } from '../user-state-store/user.actions';
 import { CommonModule } from '@angular/common';
+import { USER_MESSAGES } from '../../../constants/user-messages';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,8 @@ export class Login {
   private userLogin = inject(UserLogin);
   private router = inject(Router);
   private store = inject(Store);
+
+  labels = USER_MESSAGES.LOGIN;
 
   phoneMode = signal(false);
   otpSent = signal(false);
@@ -92,7 +95,7 @@ export class Login {
           }
         },
         error: (error) => {
-          console.error('Login failed', error);
+          // Handle error
         }
       });
     }

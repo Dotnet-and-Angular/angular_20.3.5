@@ -101,14 +101,25 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
   border-radius: 50%;
   background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
   color: #fff;
   font-weight: 700;
-  font-size: 0.85rem;
-  box-shadow: 0 2px 6px rgba(0, 102, 204, 0.3);
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.6);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
 }
 
 .profile-name {

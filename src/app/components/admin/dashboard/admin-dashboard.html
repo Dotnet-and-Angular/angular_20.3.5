@@ -1,26 +1,26 @@
 <div class="admin-dashboard">
     <div class="admin-header">
-        <h1>👨‍💼 Admin Dashboard</h1>
-        <p>Welcome, {{ (userRole$ | async)?.username }}!</p>
+        <h1>👨‍💼 {{ labels.TITLE }}</h1>
+        <p>{{ labels.WELCOME_PREFIX }} {{ (userRole$ | async)?.username }}!</p>
     </div>
 
     <div class="admin-grid">
         <div class="admin-card">
-            <h3>👥 User Management</h3>
-            <p>Manage all users and their permissions</p>
-            <a routerLink="users" class="btn-link">View Users</a>
+            <h3>👥 {{ labels.MANAGE_USERS }}</h3>
+            <p>{{ labels.MANAGE_USERS_DESC }}</p>
+            <a routerLink="users" class="btn-link">{{ labels.VIEW_USERS }}</a>
         </div>
 
         <div class="admin-card">
-            <h3>🔐 Permissions</h3>
-            <p>Configure user roles and permissions</p>
-            <a routerLink="permissions" class="btn-link">Manage Permissions</a>
+            <h3>🔐 {{ labels.PERMISSIONS }}</h3>
+            <p>{{ labels.PERMISSIONS_DESC }}</p>
+            <a routerLink="permissions" class="btn-link">{{ labels.MANAGE_PERMISSIONS }}</a>
         </div>
 
         <div class="admin-card">
-            <h3>📊 System Analytics</h3>
-            <p>View system-wide analytics and reports</p>
-            <a routerLink="analytics" class="btn-link">View Analytics</a>
+            <h3>📊 {{ labels.SYSTEM_ANALYTICS }}</h3>
+            <p>{{ labels.SYSTEM_ANALYTICS_DESC }}</p>
+            <a routerLink="analytics" class="btn-link">{{ labels.VIEW_ANALYTICS }}</a>
         </div>
 
         <div class="admin-card">

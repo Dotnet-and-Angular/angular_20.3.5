@@ -1,18 +1,9 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-interface Permission {
-    id: number;
-    name: string;
-    description: string;
-    category: string;
-}
-
-interface Role {
-    id: number;
-    name: string;
-    permissions: number[];
-}
+import { Store, select } from '@ngrx/store';
+import { selectAllPermissions, selectAllRoles, selectPermissionsByCategory } from '../admin-store/admin.selector';
+import * as AdminActions from '../admin-store/admin.actions';
+import { Permission, Role } from '../admin-store/admin.interface';
 
 @Component({
     selector: 'app-permissions',
@@ -23,23 +14,10 @@ interface Role {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PermissionsComponent {
-    permissions = signal<Permission[]>([
-        { id: 1, name: 'View Users', description: 'Can view user list and details', category: 'Users' },
-        { id: 2, name: 'Create User', description: 'Can create new users', category: 'Users' },
-        { id: 3, name: 'Edit User', description: 'Can edit user information', category: 'Users' },
-        { id: 4, name: 'Delete User', description: 'Can delete users', category: 'Users' },
-        { id: 5, name: 'View Reports', description: 'Can view system reports', category: 'Reports' },
-        { id: 6, name: 'Create Reports', description: 'Can create new reports', category: 'Reports' },
-        { id: 7, name: 'System Settings', description: 'Can modify system settings', category: 'System' },
-        { id: 8, name: 'Manage Roles', description: 'Can manage user roles', category: 'System' },
-    ]);
+    private store = inject(Store);
 
-    roles = signal<Role[]>([
-        { id: 1, name: 'Admin', permissions: [1, 2, 3, 4, 5, 6, 7, 8] },
-        { id: 2, name: 'Editor', permissions: [1, 5, 6] },
-        { id: 3, name: 'Viewer', permissions: [1, 5] },
-    ]);
-
+    permissions$ = this.store.pipe(select(selectAllPermissions));
+    roles$ = this.store.pipe(select(selectAllRoles));
     selectedRole = signal<Role | null>(null);
 
     selectRole(role: Role) {
@@ -50,19 +28,12 @@ export class PermissionsComponent {
         const role = this.selectedRole();
         if (!role) return;
 
-        const permissions = role.permissions;
-        const index = permissions.indexOf(permissionId);
+        const permissions = role.permissions.includes(permissionId)
+            ? role.permissions.filter(p => p !== permissionId)
+            : [...role.permissions, permissionId];
 
-        if (index > -1) {
-            permissions.splice(index, 1);
-        } else {
-            permissions.push(permissionId);
-        }
-
-        this.roles.update(roles =>
-            roles.map(r => r.id === role.id ? { ...r, permissions: [...permissions] } : r)
-        );
-        this.selectedRole.set({ ...role, permissions: [...permissions] });
+        this.store.dispatch(AdminActions.updateRolePermissions({ roleId: role.id, permissions }));
+        this.selectedRole.set({ ...role, permissions });
     }
 
     hasPermission(permissionId: number): boolean {
@@ -70,7 +41,10 @@ export class PermissionsComponent {
     }
 
     saveChanges() {
-        // TODO: Save role permissions to backend
-        alert('Permissions updated successfully!');
+        const role = this.selectedRole();
+        if (role) {
+            this.store.dispatch(AdminActions.updateRolePermissions({ roleId: role.id, permissions: role.permissions }));
+            alert('Permissions updated successfully!');
+        }
     }
 }

@@ -1,45 +1,46 @@
 <section class="dashboard">
     <div class="card-header">
-        <h2>People</h2>
+        <h2>{{ labels.TITLE }}</h2>
 
         <button class="primary" (click)="showAdd.set(!showAdd())">
-            {{ showAdd() ? 'Cancel' : 'Add Person' }}
+            {{ showAdd() ? labels.CANCEL : labels.ADD_PERSON }}
         </button>
     </div>
     @if (showAdd()) {
     <div class="overlay">
-        <div class="card add-card" role="dialog" aria-label="Add person">
+        <div class="card add-card" role="dialog" [attr.aria-label]="labels.DIALOG_TITLE">
             <header class="card-header">
-                <h3>Add Person</h3>
+                <h3>{{ labels.ADD_PERSON }}</h3>
                 <button class="close" type="button" (click)="showAdd.set(false)">✕</button>
             </header>
 
             <form [formGroup]="addPersonForm()" (ngSubmit)="onAddSubmit()" class="card-body">
                 <div class="grid">
                     <label class="field">
-                        <span class="label">Name</span>
-                        <input type="text" formControlName="name" placeholder="Full name" required />
+                        <span class="label">{{ labels.NAME }}</span>
+                        <input type="text" formControlName="name" [placeholder]="labels.FULL_NAME" required />
                     </label>
                     <label class="field">
-                        <span class="label">Email</span>
-                        <input type="email" formControlName="email" placeholder="name@example.com" required />
+                        <span class="label">{{ labels.EMAIL_LABEL }}</span>
+                        <input type="email" formControlName="email" [placeholder]="labels.EMAIL_PLACEHOLDER" required />
                     </label>
                     <label class="field">
-                        <span class="label">Phone</span>
-                        <input type="tel" formControlName="phone" placeholder="+1 555 555 5555" required />
+                        <span class="label">{{ labels.PHONE_LABEL }}</span>
+                        <input type="tel" formControlName="phone" [placeholder]="labels.PHONE_PLACEHOLDER" required />
                     </label>
                     <label class="field">
-                        <span class="label">Age</span>
-                        <input type="number" formControlName="age" placeholder="Age" min="1" max="120" />
+                        <span class="label">{{ labels.AGE }}</span>
+                        <input type="number" formControlName="age" [placeholder]="labels.AGE_PLACEHOLDER" min="1"
+                            max="120" />
                         @if (addPersonForm().get('age')?.invalid && addPersonForm().get('age')?.touched) {
-                        <small class="error">Enter a valid age (1-120)</small>
+                        <small class="error">{{ labels.VALID_AGE_ERROR }}</small>
                         }
                     </label>
                 </div>
 
                 <footer class="card-actions">
-                    <button type="button" class="muted" (click)="showAdd.set(false)">Cancel</button>
-                    <button type="submit" class="primary" [disabled]="!addPersonForm().valid">Save</button>
+                    <button type="button" class="muted" (click)="showAdd.set(false)">{{ labels.CANCEL }}</button>
+                    <button type="submit" class="primary" [disabled]="!addPersonForm().valid">{{ labels.SAVE }}</button>
                 </footer>
             </form>
         </div>
@@ -47,8 +48,8 @@
     }
 
     @if (!showAdd()) {
-    <app-data-table [data]="people()" [columns]="tableColumns" [striped]="true" [hoverable]="true" [bordered]="true"
-        (rowSelected)="onRowSelected($event)" (rowDoubleClicked)="onRowDoubleClicked($event)">
+    <app-data-table [data]="(people$ | async) || []" [columns]="tableColumns" [striped]="true" [hoverable]="true"
+        [bordered]="true" (rowSelected)="onRowSelected($event)" (rowDoubleClicked)="onRowDoubleClicked($event)">
     </app-data-table>
     }
 </section>

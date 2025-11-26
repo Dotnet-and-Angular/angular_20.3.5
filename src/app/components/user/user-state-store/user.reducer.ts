@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { initialState, initialAuthToken } from "./user.state";
-import { setToken, getToken, logout, createUser, setUser } from "./user.actions";
+import { setToken, getToken, logout, createUser, setUser, loadPersonsSuccess } from "./user.actions";
 import { IUser } from "../dashboard/interface/person";
 
 
@@ -33,15 +33,21 @@ export const userReducer = createReducer(
     on(setUser, (state, action) => {
         return {
             ...state,
-            name: action.username,
+            username: action.username,
             role: action.role,
         }
     }),
     on(createUser, (state, action) => {
         return {
             ...state,
-            name: action.username,
+            username: action.username,
             role: action.role,
+        }
+    }),
+    on(loadPersonsSuccess, (state, action) => {
+        return {
+            ...state,
+            persons: action.persons,
         }
     }),
 );

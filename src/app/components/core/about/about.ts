@@ -1,4 +1,5 @@
 import { Component, signal, effect } from '@angular/core';
+import { GLOBAL_MESSAGES } from '../../../constants/global-messages';
 
 @Component({
   selector: 'app-about',
@@ -10,6 +11,7 @@ export class About {
   users = signal(0);
   active = signal(0);
   errors = signal(0);
+  labels = GLOBAL_MESSAGES.ABOUT;
 
   constructor() {
     // animate to target values

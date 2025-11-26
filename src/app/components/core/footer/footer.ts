@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { GLOBAL_MESSAGES } from '../../../constants/global-messages';
 
 @Component({
   selector: 'app-footer',
@@ -8,6 +9,7 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrl: './footer.scss'
 })
 export class Footer {
+  labels = GLOBAL_MESSAGES.FOOTER;
   currentUrl = '';
 
   constructor(private router: Router) {

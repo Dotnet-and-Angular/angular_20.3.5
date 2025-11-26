@@ -50,7 +50,7 @@
         </li>
         } @empty {
         <li class="sidenav-item sidenav-empty" role="status" aria-live="polite">
-            <span>No navigation items</span>
+            <span>{{ labels.NO_NAVIGATION_ITEMS }}</span>
         </li>
         }
     </ul>
@@ -58,8 +58,8 @@
     <!-- Sidenav Footer - Copyright & Info -->
     <div class="sidenav-footer" role="contentinfo">
         <div class="footer-content" [class.hidden]="!isOpen()">
-            <p>&copy; {{ currentYear }} Nexus Bank</p>
-            <p class="version">v1.0.0</p>
+            <p>&copy; {{ currentYear }} {{ labels.SIDENAV_COPYRIGHT }}</p>
+            <p class="version">{{ labels.SIDENAV_VERSION }}</p>
         </div>
     </div>
 </nav>
