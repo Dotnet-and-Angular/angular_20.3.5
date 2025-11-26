@@ -1,19 +1,20 @@
 <div class="user-management">
     <div class="management-header">
-        <h2>👥 User Management</h2>
-        <input type="text" placeholder="Search users..." class="search-input" (input)="onSearch($event.target.value)" />
+        <h2>👥 {{ labels.TITLE }}</h2>
+        <input type="text" [placeholder]="labels.SEARCH_USERS" class="search-input"
+            (input)="onSearch($event.target.value)" />
     </div>
 
     <div class="table-container">
         <table class="users-table">
             <thead>
                 <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th>Join Date</th>
-                    <th>Actions</th>
+                    <th>{{ labels.USERNAME }}</th>
+                    <th>{{ labels.EMAIL }}</th>
+                    <th>{{ labels.ROLE }}</th>
+                    <th>{{ labels.STATUS }}</th>
+                    <th>{{ labels.JOIN_DATE }}</th>
+                    <th>{{ labels.ACTIONS }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,12 +30,12 @@
                     </td>
                     <td class="date-cell">{{ user.joinDate }}</td>
                     <td class="actions-cell">
-                        <button class="action-btn edit-btn" title="Edit">✏️</button>
+                        <button class="action-btn edit-btn" [title]="labels.EDIT">✏️</button>
                         <button class="action-btn toggle-btn" (click)="toggleUserStatus(user.id)"
                             [title]="user.status === 'active' ? 'Deactivate' : 'Activate'">
                             {{ user.status === 'active' ? '⏸️' : '▶️' }}
                         </button>
-                        <button class="action-btn delete-btn" (click)="deleteUser(user.id)" title="Delete">
+                        <button class="action-btn delete-btn" (click)="deleteUser(user.id)" [title]="labels.DELETE">
                             🗑️
                         </button>
                     </td>
@@ -46,7 +47,7 @@
 
     @if ((users$ | async)?.length === 0) {
     <div class="empty-state">
-        <p>No users found</p>
+        <p>{{ labels.NO_USERS_FOUND }}</p>
     </div>
     }
 </div>

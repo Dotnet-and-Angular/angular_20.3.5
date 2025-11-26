@@ -1,7 +1,8 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store, select } from '@ngrx/store';
-import { selectAnalyticsData, selectUserActivityData, selectRoleDistribution } from '../admin-store/admin.selector';
+import { selectAnalyticsData, selectUserActivityData, selectRoleDistribution } from '@store/admin';
+import { ADMIN_MESSAGES } from '@constants';
 
 @Component({
     selector: 'app-admin-analytics',
@@ -13,6 +14,8 @@ import { selectAnalyticsData, selectUserActivityData, selectRoleDistribution } f
 })
 export class AdminAnalyticsComponent {
     private store = inject(Store);
+
+    labels = ADMIN_MESSAGES.ANALYTICS;
 
     analyticsData$ = this.store.pipe(select(selectAnalyticsData));
     userActivityData$ = this.store.pipe(select(selectUserActivityData));

@@ -3,8 +3,8 @@ import { Component, signal, input, computed, inject } from '@angular/core';
 import { SIDENAV_ITEMS, ADMIN_ITEMS, SidenavItem } from './side-nav-list';
 import { RouterModule } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { selectUser } from '../../user/user-state-store/user.selector';
-import { GLOBAL_MESSAGES } from '../../../constants/global-messages';
+import { selectUser } from '@store/user';
+import { GLOBAL_MESSAGES } from '@constants';
 
 @Component({
   selector: 'app-side-nav',

@@ -1,7 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { initialState, initialAuthToken } from "./user.state";
 import { setToken, getToken, logout, createUser, setUser, loadPersonsSuccess } from "./user.actions";
-import { IUser } from "../dashboard/interface/person";
 
 
 export const authTokenReducer = createReducer(

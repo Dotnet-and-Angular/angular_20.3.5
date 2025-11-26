@@ -20,10 +20,11 @@
      // customized paths
     "baseUrl": "./", 
     "paths": {
-      "@Material": ["src/app/material/index"],
-      // "@Shared/components": ["src/app/shared/index"],
-      // "@Utills": ["src/app/utills/validators/index"],
-      // "@Utills/interfaces": ["src/app/utills/Interface/index"]
+      "@material": ["src/app/material/index"],
+      "@constants": ["src/app/constants/index"],
+      "@services": ["src/app/services/index"],
+      "@store/admin": ["src/app/components/admin/admin-store/index"],
+      "@store/user": ["src/app/components/user/user-state-store/index"]
     },
   },
   "angularCompilerOptions": {

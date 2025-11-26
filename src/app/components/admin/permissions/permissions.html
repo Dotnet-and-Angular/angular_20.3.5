@@ -1,7 +1,7 @@
 <div class="permissions-container">
     <div class="permissions-header">
-        <h2>🔐 Manage Permissions</h2>
-        <p>Configure roles and their associated permissions</p>
+        <h2>🔐 {{ labels.TITLE }}</h2>
+        <p>{{ labels.CONFIGURATION_DESC }}</p>
     </div>
 
     <div class="permissions-grid">
@@ -20,7 +20,7 @@
         <div class="permissions-main">
             @if (selectedRole(); as role) {
             <div class="role-details">
-                <h3>{{ role.name }} Permissions</h3>
+                <h3>{{ role.name }} {{ labels.ROLE_PERMISSIONS }}</h3>
                 <div class="permissions-list">
                     @for (permission of (permissions$ | async); track permission.id) {
                     <div class="permission-item">
@@ -39,13 +39,13 @@
 
                 <div class="actions">
                     <button class="btn btn-primary" (click)="saveChanges()">
-                        Save Changes
+                        {{ labels.SAVE_CHANGES }}
                     </button>
                 </div>
             </div>
             } @else {
             <div class="empty-state">
-                <p>Select a role to manage permissions</p>
+                <p>{{ labels.SELECT_ROLE }}</p>
             </div>
             }
         </div>

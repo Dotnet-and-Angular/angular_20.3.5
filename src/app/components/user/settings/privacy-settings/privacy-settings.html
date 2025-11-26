@@ -1,17 +1,17 @@
 <div class="privacy-settings-container">
-    <h1>Privacy Settings</h1>
+    <h1>{{ labels.TITLE }}</h1>
 
     <div class="privacy-sections">
         <div class="privacy-card">
             <div class="card-header">
                 <span class="icon">👥</span>
-                <h3>Profile Visibility</h3>
+                <h3>{{ labels.PROFILE_VISIBILITY }}</h3>
             </div>
             <div class="card-content">
                 <div class="setting-item">
                     <div class="setting-info">
-                        <h4>Profile Public</h4>
-                        <p>Allow others to view your profile</p>
+                        <h4>{{ labels.PROFILE_PUBLIC }}</h4>
+                        <p>{{ labels.PROFILE_PUBLIC_DESC }}</p>
                     </div>
                     <label class="toggle">
                         <input type="checkbox" [(ngModel)]="settings.profilePublic" name="profilePublic"
@@ -22,8 +22,8 @@
 
                 <div class="setting-item">
                     <div class="setting-info">
-                        <h4>Show Email Address</h4>
-                        <p>Display your email on your profile</p>
+                        <h4>{{ labels.SHOW_EMAIL }}</h4>
+                        <p>{{ labels.SHOW_EMAIL_DESC }}</p>
                     </div>
                     <label class="toggle">
                         <input type="checkbox" [(ngModel)]="settings.showEmail" name="showEmail"
@@ -34,7 +34,7 @@
 
                 <div class="setting-item">
                     <div class="setting-info">
-                        <h4>Show Online Status</h4>
+                        <h4>{{ labels.SHOW_ONLINE_STATUS }}</h4>
                         <p>Let others know when you're online</p>
                     </div>
                     <label class="toggle">
@@ -49,13 +49,13 @@
         <div class="privacy-card">
             <div class="card-header">
                 <span class="icon">🔒</span>
-                <h3>Data & Privacy</h3>
+                <h3>{{ labels.DATA_MANAGEMENT }}</h3>
             </div>
             <div class="card-content">
                 <div class="setting-item">
                     <div class="setting-info">
-                        <h4>Activity Log</h4>
-                        <p>Keep track of your account activity</p>
+                        <h4>{{ labels.ACTIVITY_LOG }}</h4>
+                        <p>{{ labels.ACTIVITY_LOG_DESC }}</p>
                     </div>
                     <label class="toggle">
                         <input type="checkbox" [(ngModel)]="settings.activityLog" name="activityLog"
@@ -66,8 +66,8 @@
 
                 <div class="setting-item">
                     <div class="setting-info">
-                        <h4>Allow Analytics</h4>
-                        <p>Help us improve by sharing usage data</p>
+                        <h4>{{ labels.ALLOW_ANALYTICS }}</h4>
+                        <p>{{ labels.ALLOW_ANALYTICS_DESC }}</p>
                     </div>
                     <label class="toggle">
                         <input type="checkbox" [(ngModel)]="settings.allowAnalytics" name="allowAnalytics"
@@ -93,13 +93,13 @@
         <div class="privacy-card">
             <div class="card-header">
                 <span class="icon">📧</span>
-                <h3>Communication</h3>
+                <h3>{{ labels.COMMUNICATION }}</h3>
             </div>
             <div class="card-content">
                 <div class="setting-item">
                     <div class="setting-info">
-                        <h4>Marketing Emails</h4>
-                        <p>Receive updates about new features</p>
+                        <h4>{{ labels.MARKETING_EMAILS }}</h4>
+                        <p>{{ labels.MARKETING_EMAILS_DESC }}</p>
                     </div>
                     <label class="toggle">
                         <input type="checkbox" [(ngModel)]="settings.marketingEmails" name="marketingEmails"
@@ -110,8 +110,8 @@
 
                 <div class="setting-item">
                     <div class="setting-info">
-                        <h4>Security Alerts</h4>
-                        <p>Get notified about security events</p>
+                        <h4>{{ labels.SECURITY_ALERTS }}</h4>
+                        <p>{{ labels.SECURITY_ALERTS_DESC }}</p>
                     </div>
                     <label class="toggle">
                         <input type="checkbox" [(ngModel)]="settings.securityAlerts" name="securityAlerts"
@@ -125,28 +125,28 @@
         <div class="privacy-card">
             <div class="card-header">
                 <span class="icon">🗑️</span>
-                <h3>Data Management</h3>
+                <h3>{{ labels.DATA_MANAGEMENT }}</h3>
             </div>
             <div class="card-content">
                 <div class="data-action">
-                    <h4>Download Your Data</h4>
-                    <p>Export all your personal data in a standard format</p>
+                    <h4>{{ labels.DOWNLOAD_DATA }}</h4>
+                    <p>{{ labels.DOWNLOAD_DATA_DESC }}</p>
                     <button class="btn btn-secondary" (click)="onDownloadData()">
                         Download
                     </button>
                 </div>
 
                 <div class="data-action">
-                    <h4>Delete Personal Data</h4>
-                    <p>Permanently delete all your personal data</p>
+                    <h4>{{ labels.DELETE_DATA }}</h4>
+                    <p>{{ labels.DELETE_DATA_DESC }}</p>
                     <button class="btn btn-danger" (click)="onDeleteData()">
                         Delete Data
                     </button>
                 </div>
 
                 <div class="data-action">
-                    <h4>Clear Cache</h4>
-                    <p>Clear temporary files and cache</p>
+                    <h4>{{ labels.CLEAR_CACHE }}</h4>
+                    <p>{{ labels.CLEAR_CACHE_DESC }}</p>
                     <button class="btn btn-secondary" (click)="onClearCache()">
                         Clear Cache
                     </button>

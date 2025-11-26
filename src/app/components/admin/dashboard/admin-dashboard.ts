@@ -2,8 +2,8 @@ import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { selectUser } from '../../user/user-state-store/user.selector';
-import { ADMIN_MESSAGES } from '../../../constants/admin-messages';
+import { selectUser } from '@store/user';
+import { ADMIN_MESSAGES } from '@constants';
 
 @Component({
     selector: 'app-admin-dashboard',

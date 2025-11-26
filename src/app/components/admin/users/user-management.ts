@@ -2,9 +2,9 @@ import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { selectFilteredUsers, selectAllUsers } from '../admin-store/admin.selector';
-import * as AdminActions from '../admin-store/admin.actions';
-import { User } from '../admin-store/admin.interface';
+import { selectFilteredUsers } from '@store/admin';
+import * as AdminActions from '@store/admin';
+import { ADMIN_MESSAGES } from '@constants';
 
 @Component({
     selector: 'app-user-management',
@@ -16,6 +16,8 @@ import { User } from '../admin-store/admin.interface';
 })
 export class UserManagementComponent {
     private store = inject(Store);
+
+    labels = ADMIN_MESSAGES.USER_MANAGEMENT;
 
     searchQuery = signal('');
     users$ = this.store.pipe(select((state: any) => {

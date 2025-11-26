@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store, select } from '@ngrx/store';
-import { selectUserProfile } from '../../user-state-store/user.selector';
-import { USER_MESSAGES } from '../../../../constants/user-messages';
+import { selectUserProfile } from '@store/user';
+import { USER_MESSAGES } from '@constants';
 
 @Component({
     selector: 'app-view-profile',

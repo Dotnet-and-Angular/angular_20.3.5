@@ -1,7 +1,7 @@
 <div class="admin-analytics">
     <div class="analytics-header">
-        <h2>📊 System Analytics</h2>
-        <p>Real-time system performance and usage metrics</p>
+        <h2>{{ labels.TITLE }}</h2>
+        <p>{{ labels.SUBTITLE }}</p>
     </div>
 
     <div class="metrics-grid">
@@ -9,54 +9,54 @@
         <div class="metric-card">
             <div class="metric-icon">👥</div>
             <div class="metric-content">
-                <h4>Total Users</h4>
+                <h4>{{ labels.TOTAL_USERS }}</h4>
                 <p class="metric-value">{{ data.totalUsers }}</p>
-                <span class="metric-label">Registered users</span>
+                <span class="metric-label">{{ labels.TOTAL_USERS_DESC }}</span>
             </div>
         </div>
 
         <div class="metric-card">
             <div class="metric-icon">🟢</div>
             <div class="metric-content">
-                <h4>Active Users</h4>
+                <h4>{{ labels.ACTIVE_USERS }}</h4>
                 <p class="metric-value">{{ data.activeUsers }}</p>
-                <span class="metric-label">Currently online</span>
+                <span class="metric-label">{{ labels.ACTIVE_USERS_DESC }}</span>
             </div>
         </div>
 
         <div class="metric-card">
             <div class="metric-icon">✨</div>
             <div class="metric-content">
-                <h4>New Users</h4>
+                <h4>{{ labels.NEW_USERS_MONTH }}</h4>
                 <p class="metric-value">{{ data.newUsersThisMonth }}</p>
-                <span class="metric-label">This month</span>
+                <span class="metric-label">{{ labels.NEW_USERS_DESC }}</span>
             </div>
         </div>
 
         <div class="metric-card">
             <div class="metric-icon">⬆️</div>
             <div class="metric-content">
-                <h4>Uptime</h4>
+                <h4>{{ labels.SYSTEM_UPTIME }}</h4>
                 <p class="metric-value">{{ data.systemUptime }}</p>
-                <span class="metric-label">System availability</span>
+                <span class="metric-label">{{ labels.SYSTEM_UPTIME_DESC }}</span>
             </div>
         </div>
 
         <div class="metric-card">
             <div class="metric-icon">⚡</div>
             <div class="metric-content">
-                <h4>Response Time</h4>
+                <h4>{{ labels.AVG_RESPONSE_TIME }}</h4>
                 <p class="metric-value">{{ data.averageResponseTime }}</p>
-                <span class="metric-label">Average response</span>
+                <span class="metric-label">{{ labels.AVG_RESPONSE_TIME_DESC }}</span>
             </div>
         </div>
 
         <div class="metric-card">
             <div class="metric-icon">📈</div>
             <div class="metric-content">
-                <h4>System Load</h4>
+                <h4>{{ labels.SYSTEM_LOAD }}</h4>
                 <p class="metric-value">{{ data.systemLoad }}</p>
-                <span class="metric-label">Current load</span>
+                <span class="metric-label">{{ labels.SYSTEM_LOAD_DESC }}</span>
             </div>
         </div>
         }
@@ -64,7 +64,7 @@
 
     <div class="charts-grid">
         <div class="chart-card">
-            <h3>User Activity (Last 7 Days)</h3>
+            <h3>{{ labels.USER_ACTIVITY }}</h3>
             <div class="bar-chart">
                 @if (userActivityData$ | async; as activityData) {
                 @for (data of activityData; track data.label) {
@@ -80,7 +80,7 @@
         </div>
 
         <div class="chart-card">
-            <h3>User Role Distribution</h3>
+            <h3>{{ labels.ROLE_DISTRIBUTION }}</h3>
             <div class="pie-chart">
                 @if (roleDistribution$ | async; as distribution) {
                 @for (role of distribution; track role.label) {

@@ -1,6 +1,8 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { USER_MESSAGES } from '@constants';
+import { GLOBAL_MESSAGES } from '@constants';
 
 interface ProfileFormData {
     firstName: string;
@@ -24,6 +26,8 @@ interface ProfileFormData {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditProfileComponent {
+    labels = USER_MESSAGES.PROFILE;
+    common = GLOBAL_MESSAGES.COMMON;
     formData: ProfileFormData = {
         firstName: 'John',
         lastName: 'Doe',
@@ -40,7 +44,7 @@ export class EditProfileComponent {
     successMessage = '';
 
     onSubmit() {
-        this.successMessage = 'Profile updated successfully!';
+        this.successMessage = this.labels.UPDATE_SUCCESS;
         setTimeout(() => {
             this.successMessage = '';
         }, 3000);

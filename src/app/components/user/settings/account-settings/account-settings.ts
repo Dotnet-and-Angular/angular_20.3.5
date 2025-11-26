@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SETTINGS_MESSAGES } from '@constants';
 
 interface ApiKey {
   id: number;
@@ -23,6 +24,8 @@ interface PasswordData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountSettingsComponent {
+  labels = SETTINGS_MESSAGES.ACCOUNT;
+
   showPasswordForm = false;
   tfaEnabled = false;
   successMessage = '';

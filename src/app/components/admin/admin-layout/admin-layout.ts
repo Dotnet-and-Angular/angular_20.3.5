@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Header } from '../../core/header/header';
 import { SideNav } from '../../core/side-nav/side-nav';
-import { ADMIN_MESSAGES } from '../../../constants/admin-messages';
+import { ADMIN_MESSAGES } from '@constants';
 
 @Component({
     selector: 'app-admin-layout',

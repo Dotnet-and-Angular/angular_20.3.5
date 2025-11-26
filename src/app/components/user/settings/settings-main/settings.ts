@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterLink } from '@angular/router';
+import { USER_MESSAGES } from '@constants';
 
 @Component({
     selector: 'app-settings',
@@ -10,4 +11,6 @@ import { RouterModule, RouterLink } from '@angular/router';
     styleUrl: './settings.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SettingsComponent { }
+export class SettingsComponent {
+    labels = USER_MESSAGES.SETTINGS;
+}

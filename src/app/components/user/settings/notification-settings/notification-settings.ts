@@ -1,6 +1,7 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SETTINGS_MESSAGES } from '@constants';
 
 interface EmailNotifications {
   newMessages: boolean;
@@ -39,6 +40,8 @@ interface Device {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotificationSettingsComponent {
+  labels = SETTINGS_MESSAGES.NOTIFICATION;
+
   emailNotifications: EmailNotifications = {
     newMessages: true,
     accountUpdates: true,

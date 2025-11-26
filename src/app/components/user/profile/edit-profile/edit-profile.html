@@ -1,49 +1,48 @@
 <div class="edit-profile-container">
-    <h1>Edit Profile</h1>
+    <h1>{{ labels.EDIT_PROFILE }}</h1>
 
     <form (ngSubmit)="onSubmit()" class="profile-form">
         <div class="form-section">
-            <h3>Personal Information</h3>
+            <h3>{{ labels.PERSONAL_INFORMATION }}</h3>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="firstName">First Name</label>
+                    <label for="firstName">{{ labels.FIRST_NAME }}</label>
                     <input type="text" id="firstName" [(ngModel)]="formData.firstName" name="firstName"
-                        placeholder="Enter first name" />
+                        [placeholder]="labels.FIRST_NAME" />
                 </div>
                 <div class="form-group">
-                    <label for="lastName">Last Name</label>
+                    <label for="lastName">{{ labels.LAST_NAME }}</label>
                     <input type="text" id="lastName" [(ngModel)]="formData.lastName" name="lastName"
-                        placeholder="Enter last name" />
+                        [placeholder]="labels.LAST_NAME" />
                 </div>
             </div>
 
             <div class="form-group full-width">
-                <label for="email">Email Address</label>
+                <label for="email">{{ labels.EMAIL }}</label>
                 <input type="email" id="email" [(ngModel)]="formData.email" name="email"
-                    placeholder="Enter email address" />
+                    [placeholder]="labels.EMAIL_PLACEHOLDER" />
             </div>
 
             <div class="form-group full-width">
-                <label for="bio">Bio</label>
-                <textarea id="bio" [(ngModel)]="formData.bio" name="bio" placeholder="Write a short bio about yourself"
-                    rows="4"></textarea>
+                <label for="bio">{{ labels.BIO }}</label>
+                <textarea id="bio" [(ngModel)]="formData.bio" name="bio" [placeholder]="labels.BIO" rows="4"></textarea>
             </div>
         </div>
 
         <div class="form-section">
-            <h3>Contact Information</h3>
+            <h3>{{ labels.CONTACT_INFO }}</h3>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="phone">Phone Number</label>
+                    <label for="phone">{{ labels.PHONE }}</label>
                     <input type="tel" id="phone" [(ngModel)]="formData.phone" name="phone"
-                        placeholder="Enter phone number" />
+                        [placeholder]="labels.PHONE_PLACEHOLDER" />
                 </div>
                 <div class="form-group">
-                    <label for="location">Location</label>
+                    <label for="location">{{ labels.LOCATION }}</label>
                     <input type="text" id="location" [(ngModel)]="formData.location" name="location"
-                        placeholder="Enter location" />
+                        [placeholder]="labels.LOCATION_PLACEHOLDER" />
                 </div>
             </div>
 
@@ -55,36 +54,36 @@
         </div>
 
         <div class="form-section">
-            <h3>Professional Information</h3>
+            <h3>{{ labels.PROFESSIONAL_INFO }}</h3>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="department">Department</label>
+                    <label for="department">{{ labels.DEPARTMENT }}</label>
                     <input type="text" id="department" [(ngModel)]="formData.department" name="department"
-                        placeholder="Enter department" />
+                        placeholder="{{ labels.DEPARTMENT }}" />
                 </div>
                 <div class="form-group">
-                    <label for="role">Role</label>
+                    <label for="role">{{ labels.ROLE }}</label>
                     <select id="role" [(ngModel)]="formData.role" name="role">
-                        <option value="">Select Role</option>
-                        <option value="user">User</option>
-                        <option value="moderator">Moderator</option>
-                        <option value="admin">Administrator</option>
+                        <option value="">{{ labels.ROLE_PLACEHOLDER }}</option>
+                        <option value="user">{{ labels.ROLE_USER }}</option>
+                        <option value="moderator">{{ labels.ROLE_MODERATOR }}</option>
+                        <option value="admin">{{ labels.ROLE_ADMIN }}</option>
                     </select>
                 </div>
             </div>
 
             <div class="form-group full-width">
-                <label for="skills">Skills</label>
+                <label for="skills">{{ labels.SKILLS }}</label>
                 <input type="text" id="skills" [(ngModel)]="formData.skills" name="skills"
-                    placeholder="Comma-separated skills" />
+                    [placeholder]="labels.SKILLS_PLACEHOLDER" />
             </div>
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="submit" class="btn btn-primary">{{ common.SAVE }}</button>
             <button type="button" class="btn btn-secondary" (click)="onCancel()">
-                Cancel
+                {{ common.CANCEL }}
             </button>
         </div>
     </form>

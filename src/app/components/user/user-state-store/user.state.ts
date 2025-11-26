@@ -1,5 +1,5 @@
 import { IUser } from "../dashboard/interface/person";
-import { authToken, User, UserProfile, UserAnalyticsData } from "./user.interface";
+import { authToken, User } from "./user.interface";
 
 
 export const initialState: User = {

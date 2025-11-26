@@ -1,16 +1,16 @@
 
 import { Component, inject, OnInit, signal, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { Person } from '../../../services/person/person';
+import { Person } from '@services';
 
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
-import { loadPersons } from '../user-state-store/user.actions';
-import { selectPersons } from '../user-state-store/user.selector';
+import { loadPersons } from '@store/user';
+import { selectPersons } from '@store/user';
 import { Subject, takeUntil } from 'rxjs';
 import { IUser } from '../dashboard/interface/person';
 import { DataTableComponent, TableColumn } from '../../shared/data-table';
 import { CommonModule } from '@angular/common';
-import { USER_MESSAGES } from '../../../constants/user-messages';
+import { USER_MESSAGES } from '@constants';
 
 @Component({
   selector: 'app-userdata',

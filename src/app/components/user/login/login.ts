@@ -2,11 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component, signal, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { UserLogin } from '../../../services/user-login';
+import { UserLogin } from '@services';
 import { Store } from '@ngrx/store';
-import { loadUser, setToken } from '../user-state-store/user.actions';
+import { loadUser, setToken } from '@store/user';
 import { CommonModule } from '@angular/common';
-import { USER_MESSAGES } from '../../../constants/user-messages';
+import { USER_MESSAGES } from '@constants';
 
 @Component({
   selector: 'app-login',

@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterLink } from '@angular/router';
+import { USER_MESSAGES } from '@constants';
 
 @Component({
     selector: 'app-profile',
@@ -10,4 +11,6 @@ import { RouterModule, RouterLink } from '@angular/router';
     styleUrl: './profile.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProfileComponent { }
+export class ProfileComponent {
+    labels = USER_MESSAGES.PROFILE;
+}

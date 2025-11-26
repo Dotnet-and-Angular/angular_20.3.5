@@ -1,12 +1,12 @@
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, map, mergeMap, of, tap, switchMap, take, delay, filter, withLatestFrom, distinctUntilChanged } from "rxjs";
+import { catchError, map, mergeMap, of, tap, take, filter, withLatestFrom } from "rxjs";
 import { createUser, createUserFailure, createUserSuccess, loadPersons, loadPersonsFailure, loadPersonsSuccess, loadUser, loadUserFailure, loadUserSuccess, setToken, setUser } from "./user.actions";
-import { UserLogin } from "../../../services/user-login";
+import { UserLogin } from "@services";
 import { inject } from "@angular/core";
 import { Store, select } from "@ngrx/store";
 import { Router } from "@angular/router";
-import { Person } from "../../../services/person/person";
-import { selectUser } from "./user.selector";
+import { Person } from "@services";
+import { selectUser } from "@store/user";
 
 
 export class UserEffects {

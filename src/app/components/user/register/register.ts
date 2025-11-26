@@ -3,10 +3,9 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { createUser, } from '../user-state-store/user.actions';
+import { createUser, } from '@store/user';
 import { CommonModule } from '@angular/common';
-import { User } from '../user-state-store/user.interface';
-import { USER_MESSAGES } from '../../../constants/user-messages';
+import { USER_MESSAGES } from '@constants';
 
 @Component({
   selector: 'app-register',

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { map, catchError, startWith } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import * as AdminActions from './admin.actions';
 import { initialAdminState } from './admin.state';
 

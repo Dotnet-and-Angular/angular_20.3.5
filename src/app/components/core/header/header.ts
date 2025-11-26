@@ -2,9 +2,9 @@ import { Component, OnDestroy, output } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { getAuthToken, selectUser } from '../../user/user-state-store/user.selector';
-import { logout } from '../../user/user-state-store/user.actions';
-import { GLOBAL_MESSAGES } from '../../../constants/global-messages';
+import { getAuthToken, selectUser } from '@store/user';
+import { logout } from '@store/user';
+import { GLOBAL_MESSAGES } from '@constants';
 
 @Component({
   selector: 'app-header',

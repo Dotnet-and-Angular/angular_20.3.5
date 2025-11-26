@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SETTINGS_MESSAGES } from '@constants';
 
 interface PrivacySettings {
   profilePublic: boolean;
@@ -22,6 +23,8 @@ interface PrivacySettings {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PrivacySettingsComponent {
+  labels = SETTINGS_MESSAGES.PRIVACY;
+
   settings: PrivacySettings = {
     profilePublic: true,
     showEmail: false,

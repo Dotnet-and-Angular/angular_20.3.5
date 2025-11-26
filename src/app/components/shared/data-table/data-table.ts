@@ -1,5 +1,6 @@
 import { Component, input, output, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { GLOBAL_MESSAGES } from '@constants';
 
 export interface TableColumn {
     key: string;
@@ -20,6 +21,8 @@ export type SortDirection = 'asc' | 'desc' | null;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DataTableComponent {
+    labels = GLOBAL_MESSAGES.COMMON;
+
     data = input<any[]>([]);
     columns = input<TableColumn[]>([]);
     striped = input<boolean>(true);

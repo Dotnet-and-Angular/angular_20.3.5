@@ -1,6 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { authToken, User } from "./user.interface";
-import { IUser } from "../dashboard/interface/person";
+import { authToken } from "./user.interface";
 
 
 export enum USER_ACTIONS {

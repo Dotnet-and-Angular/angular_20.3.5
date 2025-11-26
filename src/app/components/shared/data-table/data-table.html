@@ -2,8 +2,9 @@
     <!-- Search Bar -->
     <div class="table-controls">
         <div class="search-box">
-            <input type="text" placeholder="Search data..." class="search-input"
-                (input)="onSearch($any($event.target).value)" [value]="searchTerm()" aria-label="Search table data" />
+            <input type="text" [placeholder]="labels.SEARCH_PLACEHOLDER" class="search-input"
+                (input)="onSearch($any($event.target).value)" [value]="searchTerm()"
+                [attr.aria-label]="labels.SEARCH_TABLE_DATA" />
             <span class="search-icon">🔍</span>
         </div>
     </div>
@@ -11,7 +12,7 @@
     <!-- Table -->
     <div class="table-container">
         <table class="data-table" [class.striped]="striped()" [class.hoverable]="hoverable()"
-            [class.bordered]="bordered()" role="table" aria-label="Data table">
+            [class.bordered]="bordered()" role="table" [attr.aria-label]="labels.DATA_TABLE">
 
             <!-- Table Header -->
             <thead class="table-header">
@@ -59,6 +60,7 @@
 
     <!-- Table Footer -->
     <div class="table-footer">
-        <span class="row-count">Showing {{ filteredAndSortedData().length }} of {{ data().length }} rows</span>
+        <span class="row-count">{{ labels.SHOWING }} {{ filteredAndSortedData().length }} {{ labels.OF }} {{
+            data().length }} rows</span>
     </div>
 </div>

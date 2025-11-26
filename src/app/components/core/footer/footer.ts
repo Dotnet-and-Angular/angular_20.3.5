@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { GLOBAL_MESSAGES } from '../../../constants/global-messages';
+import { GLOBAL_MESSAGES } from '@constants';
 
 @Component({
   selector: 'app-footer',

@@ -1,9 +1,10 @@
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store, select } from '@ngrx/store';
-import { selectAllPermissions, selectAllRoles, selectPermissionsByCategory } from '../admin-store/admin.selector';
-import * as AdminActions from '../admin-store/admin.actions';
-import { Permission, Role } from '../admin-store/admin.interface';
+import { selectAllPermissions, selectAllRoles } from '@store/admin';
+import * as AdminActions from '@store/admin';
+import { Role } from '@store/admin';
+import { ADMIN_MESSAGES } from '@constants';
 
 @Component({
     selector: 'app-permissions',
@@ -15,6 +16,8 @@ import { Permission, Role } from '../admin-store/admin.interface';
 })
 export class PermissionsComponent {
     private store = inject(Store);
+
+    labels = ADMIN_MESSAGES.PERMISSIONS;
 
     permissions$ = this.store.pipe(select(selectAllPermissions));
     roles$ = this.store.pipe(select(selectAllRoles));

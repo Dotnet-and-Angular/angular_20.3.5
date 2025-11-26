@@ -1,5 +1,5 @@
-import { Component, signal, effect } from '@angular/core';
-import { GLOBAL_MESSAGES } from '../../../constants/global-messages';
+import { Component, signal } from '@angular/core';
+import { GLOBAL_MESSAGES } from '@constants';
 
 @Component({
   selector: 'app-about',

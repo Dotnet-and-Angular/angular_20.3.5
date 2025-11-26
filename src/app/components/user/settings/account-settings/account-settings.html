@@ -1,33 +1,33 @@
 <div class="account-settings-container">
-    <h1>Account Settings</h1>
+    <h1>{{ labels.TITLE }}</h1>
 
     <div class="settings-grid">
         <div class="settings-card">
             <div class="card-header">
                 <span class="icon">🔐</span>
-                <h3>Password & Security</h3>
+                <h3>{{ labels.SECURITY_SECTION }}</h3>
             </div>
             <div class="card-content">
-                <p>Update your password and manage security settings</p>
+                <p>{{ labels.UPDATE_PASSWORD_DESC }}</p>
                 <button class="btn btn-secondary" (click)="onChangePassword()">
                     Change Password
                 </button>
                 @if (showPasswordForm) {
                 <div class="form-section">
                     <div class="form-group">
-                        <label for="currentPassword">Current Password</label>
+                        <label for="currentPassword">{{ labels.CURRENT_PASSWORD }}</label>
                         <input type="password" id="currentPassword" [(ngModel)]="passwordData.currentPassword"
-                            name="currentPassword" placeholder="Enter current password" />
+                            name="currentPassword" [placeholder]="labels.CURRENT_PASSWORD_PLACEHOLDER" />
                     </div>
                     <div class="form-group">
-                        <label for="newPassword">New Password</label>
+                        <label for="newPassword">{{ labels.NEW_PASSWORD }}</label>
                         <input type="password" id="newPassword" [(ngModel)]="passwordData.newPassword"
-                            name="newPassword" placeholder="Enter new password" />
+                            name="newPassword" [placeholder]="labels.NEW_PASSWORD_PLACEHOLDER" />
                     </div>
                     <div class="form-group">
-                        <label for="confirmPassword">Confirm Password</label>
+                        <label for="confirmPassword">{{ labels.CONFIRM_PASSWORD }}</label>
                         <input type="password" id="confirmPassword" [(ngModel)]="passwordData.confirmPassword"
-                            name="confirmPassword" placeholder="Confirm new password" />
+                            name="confirmPassword" [placeholder]="labels.CONFIRM_PASSWORD_PLACEHOLDER" />
                     </div>
                     <button class="btn btn-primary" (click)="onSavePassword()">
                         Save Password
@@ -40,7 +40,7 @@
         <div class="settings-card">
             <div class="card-header">
                 <span class="icon">📱</span>
-                <h3>Two-Factor Authentication</h3>
+                <h3>{{ labels.TWO_FACTOR }}</h3>
             </div>
             <div class="card-content">
                 <p>Add an extra layer of security to your account</p>
@@ -58,7 +58,7 @@
         <div class="settings-card">
             <div class="card-header">
                 <span class="icon">🔑</span>
-                <h3>API Keys</h3>
+                <h3>{{ labels.API_KEYS }}</h3>
             </div>
             <div class="card-content">
                 <p>Manage API keys for third-party integrations</p>
@@ -82,10 +82,10 @@
         <div class="settings-card">
             <div class="card-header">
                 <span class="icon">🗑️</span>
-                <h3>Delete Account</h3>
+                <h3>{{ labels.DELETE_ACCOUNT }}</h3>
             </div>
             <div class="card-content">
-                <p>Permanently delete your account and all data</p>
+                <p>{{ labels.DELETE_ACCOUNT_DESC }}</p>
                 <p class="warning">⚠️ This action cannot be undone</p>
                 <button class="btn btn-danger" (click)="onDeleteAccount()">
                     Delete Account

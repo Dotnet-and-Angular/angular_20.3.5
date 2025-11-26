@@ -1,5 +1,4 @@
 import { createReducer, on } from '@ngrx/store';
-import { AdminState } from './admin.interface';
 import { initialAdminState } from './admin.state';
 import * as AdminActions from './admin.actions';
 

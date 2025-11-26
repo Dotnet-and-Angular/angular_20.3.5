@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { User, Permission, Role, AnalyticsData, ChartData } from '../components/admin/admin-store/admin.interface';
-import { initialAdminState } from '../components/admin/admin-store/admin.state';
+import { User, Permission, Role, AnalyticsData, ChartData } from '../../components/admin/admin-store/admin.interface';
+import { initialAdminState } from '../../components/admin/admin-store/admin.state';
 
 @Injectable({
     providedIn: 'root'
