@@ -38,8 +38,6 @@ export const userReducer = createReducer(
         }
     }),
     on(createUser, (state, action) => {
-        console.log(action);
-
         return {
             ...state,
             name: action.username,

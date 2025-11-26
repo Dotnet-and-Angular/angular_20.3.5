@@ -155,7 +155,9 @@
         </div>
     </div>
 
-    <div *ngIf="savedMessage" class="alert alert-success">
+    @if (savedMessage) {
+    <div class="alert alert-success">
         {{ savedMessage }}
     </div>
+    }
 </div>

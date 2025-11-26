@@ -15,6 +15,12 @@ export const SIDENAV_ITEMS: SidenavItem[] = [
         route: '/user/user-data',
     },
     {
+        id: 'analytics',
+        icon: '📈',
+        label: 'Analytics',
+        route: '/user/analytics',
+    },
+    {
         id: 'profile',
         icon: '👤',
         label: 'Profile',

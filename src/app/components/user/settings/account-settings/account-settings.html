@@ -12,7 +12,8 @@
                 <button class="btn btn-secondary" (click)="onChangePassword()">
                     Change Password
                 </button>
-                <div *ngIf="showPasswordForm" class="form-section">
+                @if (showPasswordForm) {
+                <div class="form-section">
                     <div class="form-group">
                         <label for="currentPassword">Current Password</label>
                         <input type="password" id="currentPassword" [(ngModel)]="passwordData.currentPassword"
@@ -32,6 +33,7 @@
                         Save Password
                     </button>
                 </div>
+                }
             </div>
         </div>
 
@@ -43,7 +45,7 @@
             <div class="card-content">
                 <p>Add an extra layer of security to your account</p>
                 <div class="status">
-                    <span class="status-badge" [ngClass]="{ active: tfaEnabled, inactive: !tfaEnabled }">
+                    <span [class.active]="tfaEnabled" [class.inactive]="!tfaEnabled" class="status-badge">
                         {{ tfaEnabled ? "✓ Enabled" : "✗ Disabled" }}
                     </span>
                 </div>
@@ -64,13 +66,15 @@
                     Generate New Key
                 </button>
                 <div class="key-list">
-                    <div *ngFor="let key of apiKeys" class="key-item">
+                    @for (key of apiKeys; track key.id) {
+                    <div class="key-item">
                         <span class="key-name">{{ key.name }}</span>
                         <span class="key-date">Created: {{ key.created }}</span>
                         <button class="btn btn-danger btn-sm" (click)="onRevokeKey(key.id)">
                             Revoke
                         </button>
                     </div>
+                    }
                 </div>
             </div>
         </div>
@@ -90,7 +94,9 @@
         </div>
     </div>
 
-    <div *ngIf="successMessage" class="alert alert-success">
+    @if (successMessage) {
+    <div class="alert alert-success">
         {{ successMessage }}
     </div>
+    }
 </div>

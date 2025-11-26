@@ -30,25 +30,16 @@ export class UserEffects {
                         // Mock token if not provided by backend
                         const token = res?.token || `mock-token-${Date.now()}`;
 
-                        console.log('=== LOGIN EFFECT START ===');
-                        console.log('Mock as Admin:', payload.mockAsAdmin);
-                        console.log('Role to set:', role);
-                        console.log('Token:', token);
-
                         // Store token with role FIRST
                         this.store.dispatch(setToken({ token, role }));
-                        console.log('Dispatched setToken with role:', role);
 
                         // Store user state (no API call during login)
                         this.store.dispatch(setUser({ username, role }));
-                        console.log('Dispatched setUser with role:', role);
                     }),
                     map((res: any) => {
-                        console.log('Login success, returning loadUserSuccess');
                         return loadUserSuccess({ action: res });
                     }),
                     catchError(error => {
-                        console.error('Login error:', error);
                         return of(loadUserFailure({ error }));
                     })
                 )
@@ -95,18 +86,11 @@ export class UserEffects {
                     )
                 ),
                 tap(([_, user]) => {
-                    console.log('=== NAVIGATION EFFECT ===');
-                    console.log('Current user state:', user);
-                    console.log('User role:', user?.role);
-
                     if (user?.role === 'admin') {
-                        console.log('USER IS ADMIN - Navigating to /admin');
                         this.router.navigate(['/admin']);
                     } else if (user?.role === 'user') {
-                        console.log('USER IS USER - Navigating to /user');
                         this.router.navigate(['/user']);
                     } else {
-                        console.log('NO ROLE FOUND - Navigating to /login');
                         this.router.navigate(['/login']);
                     }
                 })

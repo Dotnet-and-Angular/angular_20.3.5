@@ -11,14 +11,11 @@ export class AuthGuard implements CanActivate {
 
     canActivate(): boolean | UrlTree {
         this.store.pipe(select(getAuthToken)).subscribe((token) => {
-            console.log('AuthGuard - Token:', token);
             this.token = token;
         });
         if (this.token) {
-            console.log('AuthGuard - Authenticated, allowing access');
             return true;
         }
-        console.log('AuthGuard - Not authenticated, redirecting to login');
         if (!this.router.url) {
             this.store.dispatch(logout());
             return this.router.parseUrl('/login');

@@ -17,14 +17,13 @@ import { EditProfileComponent } from './components/user/profile/edit-profile/edi
 import { AnalyticsComponent } from './components/user/analytics/analytics';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: 'login', component: Login },
+    { path: 'register', component: Register },
     {
         path: '',
         component: Main,
         children: [
-            { path: 'about', component: About },
-            { path: 'register', component: Register },
-            { path: 'login', component: Login },
+            { path: '', component: About },
         ]
     },
     {
@@ -50,9 +49,7 @@ export const routes: Routes = [
             },
             {
                 path: 'analytics',
-                component: AnalyticsComponent,
-                canActivate: [RoleGuard],
-                data: { role: 'admin' }
+                component: AnalyticsComponent
             },
             { path: '', redirectTo: 'user-data', pathMatch: 'full' }
         ]

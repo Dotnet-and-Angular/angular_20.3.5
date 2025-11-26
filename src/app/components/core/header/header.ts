@@ -41,7 +41,7 @@ export class Header implements OnDestroy {
   }
 
   get isDashboard() {
-    return this.currentUrl.startsWith('/user');
+    return this.currentUrl.startsWith('/user') || this.currentUrl.startsWith('/admin');
   }
 
   get isLoginRoute() {

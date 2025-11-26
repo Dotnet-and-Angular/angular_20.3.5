@@ -1,0 +1,17 @@
+<app-header (toggleSideNav)="toggleSideNav()"></app-header>
+
+<!-- Backdrop overlay for mobile - closes sidenav when clicked -->
+@if (sideNavOpen()) {
+<div class="sidenav-backdrop" (click)="toggleSideNav()"></div>
+}
+
+<!-- Side navigation and main content -->
+<div class="admin-layout-wrapper" [class.sidenav-collapsed]="!sideNavOpen()">
+    <!-- Collapsible side-nav drawer -->
+    <app-side-nav [isOpen]="sideNavOpen()"></app-side-nav>
+
+    <!-- Main content area -->
+    <main class="admin-layout-content">
+        <router-outlet></router-outlet>
+    </main>
+</div>

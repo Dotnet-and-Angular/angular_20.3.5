@@ -89,7 +89,9 @@
         </div>
     </form>
 
-    <div *ngIf="successMessage" class="alert alert-success">
+    @if (successMessage) {
+    <div class="alert alert-success">
         {{ successMessage }}
     </div>
+    }
 </div>
