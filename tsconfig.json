@@ -27,9 +27,11 @@
       "@store/user": ["src/app/components/user/user-state-store/user.store.index"],
       "@shared": ["src/app/components/shared/shared.index"],
       "@interfaces": ["src/app/interfaces/interfaces.index"],
+      "@guards": ["src/app/guards/guards.index"],
 
       "@admin/components": ["src/app/components/admin/admin.index"],
-      "@user/components": ["src/app/components/user/user.index"]
+      "@user/components": ["src/app/components/user/user.index"],
+      "@core/components": ["src/app/components/core/core.index"]
     },
   },
   "angularCompilerOptions": { 

@@ -1,16 +1,9 @@
 import { Routes } from "@angular/router";
 import { AuthGuard } from "src/app/guards/auth.guard";
-import { AnalyticsComponent } from "./analytics/analytics";
-import { UserDashboard } from "./dashboard/user-dashboard";
-import { EditProfileComponent } from "./profile/edit-profile/edit-profile";
-import { ProfileComponent } from "./profile/profile-main/profile";
-import { ViewProfileComponent } from "./profile/view-profile/view-profile";
-import { AccountSettingsComponent } from "./settings/account-settings/account-settings";
-import { NotificationSettingsComponent } from "./settings/notification-settings/notification-settings";
-import { PrivacySettingsComponent } from "./settings/privacy-settings/privacy-settings";
-import { SettingsComponent } from "./settings/settings-main/settings";
-import { Userdata } from "./userdata/userdata";
-
+import {
+    AnalyticsComponent, UserDashboard, EditProfileComponent, ProfileComponent, ViewProfileComponent,
+    AccountSettingsComponent, Userdata, SettingsComponent, PrivacySettingsComponent, NotificationSettingsComponent
+} from "@user/components";
 
 export const USER_ROUTES: Routes = [
     {

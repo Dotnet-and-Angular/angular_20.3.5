@@ -1,10 +1,7 @@
 import { Routes } from '@angular/router';
-import { Register } from './components/user/register/register';
-import { Login } from './components/user/login/login';
-import { AuthGuard } from './guards/auth.guard';
-import { RoleGuard } from './guards/role.guard';
-import { About } from './components/core/about/about';
-import { Main } from './components/core/main/main';
+import { Register, Login } from '@user/components';
+import { AuthGuard, RoleGuard } from '@guards';
+import { About, Main } from '@core/components';
 
 export const routes: Routes = [
     { path: 'login', component: Login },

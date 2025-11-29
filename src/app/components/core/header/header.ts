@@ -1,12 +1,12 @@
 import { Component, OnDestroy, output, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { getAuthToken, selectUser } from '@store/user';
-import { logout } from '@store/user';
+
+import { getAuthToken, selectUser, logout } from '@store/user';
 import { GLOBAL_MESSAGES } from '@constants';
-import { CommonModule } from '@angular/common';
-import { SvgIconComponent } from '../../shared/svg-icon/svg-icon';
+import { SvgIconComponent } from '@shared';
 
 @Component({
   selector: 'app-header',
