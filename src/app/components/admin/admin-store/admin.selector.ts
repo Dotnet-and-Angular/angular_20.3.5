@@ -3,6 +3,25 @@ import { AdminState } from './admin.interface';
 
 export const selectAdminState = createFeatureSelector<AdminState>('admin');
 
+// Admins Selectors
+export const selectAllAdmins = createSelector(
+    selectAdminState,
+    (state: AdminState) => state.admins
+);
+
+export const selectAdminById = (adminId: number | string | undefined) => createSelector(
+    selectAllAdmins,
+    (admins) => admins.find(a => a.id === adminId)
+);
+
+export const selectFilteredAdmins = (searchQuery: string) => createSelector(
+    selectAllAdmins,
+    (admins) => admins.filter(a =>
+        (a.username?.toLowerCase().includes(searchQuery.toLowerCase()) || false) ||
+        (a.email?.toLowerCase().includes(searchQuery.toLowerCase()) || false)
+    )
+);
+
 // Users Selectors
 export const selectAllUsers = createSelector(
     selectAdminState,

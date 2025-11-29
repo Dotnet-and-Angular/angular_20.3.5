@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store, select } from '@ngrx/store';
-import { selectAllPermissions, selectAllRoles } from '@store/admin';
+import { selectAllPermissions, selectAllRoles, selectAdminLoading, selectAdminError } from '@store/admin';
 import * as AdminActions from '@store/admin';
 import { Role } from '@store/admin';
 import { ADMIN_MESSAGES } from '@constants';
@@ -21,6 +21,8 @@ export class PermissionsComponent {
 
     permissions$ = this.store.pipe(select(selectAllPermissions));
     roles$ = this.store.pipe(select(selectAllRoles));
+    loading$ = this.store.pipe(select(selectAdminLoading));
+    error$ = this.store.pipe(select(selectAdminError));
     selectedRole = signal<Role | null>(null);
 
     selectRole(role: Role) {
@@ -35,7 +37,6 @@ export class PermissionsComponent {
             ? role.permissions.filter(p => p !== permissionId)
             : [...role.permissions, permissionId];
 
-        this.store.dispatch(AdminActions.updateRolePermissions({ roleId: role.id, permissions }));
         this.selectedRole.set({ ...role, permissions });
     }
 
@@ -47,7 +48,6 @@ export class PermissionsComponent {
         const role = this.selectedRole();
         if (role) {
             this.store.dispatch(AdminActions.updateRolePermissions({ roleId: role.id, permissions: role.permissions }));
-            alert('Permissions updated successfully!');
         }
     }
 }

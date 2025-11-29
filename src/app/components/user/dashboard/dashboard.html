@@ -8,8 +8,8 @@
 
 <!-- Side navigation and main content -->
 <div class="dashboard-layout" [class.sidenav-collapsed]="!sideNavOpen()">
-    <!-- Collapsible side-nav drawer -->
-    <app-side-nav [isOpen]="sideNavOpen()"></app-side-nav>
+    <!-- Collapsible side-nav drawer - Only show USER items, not admin items -->
+    <app-side-nav [isOpen]="sideNavOpen()" [forceUserOnly]="true"></app-side-nav>
 
     <!-- Main content area -->
     <main class="dashboard-main">

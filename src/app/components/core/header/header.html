@@ -53,7 +53,12 @@
                 <span class="avatar" [attr.aria-label]="usernameInitials || labels.USER_AVATAR">{{ usernameInitials ||
                     '👤'
                     }}</span>
-                <span class="profile-name">{{ username || labels.PROFILE }}</span>
+                <div class="profile-info">
+                    <span class="profile-name">{{ username || labels.PROFILE }}</span>
+                    <span class="profile-email">{{ userEmail }}</span>
+                    <span class="profile-role" [class]="'role-' + (userRole || 'user').toLowerCase()">{{ userRole ||
+                        'user' }}</span>
+                </div>
             </button>
             <button type="button" class="header-btn logout" (click)="logout()">{{ labels.LOGOUT }}</button>
         </div>

@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store, select } from '@ngrx/store';
-import { selectUserProfile } from '@store/user';
+import { selectUserProfile, selectUser } from '@store/user';
 import { USER_MESSAGES } from '@constants';
 
 @Component({
@@ -15,5 +15,6 @@ import { USER_MESSAGES } from '@constants';
 export class ViewProfileComponent {
     private store = inject(Store);
     userData$ = this.store.pipe(select(selectUserProfile));
+    userState$ = this.store.pipe(select(selectUser));
     labels = USER_MESSAGES.PROFILE;
 }

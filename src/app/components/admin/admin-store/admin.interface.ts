@@ -1,3 +1,12 @@
+export interface Admin {
+    id?: number;
+    username: string;
+    email: string;
+    role: 'admin' | 'user' | 'editor' | 'viewer';
+    status?: 'active' | 'inactive';
+    joinDate?: string;
+}
+
 export interface User {
     id: number;
     username: string;
@@ -35,6 +44,7 @@ export interface AnalyticsData {
 }
 
 export interface AdminState {
+    admins: Admin[];
     users: User[];
     permissions: Permission[];
     roles: Role[];
@@ -44,3 +54,4 @@ export interface AdminState {
     loading: boolean;
     error: string | null;
 }
+

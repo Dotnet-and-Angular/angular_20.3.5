@@ -30,9 +30,10 @@
 
                 <form [formGroup]="form()" (ngSubmit)="onSubmit()" class="register-form">
                     <label class="field">
-                        <span class="field-label">{{ labels.USERNAME_LABEL }}</span>
-                        <input formControlName="username" type="text" [placeholder]="labels.USERNAME_PLACEHOLDER" />
-                        @if (form().get('username')?.errors?.['minLength'] && form().get('username')?.touched) {
+                        <span class="field-label">{{ labels.USERNAME_LABEL }} or {{ labels.EMAIL_LABEL }}</span>
+                        <input formControlName="usernameOrEmail" type="text"
+                            [placeholder]="labels.USERNAME_PLACEHOLDER" />
+                        @if (form().get('usernameOrEmail')?.invalid && form().get('usernameOrEmail')?.touched) {
                         <small class="error">{{ labels.USERNAME_ERROR }}</small>
                         }
                     </label>
@@ -54,13 +55,22 @@
                         }
                     </label>
 
+                    <label class="field">
+                        <span class="field-label">{{ labels.ROLE_LABEL }}</span>
+                        <select formControlName="role" class="role-select">
+                            @for (role of roles; track role) {
+                            <option [value]="role">{{ role | titlecase }}</option>
+                            }
+                        </select>
+                    </label>
+
                     <div class="actions">
                         <button type="submit" class="primary" [disabled]="!form().valid">{{ labels.REGISTER_BUTTON
                             }}</button>
                     </div>
                 </form>
 
-                @if (form().get('username')?.invalid && form().get('username')?.errors?.['conflict']) {
+                @if (form().get('usernameOrEmail')?.invalid && form().get('usernameOrEmail')?.errors?.['conflict']) {
                 <small class="error">{{ labels.USERNAME_EXISTS_ERROR }}</small>
                 }
             </div>

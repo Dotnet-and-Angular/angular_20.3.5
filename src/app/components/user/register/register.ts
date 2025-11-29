@@ -21,24 +21,31 @@ export class Register {
   private store = inject(Store<any>);
 
   labels = USER_MESSAGES.REGISTER;
+  roles = ['admin', 'user', 'editor', 'viewer'];
 
   alreadyExists = signal(false);
 
   form = signal(new FormGroup({
-    username: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    usernameOrEmail: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    confirmPassword: new FormControl('', [Validators.required])
+    confirmPassword: new FormControl('', [Validators.required]),
+    role: new FormControl('user', [Validators.required])
   }));
 
   onSubmit() {
     if (!this.form().valid) return;
-    const v = this.form().value as { username: string; password: string; confirmPassword: string };
+    const v = this.form().value as { usernameOrEmail: string; password: string; confirmPassword: string; role: string };
+
     if (v.password !== v.confirmPassword) {
-      // simple client-side check
       this.form().get('confirmPassword')?.setErrors({ mismatch: true });
       return;
     }
-    const payload = { username: v.username, password: v.password, role: 'user' as const };
+
+    const payload = {
+      usernameOrEmail: v.usernameOrEmail,
+      password: v.password,
+      role: v.role as 'admin' | 'user' | 'editor' | 'viewer'
+    };
     this.store.dispatch(createUser(payload));
     this.router.navigate(['/login'])
   }

@@ -20,7 +20,7 @@ $radius: 0.5rem;
 // ========================================
 // Container & Layout
 // ========================================
-.user-management-container {
+.admin-management-container {
   background: linear-gradient(135deg, #f8fafc 0%, #eef2f5 100%);
   min-height: 100vh;
   padding: 0;
@@ -334,7 +334,7 @@ $radius: 0.5rem;
 // ========================================
 // Form Styling
 // ========================================
-.user-form {
+.admin-form {
   padding: 2rem;
   flex: 1;
   overflow-y: auto;
@@ -614,16 +614,6 @@ $radius: 0.5rem;
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
-    }
-  }
-
-  &.toggle {
-    background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
-    color: white;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(168, 85, 247, 0.35);
     }
   }
 }

@@ -84,6 +84,13 @@ export const ADMIN_ITEMS: SidenavItem[] = [
         requiredRole: 'admin',
     },
     {
+        id: 'admin-management',
+        icon: '🔧',
+        label: 'Admin Management',
+        route: '/admin/admins',
+        requiredRole: 'admin',
+    },
+    {
         id: 'permissions',
         icon: '🔐',
         label: 'Permissions',

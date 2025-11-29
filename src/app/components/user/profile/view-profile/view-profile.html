@@ -1,30 +1,57 @@
 <div class="view-profile-container">
     <h1>{{ labels.TITLE }}</h1>
 
-    @if (userData$ | async; as userData) {
+    @if (userState$ | async; as userState) {
     <div class="profile-display">
+        <!-- New User Badge -->
+        @if (userState?.isNewUser) {
+        <div class="new-user-badge">
+            <span class="badge-icon">🎉</span>
+            <span class="badge-text">Welcome! This is your first login</span>
+        </div>
+        }
+
         <div class="profile-header">
             <div class="avatar-large">👤</div>
             <div class="header-info">
-                <h2>{{ userData?.firstName }} {{ userData?.lastName }}</h2>
-                <p class="bio">{{ userData?.bio }}</p>
+                <h2>{{ userState?.profile?.firstName }} {{ userState?.profile?.lastName }}</h2>
+                <p class="bio">{{ userState?.profile?.bio || 'No bio added yet' }}</p>
+                @if (userState?.profileData) {
+                <p class="username">@{{ userState?.profileData?.username }}</p>
+                }
             </div>
         </div>
 
         <div class="profile-sections">
+            <!-- Profile Data Section -->
+            @if (userState?.profileData) {
+            <div class="section">
+                <h3>Profile Information</h3>
+                <div class="info-item">
+                    <span class="label">ID:</span>
+                    <span class="value">{{ userState?.profileData?.id }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Username:</span>
+                    <span class="value">{{ userState?.profileData?.username }}</span>
+                </div>
+            </div>
+            }
+
             <div class="section">
                 <h3>{{ labels.CONTACT_INFO }}</h3>
                 <div class="info-item">
                     <span class="label">{{ labels.EMAIL }}:</span>
-                    <span class="value">{{ userData?.email }}</span>
+                    <span class="value">{{ userState?.profile?.email || userState?.profileData?.email }}</span>
                 </div>
                 <div class="info-item">
                     <span class="label">{{ labels.PHONE }}:</span>
-                    <span class="value">{{ userData?.phone }}</span>
+                    <span class="value">{{ userState?.profile?.phone || userState?.profileData?.phone || '-' }}</span>
                 </div>
                 <div class="info-item">
                     <span class="label">{{ labels.LOCATION }}:</span>
-                    <span class="value">{{ userData?.location }}</span>
+                    <span class="value">{{ userState?.profile?.location || userState?.profileData?.location || '-'
+                        }}</span>
                 </div>
             </div>
 
@@ -32,15 +59,18 @@
                 <h3>{{ labels.PROFESSIONAL_INFO }}</h3>
                 <div class="info-item">
                     <span class="label">{{ labels.DEPARTMENT }}:</span>
-                    <span class="value">{{ userData?.department }}</span>
+                    <span class="value">{{ userState?.profile?.department || userState?.profileData?.department || '-'
+                        }}</span>
                 </div>
                 <div class="info-item">
                     <span class="label">{{ labels.ROLE }}:</span>
-                    <span class="value">{{ userData?.role }}</span>
+                    <span class="value role-badge" [class]="'role-' + (userState?.role || 'user')">{{ userState?.role
+                        }}</span>
                 </div>
                 <div class="info-item">
                     <span class="label">{{ labels.MEMBER_SINCE }}:</span>
-                    <span class="value">{{ userData?.memberSince }}</span>
+                    <span class="value">{{ userState?.profile?.memberSince || userState?.profileData?.memberSince || '-'
+                        }}</span>
                 </div>
             </div>
 
@@ -48,15 +78,18 @@
                 <h3>{{ labels.ACCOUNT_STATUS }}</h3>
                 <div class="info-item">
                     <span class="label">{{ labels.STATUS }}:</span>
-                    <span class="value status-active">{{ userData?.status }}</span>
+                    <span class="value status-active">{{ userState?.profile?.status || userState?.profileData?.status ||
+                        'Active' }}</span>
                 </div>
                 <div class="info-item">
                     <span class="label">{{ labels.LAST_LOGIN }}:</span>
-                    <span class="value">{{ userData?.lastLogin }}</span>
+                    <span class="value">{{ userState?.profile?.lastLogin || userState?.profileData?.lastLogin || '-'
+                        }}</span>
                 </div>
                 <div class="info-item">
                     <span class="label">{{ labels.VERIFIED }}:</span>
-                    <span class="value status-verified">✓ {{ userData?.verified ? labels.YES : labels.NO }}</span>
+                    <span class="value status-verified">✓ {{ (userState?.profile?.verified ||
+                        userState?.profileData?.verified) ? labels.YES : labels.NO }}</span>
                 </div>
             </div>
         </div>

@@ -1,27 +1,32 @@
-import { Component, OnDestroy, output } from '@angular/core';
+import { Component, OnDestroy, output, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { getAuthToken, selectUser } from '@store/user';
 import { logout } from '@store/user';
 import { GLOBAL_MESSAGES } from '@constants';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   templateUrl: './header.html',
   styleUrls: ['./header.scss'],
-  imports: [RouterModule]
+  imports: [RouterModule, CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Header implements OnDestroy {
   toggleSideNav = output<void>();
   currentUrl = '';
   private token = '';
   username = '';
+  userRole = '';
+  userEmail = '';
   private subs: Subscription[] = [];
   labels = GLOBAL_MESSAGES.HEADER;
+  private store = inject(Store);
 
-  constructor(private router: Router, private store: Store) {
+  constructor(private router: Router) {
     this.currentUrl = this.router.url || '';
     this.subs.push(this.router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
@@ -35,6 +40,9 @@ export class Header implements OnDestroy {
 
     this.subs.push(this.store.pipe(select(selectUser)).subscribe((user: any) => {
       this.username = user?.username || '';
+      this.userRole = user?.role || '';
+      // Extract email from profile if available
+      this.userEmail = user?.profile?.email || '';
     }));
   }
 

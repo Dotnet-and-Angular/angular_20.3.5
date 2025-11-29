@@ -17,24 +17,26 @@
             <form [formGroup]="addPersonForm()" (ngSubmit)="onAddSubmit()" class="card-body">
                 <div class="grid">
                     <label class="field">
-                        <span class="label">{{ labels.NAME }}</span>
-                        <input type="text" formControlName="name" [placeholder]="labels.FULL_NAME" required />
+                        <span class="label">Username</span>
+                        <input type="text" formControlName="username" placeholder="Enter username" required />
                     </label>
                     <label class="field">
                         <span class="label">{{ labels.EMAIL_LABEL }}</span>
                         <input type="email" formControlName="email" [placeholder]="labels.EMAIL_PLACEHOLDER" required />
                     </label>
                     <label class="field">
-                        <span class="label">{{ labels.PHONE_LABEL }}</span>
-                        <input type="tel" formControlName="phone" [placeholder]="labels.PHONE_PLACEHOLDER" required />
+                        <span class="label">Role</span>
+                        <select formControlName="role" required>
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
                     </label>
                     <label class="field">
-                        <span class="label">{{ labels.AGE }}</span>
-                        <input type="number" formControlName="age" [placeholder]="labels.AGE_PLACEHOLDER" min="1"
-                            max="120" />
-                        @if (addPersonForm().get('age')?.invalid && addPersonForm().get('age')?.touched) {
-                        <small class="error">{{ labels.VALID_AGE_ERROR }}</small>
-                        }
+                        <span class="label">Status</span>
+                        <select formControlName="status" required>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
                     </label>
                 </div>
 
@@ -48,8 +50,8 @@
     }
 
     @if (!showAdd()) {
-    <app-data-table [data]="(people$ | async) || []" [columns]="tableColumns" [striped]="true" [hoverable]="true"
-        [bordered]="true" (rowSelected)="onRowSelected($event)" (rowDoubleClicked)="onRowDoubleClicked($event)">
+    <app-data-table [data]="people$()" [columns]="tableColumns" [striped]="true" [hoverable]="true" [bordered]="true"
+        (rowSelected)="onRowSelected($event)" (rowDoubleClicked)="onRowDoubleClick($event)">
     </app-data-table>
     }
 </section>

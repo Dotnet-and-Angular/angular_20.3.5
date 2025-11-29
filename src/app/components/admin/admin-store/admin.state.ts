@@ -1,11 +1,8 @@
 import { AdminState } from './admin.interface';
 
 export const initialAdminState: AdminState = {
-    users: [
-        { id: 1, username: 'john_doe', email: 'john@example.com', role: 'user', status: 'active', joinDate: '2024-01-15' },
-        { id: 2, username: 'jane_smith', email: 'jane@example.com', role: 'admin', status: 'active', joinDate: '2024-01-20' },
-        { id: 3, username: 'bob_wilson', email: 'bob@example.com', role: 'user', status: 'inactive', joinDate: '2024-02-10' },
-    ],
+    admins: [],
+    users: [],
     permissions: [
         { id: 1, name: 'View Users', description: 'Can view user list and details', category: 'Users' },
         { id: 2, name: 'Create User', description: 'Can create new users', category: 'Users' },

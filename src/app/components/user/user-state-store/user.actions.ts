@@ -33,7 +33,7 @@ export const getToken = createAction(USER_ACTIONS.getToken);
 export const logout = createAction(USER_ACTIONS.logout);
 
 // User Effects
-export const loadUser = createAction(USER_ACTIONS.loadUser, props<{ username: string; password: string; mockAsAdmin?: boolean }>());
+export const loadUser = createAction(USER_ACTIONS.loadUser, props<{ usernameOrEmail: string; password: string; role: string }>());
 export const loadUserSuccess = createAction(USER_ACTIONS.loadUserSuccess, props<{ action: any }>());
 export const loadUserFailure = createAction(USER_ACTIONS.loadUserFailure, props<{ error: any }>());
 
@@ -44,9 +44,13 @@ export const loadPersonsFailure = createAction(USER_ACTIONS.loadPersonsFailure, 
 
 
 // Set user state during login (no API call)
-export const setUser = createAction('Set User Action', props<{ username: string; role: 'user' | 'admin' }>());
+export const setUser = createAction('Set User Action', props<{ username: string; role: 'user' | 'admin' | 'editor' | 'viewer'; profile?: any; isNewUser?: boolean; profileData?: any }>());
 
-//admin crate user
-export const createUser = createAction(USER_ACTIONS.createUser, props<{ username: string; password: string; role: 'user' | 'admin' }>());
+// Create user with registration form
+export const createUser = createAction(USER_ACTIONS.createUser, props<{
+    usernameOrEmail: string;
+    password: string;
+    role: 'admin' | 'user' | 'editor' | 'viewer'
+}>());
 export const createUserSuccess = createAction(USER_ACTIONS.createUserSuccess, props<{ action: any }>());
 export const createUserFailure = createAction(USER_ACTIONS.createUserFailure, props<{ error: any }>());

@@ -225,7 +225,8 @@ $alert-blue: #0052cc;
 
 input[type='text'],
 input[type='password'],
-input[type='email'] {
+input[type='email'],
+.role-select {
   padding: 0.75rem 1rem;
   border-radius: 8px;
   border: 1.5px solid $border-color;

@@ -34,12 +34,15 @@ export const userReducer = createReducer(
             ...state,
             username: action.username,
             role: action.role,
+            profile: action.profile || null,
+            isNewUser: action.isNewUser || false,
+            profileData: action.profileData || null,
         }
     }),
     on(createUser, (state, action) => {
         return {
             ...state,
-            username: action.username,
+            username: action.usernameOrEmail,
             role: action.role,
         }
     }),

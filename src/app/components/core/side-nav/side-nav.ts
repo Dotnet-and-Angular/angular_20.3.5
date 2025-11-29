@@ -19,12 +19,25 @@ export class SideNav {
   labels = GLOBAL_MESSAGES.SIDEBAR;
 
   isOpen = input(true);
+  forceUserOnly = input(false);
   userRole = signal<string>('');
 
   sidenavItems = computed(() => {
     const role = this.userRole();
-    const allItems = role === 'admin' ? [...SIDENAV_ITEMS, ...ADMIN_ITEMS] : SIDENAV_ITEMS;
-    return allItems.filter(item => !item.requiredRole || item.requiredRole === role);
+    const forceUser = this.forceUserOnly();
+
+    // If forceUserOnly is true, only show user items regardless of role
+    if (forceUser) {
+      return SIDENAV_ITEMS.filter(item => !item.requiredRole || item.requiredRole === 'user');
+    }
+
+    // Show items based on role: admins see ONLY admin items, users see ONLY user items
+    if (role === 'admin') {
+      return ADMIN_ITEMS;
+    }
+
+    // Default to user items for regular users
+    return SIDENAV_ITEMS;
   });
 
   expandedItems = signal<Set<string>>(new Set());

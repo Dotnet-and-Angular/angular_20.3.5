@@ -7,26 +7,26 @@ import { inject, Injectable } from '@angular/core';
 export class UserLogin {
   private http = inject(HttpClient);
 
-  login(credentials: { username: string; password: string }) {
-    // Simulate an HTTP request for user login
-    return this.http.post('http://localhost:5297/api/auth/token', credentials);
+  login(credentials: { usernameOrEmail: string; password: string; role: string }) {
+    // Send login request with usernameOrEmail, password, and role
+    return this.http.post('http://localhost:5297/api/auth/login', credentials);
   }
 
 
-  register(credentials: { username: string; password: string; confirmPassword?: string; role?: 'user' | 'admin' }) {
-    // Simulate an HTTP request for user login
-    return this.http.post('http://localhost:5297/api/admin/register', credentials);
+  register(credentials: { usernameOrEmail: string; password: string; role: 'admin' | 'user' | 'editor' | 'viewer' }) {
+    // Send registration request with usernameOrEmail, password, and role
+    return this.http.post('http://localhost:5297/api/auth/register', credentials);
   }
 
-  sendOtp(phone: string, otp?: string) {
-    // Simulate an HTTP request to send OTP
-    const data = { phone: phone, code: '' };
+  sendOtp(usernameOrEmail: string) {
+    // Send OTP request with usernameOrEmail
+    const data = { usernameOrEmail };
     return this.http.post('http://localhost:5297/api/auth/send-otp', data);
   }
 
-  verifyOtp(phone: string, otp: string) {
-    // Simulate an HTTP request to verify OTP
-    const data = { phone: phone, code: otp };
+  verifyOtp(usernameOrEmail: string, code: string, role: string) {
+    // Verify OTP request with usernameOrEmail, code, and role
+    const data = { usernameOrEmail, code, role };
     return this.http.post('http://localhost:5297/api/auth/verify-otp', data);
   }
 }

@@ -32,19 +32,18 @@
             </div>
             }
 
-            <!-- Mock Role Toggle (for testing) -->
-            <div class="mock-role-toggle">
-                <label class="role-toggle-label">
-                    <input type="checkbox" [checked]="mockAsAdmin()" (change)="mockAsAdmin.set(!mockAsAdmin())" />
-                    <span class="toggle-text">{{ labels.MOCK_ADMIN_LABEL }} {{ mockAsAdmin() ? labels.MOCK_ADMIN_ADMIN :
-                        labels.MOCK_ADMIN_USER }} {{ labels.MOCK_ADMIN_EMOJI }}</span>
-                </label>
-            </div>
-
             <!-- Login Form -->
             <div class="form-container">
                 <h3 class="form-title">{{ labels.FORM_TITLE }}</h3>
                 <p class="form-subtitle">{{ labels.FORM_SUBTITLE }}</p>
+
+                <!-- Login Error Banner -->
+                @if (loginError()) {
+                <div class="error-banner">
+                    <span class="error-icon">✕</span>
+                    <span class="error-text">{{ loginError() }}</span>
+                </div>
+                }
 
                 <!-- Login Method Toggle -->
                 <div class="auth-toggle">
@@ -59,17 +58,44 @@
                 <form [formGroup]="form()" (ngSubmit)="onSubmit()" class="login-form">
                     <label class="field">
                         <span class="field-label">{{ labels.USERNAME_LABEL }}</span>
-                        <input formControlName="username" type="text" [placeholder]="labels.USERNAME_PLACEHOLDER"
-                            autocomplete="username" />
+                        <input formControlName="usernameOrEmail" type="text" [placeholder]="labels.USERNAME_PLACEHOLDER"
+                            autocomplete="username" [disabled]="isLoginLoading()" />
+                        @if (form().get('usernameOrEmail')?.invalid && form().get('usernameOrEmail')?.touched) {
+                        <small class="error">Username is required</small>
+                        }
                     </label>
                     <label class="field">
                         <span class="field-label">{{ labels.PASSWORD_LABEL }}</span>
                         <input formControlName="password" type="password" [placeholder]="labels.PASSWORD_PLACEHOLDER"
-                            autocomplete="current-password" />
+                            autocomplete="current-password" [disabled]="isLoginLoading()" />
+                        @if (form().get('password')?.invalid && form().get('password')?.touched) {
+                        <small class="error">
+                            @if (form().get('password')?.errors?.['required']) {
+                            Password is required
+                            }
+                            @if (form().get('password')?.errors?.['minlength']) {
+                            Password must be at least 6 characters
+                            }
+                        </small>
+                        }
+                    </label>
+                    <label class="field">
+                        <span class="field-label">Role</span>
+                        <select formControlName="role" class="role-select" [disabled]="isLoginLoading()">
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                            <option value="editor">Editor</option>
+                            <option value="viewer">Viewer</option>
+                        </select>
                     </label>
                     <div class="actions">
-                        <button type="submit" class="primary" [disabled]="!form().valid">{{ labels.SIGN_IN_BUTTON
-                            }}</button>
+                        <button type="submit" class="primary" [disabled]="!form().valid || isLoginLoading()">
+                            @if (isLoginLoading()) {
+                            <span class="loader"></span> Signing in...
+                            } @else {
+                            {{ labels.SIGN_IN_BUTTON }}
+                            }
+                        </button>
                     </div>
                 </form>
                 }
@@ -78,13 +104,34 @@
                 @if (phoneMode()) {
                 <form [formGroup]="phoneForm()" (ngSubmit)="sendOtp()" class="phone-form">
                     <label class="field">
-                        <span class="field-label">{{ labels.PHONE_LABEL }}</span>
-                        <input formControlName="phone" type="tel" [placeholder]="labels.PHONE_PLACEHOLDER"
-                            autocomplete="tel" />
+                        <span class="field-label">{{ labels.EMAIL_LABEL }}</span>
+                        <input formControlName="usernameOrEmail" type="email" [placeholder]="labels.EMAIL_PLACEHOLDER"
+                            autocomplete="email" [disabled]="isOtpSending() || otpSent()" />
+                        @if (phoneForm().get('usernameOrEmail')?.invalid && phoneForm().get('usernameOrEmail')?.touched)
+                        {
+                        <small class="error">Valid email address is required</small>
+                        }
                     </label>
+
+                    <!-- OTP Send Error Banner -->
+                    @if (otpSendError()) {
+                    <div class="error-banner">
+                        <span class="error-icon">✕</span>
+                        <span class="error-text">{{ otpSendError() }}</span>
+                    </div>
+                    }
+
                     <div class="actions">
-                        <button type="submit" class="primary" [disabled]="!phoneForm().valid || otpSent()">{{
-                            labels.SEND_OTP_BUTTON }}</button>
+                        <button type="submit" class="primary"
+                            [disabled]="!phoneForm().valid || isOtpSending() || otpSent()">
+                            @if (isOtpSending()) {
+                            <span class="loader"></span> Sending...
+                            } @else if (otpSent()) {
+                            ✓ OTP Sent
+                            } @else {
+                            {{ labels.SEND_OTP_BUTTON }}
+                            }
+                        </button>
                     </div>
                 </form>
                 }
@@ -94,11 +141,45 @@
                 <form [formGroup]="otpForm()" (ngSubmit)="verifyOtp()" class="otp-form">
                     <label class="field">
                         <span class="field-label">{{ labels.OTP_LABEL }}</span>
-                        <input formControlName="otp" type="text" maxlength="6" [placeholder]="labels.OTP_PLACEHOLDER" />
+                        <input formControlName="otp" type="text" maxlength="6" [placeholder]="labels.OTP_PLACEHOLDER"
+                            [disabled]="isOtpVerifying()" />
+                        @if (otpForm().get('otp')?.invalid && otpForm().get('otp')?.touched) {
+                        <small class="error">
+                            @if (otpForm().get('otp')?.errors?.['required']) {
+                            OTP is required
+                            }
+                            @if (otpForm().get('otp')?.errors?.['minlength']) {
+                            OTP must be 6 digits
+                            }
+                        </small>
+                        }
                     </label>
+                    <label class="field">
+                        <span class="field-label">Role</span>
+                        <select formControlName="role" class="role-select" [disabled]="isOtpVerifying()">
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                            <option value="editor">Editor</option>
+                            <option value="viewer">Viewer</option>
+                        </select>
+                    </label>
+
+                    <!-- OTP Verify Error Banner -->
+                    @if (otpVerifyError()) {
+                    <div class="error-banner">
+                        <span class="error-icon">✕</span>
+                        <span class="error-text">{{ otpVerifyError() }}</span>
+                    </div>
+                    }
+
                     <div class="actions">
-                        <button type="submit" class="primary" [disabled]="!otpForm().valid">{{ labels.VERIFY_OTP_BUTTON
-                            }}</button>
+                        <button type="submit" class="primary" [disabled]="!otpForm().valid || isOtpVerifying()">
+                            @if (isOtpVerifying()) {
+                            <span class="loader"></span> Verifying...
+                            } @else {
+                            {{ labels.VERIFY_OTP_BUTTON }}
+                            }
+                        </button>
                     </div>
                 </form>
                 }

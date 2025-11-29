@@ -1,11 +1,11 @@
-<div class="user-management-container">
+<div class="admin-management-container">
     <div class="page-wrapper">
         <!-- Advanced Toolbar -->
         <div class="advanced-toolbar">
             <div class="toolbar-content">
                 <div class="toolbar-section-left">
                     <h1 class="page-title">{{ labels.TITLE }}</h1>
-                    <p class="page-subtitle">Manage and organize all users</p>
+                    <p class="page-subtitle">Manage and organize all administrators</p>
                 </div>
 
                 <div class="toolbar-section-right">
@@ -19,12 +19,12 @@
                         <button class="search-btn" (click)="onSearch()" *ngIf="searchQuery()">Search</button>
                     </div>
 
-                    <button class="btn-add-primary" (click)="onAddUser()" [disabled]="showForm()">
+                    <button class="btn-add-primary" (click)="onAddAdmin()" [disabled]="showForm()">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <line x1="12" y1="5" x2="12" y2="19"></line>
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                         </svg>
-                        Add User
+                        Add Administrator
                     </button>
                 </div>
             </div>
@@ -52,9 +52,10 @@
                 <div class="slide-over-panel">
                     <div class="panel-header">
                         <div class="header-content">
-                            <h2 class="panel-title">{{ isEditMode() ? labels.EDIT_USER : labels.ADD_USER }}</h2>
-                            <p class="panel-subtitle">{{ isEditMode() ? 'Update user details' : 'Create a new user
-                                account' }}</p>
+                            <h2 class="panel-title">{{ isEditMode() ? labels.EDIT_ADMIN : labels.ADD_ADMIN }}</h2>
+                            <p class="panel-subtitle">
+                                {{ isEditMode() ? 'Update administrator details' : 'Create a new administrator account'
+                                }}</p>
                         </div>
                         <button class="close-panel-btn" (click)="onCancel()">
                             <svg viewBox="0 0 24 24" fill="currentColor">
@@ -64,7 +65,7 @@
                         </button>
                     </div>
 
-                    <form [formGroup]="userForm()" class="user-form">
+                    <form [formGroup]="adminForm()" class="admin-form">
                         <div class="form-section">
                             <div class="section-header">
                                 <h3>Account Information</h3>
@@ -77,7 +78,7 @@
                                 </label>
                                 <input id="username" type="text" formControlName="username" class="form-control"
                                     placeholder="Enter a unique username" />
-                                @if (userForm().get('username')?.invalid && userForm().get('username')?.touched) {
+                                @if (adminForm().get('username')?.invalid && adminForm().get('username')?.touched) {
                                 <div class="validation-error">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <path
@@ -95,7 +96,7 @@
                                 </label>
                                 <input id="email" type="email" formControlName="email" class="form-control"
                                     placeholder="Enter a valid email address" />
-                                @if (userForm().get('email')?.invalid && userForm().get('email')?.touched) {
+                                @if (adminForm().get('email')?.invalid && adminForm().get('email')?.touched) {
                                 <div class="validation-error">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <path
@@ -120,8 +121,9 @@
                                     </label>
                                     <select id="role" formControlName="role" class="form-control">
                                         <option value="">Select a role</option>
-                                        <option value="user">User</option>
-                                        <option value="admin">Admin</option>
+                                        <option value="admin">Administrator</option>
+                                        <option value="editor">Editor</option>
+                                        <option value="viewer">Viewer</option>
                                     </select>
                                 </div>
 
@@ -140,11 +142,11 @@
 
                         <div class="form-actions">
                             <button type="button" class="btn-cancel" (click)="onCancel()">
-                                Cancel
+                                {{ labels.CANCEL }}
                             </button>
-                            <button type="submit" class="btn-save" (click)="onSaveUser()"
-                                [disabled]="!userForm().valid">
-                                Save
+                            <button type="submit" class="btn-save" (click)="onSaveAdmin()"
+                                [disabled]="!adminForm().valid">
+                                {{ labels.SAVE }}
                             </button>
                         </div>
                     </form>
@@ -157,39 +159,35 @@
                 @if (loading()) {
                 <div class="loading-container">
                     <div class="spinner"></div>
-                    <p>{{ adminLabels.LOADING || 'Loading...' }}</p>
+                    <p>{{ labels.LOADING }}</p>
                 </div>
                 }
 
                 <!-- Table Container -->
-                @if (!loading() && users().length > 0) {
+                @if (!loading() && admins().length > 0) {
                 <div class="table-container">
                     <div class="table-header">
                         <div class="header-stats">
-                            <span class="stat-badge">{{ users().length }} Users</span>
+                            <span class="stat-badge">{{ admins().length }} Admins</span>
                         </div>
                     </div>
-                    <app-data-table [data]="users()" [columns]="tableColumns" [striped]="true" [hoverable]="true"
+                    <app-data-table [data]="admins()" [columns]="tableColumns" [striped]="true" [hoverable]="true"
                         [bordered]="true" (rowSelected)="onRowSelected($event)"
-                        (rowDoubleClicked)="onRowDoubleClick($event)">
+                        (rowDoubleClicked)="onEditAdmin($event)">
                     </app-data-table>
 
-                    @if (selectedUser()) {
+                    @if (selectedAdmin()) {
                     <div class="table-actions">
                         <div class="actions-info">
-                            <p>Selected: <strong>{{ selectedUser()?.username }}</strong></p>
+                            <p>Selected: <strong>{{ selectedAdmin()?.username }}</strong></p>
                         </div>
                         <div class="actions-buttons">
-                            <button class="btn-action edit" (click)="onEditUser(selectedUser()!)"
-                                [title]="adminLabels.EDIT || 'Edit'">
+                            <button class="btn-action edit" (click)="onEditAdmin(selectedAdmin()!)"
+                                [title]="labels.EDIT">
                                 <span class="icon">✏️</span> Edit
                             </button>
-                            <button class="btn-action toggle" (click)="onToggleStatus(selectedUser()!)"
-                                [title]="'Toggle Status'">
-                                <span class="icon">{{ selectedUser()?.status === 'active' ? '⏸️' : '▶️' }}</span> Status
-                            </button>
-                            <button class="btn-action delete" (click)="onDeleteUser(selectedUser()!)"
-                                [title]="adminLabels.DELETE || 'Delete'">
+                            <button class="btn-action delete" (click)="onDeleteAdmin(selectedAdmin()!)"
+                                [title]="labels.DELETE">
                                 <span class="icon">🗑️</span> Delete
                             </button>
                         </div>
@@ -199,7 +197,7 @@
                 }
 
                 <!-- Empty State -->
-                @if (!loading() && users().length === 0) {
+                @if (!loading() && admins().length === 0) {
                 <div class="empty-container">
                     <div class="empty-illustration">
                         <svg viewBox="0 0 120 120" fill="none">
@@ -208,10 +206,10 @@
                                 stroke="currentColor" stroke-width="2" fill="none" />
                         </svg>
                     </div>
-                    <h3>No users found</h3>
-                    <p>Get started by creating your first user account</p>
-                    <button class="btn-add-secondary" (click)="onAddUser()" [disabled]="showForm()">
-                        <span>+ Create User</span>
+                    <h3>No administrators found</h3>
+                    <p>Get started by creating your first administrator account</p>
+                    <button class="btn-add-secondary" (click)="onAddAdmin()" [disabled]="showForm()">
+                        <span>+ Create Administrator</span>
                     </button>
                 </div>
                 }
