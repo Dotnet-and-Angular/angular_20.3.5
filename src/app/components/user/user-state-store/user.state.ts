@@ -1,5 +1,4 @@
-import { IUser } from "@interfaces";
-import { authToken, userState } from "@interfaces";
+import { authToken, userState, IUser } from "@interfaces";
 
 
 export const initialState: userState = {

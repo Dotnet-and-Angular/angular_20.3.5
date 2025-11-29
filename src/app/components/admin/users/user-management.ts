@@ -6,8 +6,7 @@ import { ADMIN_MESSAGES } from '@constants';
 import * as AdminActions from '@store/admin';
 import * as AdminSelectors from '@store/admin';
 import { User } from '@interfaces';
-import { DataTableComponent, TableColumn } from 'src/app/components/shared';
-import { SvgIconComponent } from '../../shared/svg-icon/svg-icon';
+import { DataTableComponent, TableColumn, SvgIconComponent } from '@shared';
 
 @Component({
     selector: 'app-user-management',

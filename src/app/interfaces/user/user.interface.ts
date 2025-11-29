@@ -1,4 +1,4 @@
-import { ChartData } from "@interfaces";
+import { ChartData } from "src/app/interfaces/interfaces.index";
 
 export interface IUser {
     id: number;

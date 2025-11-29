@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 
 import { AdminService } from '@services';
 import { IUser } from '@interfaces';
-import { DataTableComponent, TableColumn } from '@table';
+import { DataTableComponent, TableColumn } from '@shared';
 import { USER_MESSAGES } from '@constants';
 import * as AdminActions from '@store/admin';
 import * as AdminSelectors from '@store/admin';

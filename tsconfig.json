@@ -20,16 +20,19 @@
      // customized paths
     "baseUrl": "./", 
     "paths": {
-      "@material": ["src/app/material/index"],
-      "@constants": ["src/app/constants/index"],
-      "@services": ["src/app/services/index"],
-      "@store/admin": ["src/app/components/admin/admin-store/index"],
-      "@store/user": ["src/app/components/user/user-state-store/index"],
-      "@table": ["src/app/components/shared/index"],
-      "@interfaces": ["src/app/interfaces/index"]
+      "@material": ["src/app/material/material.index"],
+      "@constants": ["src/app/constants/constants.index"],
+      "@services": ["src/app/services/services.index"],
+      "@store/admin": ["src/app/components/admin/admin-store/admin.store.index"],
+      "@store/user": ["src/app/components/user/user-state-store/user.store.index"],
+      "@shared": ["src/app/components/shared/shared.index"],
+      "@interfaces": ["src/app/interfaces/interfaces.index"],
+
+      "@admin/components": ["src/app/components/admin/admin.index"],
+      "@user/components": ["src/app/components/user/user.index"]
     },
   },
-  "angularCompilerOptions": {
+  "angularCompilerOptions": { 
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,

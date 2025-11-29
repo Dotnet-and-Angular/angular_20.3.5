@@ -3,10 +3,8 @@ import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideEffects } from '@ngrx/effects';
 
-import { authTokenReducer, userReducer } from "../components/user/user-state-store/user.reducer";
-import { UserEffects } from '../components/user/user-state-store/user.effects';
-import { adminReducer } from '../components/admin/admin-store/admin.reducer';
-import { AdminEffects } from '../components/admin/admin-store/admin.effects';
+import { authTokenReducer, userReducer, UserEffects } from "@store/user";
+import { adminReducer, AdminEffects } from '@store/admin';
 
 export const storeConfig = {
     reducers: {
