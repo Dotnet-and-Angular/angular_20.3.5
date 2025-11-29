@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { shareReplay, finalize } from 'rxjs/operators';
-import { User, Permission, Role, AnalyticsData, ChartData } from '../../components/admin/admin-store/admin.interface';
-import { initialAdminState } from '../../components/admin/admin-store/admin.state';
+import { User, Permission, Role, AnalyticsData, ChartData } from '@interfaces';
 
 interface Admin {
     id?: number;

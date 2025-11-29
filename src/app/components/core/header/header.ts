@@ -6,13 +6,14 @@ import { getAuthToken, selectUser } from '@store/user';
 import { logout } from '@store/user';
 import { GLOBAL_MESSAGES } from '@constants';
 import { CommonModule } from '@angular/common';
+import { SvgIconComponent } from '../../shared/svg-icon/svg-icon';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   templateUrl: './header.html',
   styleUrls: ['./header.scss'],
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, SvgIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Header implements OnDestroy {

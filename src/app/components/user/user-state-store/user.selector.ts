@@ -1,8 +1,8 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { authToken, User } from "./user.interface";
+import { authToken, userState } from "@interfaces";
 
 
-const selectUserState = createFeatureSelector<User>('user');
+const selectUserState = createFeatureSelector<userState>('user');
 const selectAuthToken = createFeatureSelector<authToken>('accessToken');
 
 

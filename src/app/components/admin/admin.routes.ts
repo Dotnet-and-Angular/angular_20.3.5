@@ -12,7 +12,6 @@ export const ADMIN_ROUTES: Routes = [
         component: AdminLayout,
         children: [
             { path: '', component: AdminDashboardComponent },
-            { path: 'dashboard', component: AdminDashboardComponent },
             { path: 'users', component: UserManagementComponent },
             { path: 'permissions', component: PermissionsComponent },
             { path: 'analytics', component: AdminAnalyticsComponent },

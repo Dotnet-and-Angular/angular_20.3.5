@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ADMIN_MESSAGES } from '@constants';
-import * as AdminActions from '../admin-store/admin.actions';
-import * as AdminSelectors from '../admin-store/admin.selector';
-import { User } from '../admin-store/admin.interface';
-import { DataTableComponent } from '../../shared/data-table/data-table';
-import type { TableColumn } from '../../shared/data-table/data-table';
+import * as AdminActions from '@store/admin';
+import * as AdminSelectors from '@store/admin';
+import { User } from '@interfaces';
+import { DataTableComponent, TableColumn } from 'src/app/components/shared';
+import { SvgIconComponent } from '../../shared/svg-icon/svg-icon';
 
 @Component({
     selector: 'app-user-management',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, DataTableComponent],
+    imports: [CommonModule, ReactiveFormsModule, DataTableComponent, SvgIconComponent],
     templateUrl: './user-management.html',
     styleUrls: ['./user-management.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

@@ -8,15 +8,15 @@ import { Header } from '../../core/header/header';
 import { SideNav } from '../../core/side-nav/side-nav';
 import * as AdminActions from '../../admin/admin-store/admin.actions';
 import * as AdminSelectors from '../../admin/admin-store/admin.selector';
-import { selectUserRole } from '../../user/user-state-store/user.selector';
+import { selectUserRole } from '../user-state-store/user.selector';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.html',
-  styleUrls: ['./dashboard.scss'],
+  selector: 'app-user-dashboard',
+  templateUrl: './user-dashboard.html',
+  styleUrls: ['./user-dashboard.scss'],
   imports: [Header, SideNav, RouterModule, CommonModule]
 })
-export class Dashboard implements OnInit {
+export class UserDashboard implements OnInit {
   private store = inject(Store);
   private router = inject(Router);
   sideNavOpen = signal(true);

@@ -12,6 +12,16 @@
             <p class="left-subheading">{{ labels.SUBHEADING }}</p>
             <p class="left-description">{{ labels.DESCRIPTION }}</p>
         </div>
+
+        <!-- Footer -->
+        <div class="auth-footer">
+            <p class="footer-text">
+                {{ labels.HAVE_ACCOUNT_TEXT }} <a routerLink="/login" class="footer-link">{{ labels.LOGIN_LINK }}</a> {{
+                labels.FOOTER_SEPARATOR }}
+                <a routerLink="/" class="footer-link">{{ labels.FOOTER_LINK_ABOUT }}</a> {{ labels.FOOTER_SEPARATOR }}
+                {{ labels.FOOTER_COPYRIGHT }}
+            </p>
+        </div>
     </div>
 
     <!-- Right Side: Registration Form -->
@@ -76,14 +86,6 @@
             </div>
         </div>
 
-        <!-- Footer -->
-        <div class="auth-footer">
-            <p class="footer-text">
-                {{ labels.HAVE_ACCOUNT_TEXT }} <a routerLink="/login" class="footer-link">{{ labels.LOGIN_LINK }}</a> {{
-                labels.FOOTER_SEPARATOR }}
-                <a routerLink="/" class="footer-link">{{ labels.FOOTER_LINK_ABOUT }}</a> {{ labels.FOOTER_SEPARATOR }}
-                {{ labels.FOOTER_COPYRIGHT }}
-            </p>
-        </div>
+
     </div>
 </div>

@@ -13,6 +13,19 @@
             <p class="left-subheading">{{ labels.SUBHEADING }}</p>
             <p class="left-description">{{ labels.DESCRIPTION }}</p>
         </div>
+
+        <!-- Footer -->
+        <div class="auth-footer">
+            <p class="footer-text">
+                {{ labels.FOOTER_TEXT_PREFIX }} <a href="javascript:void(0)" routerLink="/register"
+                    class="footer-link">{{ labels.FOOTER_LINK_REGISTER }}</a> {{ labels.FOOTER_SEPARATOR }}
+                <a href="javascript:void(0)" routerLink="/" class="footer-link">{{ labels.FOOTER_LINK_ABOUT }}</a> {{
+                labels.FOOTER_SEPARATOR }}
+                {{ labels.FOOTER_COPYRIGHT }}
+            </p>
+        </div>
+
+
     </div>
 
     <!-- Right Side: Login Form -->
@@ -25,12 +38,12 @@
             </div>
 
             <!-- Session Alert (Optional) -->
-            @if (showSessionAlert()) {
+            <!-- @if (showSessionAlert()) {
             <div class="session-alert">
                 <span class="alert-icon">ℹ️</span>
                 <span class="alert-text">{{ labels.SESSION_EXPIRED }}</span>
             </div>
-            }
+            } -->
 
             <!-- Login Form -->
             <div class="form-container">
@@ -186,25 +199,14 @@
             </div>
 
             <!-- Feedback Section (Optional) -->
-            <div class="feedback-section">
+            <!-- <div class="feedback-section">
                 <p class="feedback-title">{{ labels.FEEDBACK_TITLE }}</p>
                 <p class="feedback-description">{{ labels.FEEDBACK_DESCRIPTION }}<br>{{
                     labels.FEEDBACK_DESCRIPTION_BREAK }}</p>
                 <button type="button" class="survey-btn" (click)="onGoToSurvey()">
                     {{ labels.SURVEY_BUTTON }}
                 </button>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="auth-footer">
-            <p class="footer-text">
-                {{ labels.FOOTER_TEXT_PREFIX }} <a href="javascript:void(0)" routerLink="/register"
-                    class="footer-link">{{ labels.FOOTER_LINK_REGISTER }}</a> {{ labels.FOOTER_SEPARATOR }}
-                <a href="javascript:void(0)" routerLink="/" class="footer-link">{{ labels.FOOTER_LINK_ABOUT }}</a> {{
-                labels.FOOTER_SEPARATOR }}
-                {{ labels.FOOTER_COPYRIGHT }}
-            </p>
+            </div> -->
         </div>
     </div>
 </div>

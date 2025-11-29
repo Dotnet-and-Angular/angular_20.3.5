@@ -1,0 +1,28 @@
+<svg [attr.viewBox]="icon().viewBox" [attr.fill]="icon().fill" [attr.stroke]="icon().stroke"
+    [attr.stroke-width]="icon().strokeWidth" [class]="cssClass()" [attr.width]="width()" [attr.height]="height()"
+    [attr.aria-label]="ariaLabel()" aria-hidden="true" class="svg-icon">
+    @for (path of icon().paths; track path.tag) {
+    @switch (path.tag) {
+    @case ('path') {
+    <path [attr.d]="path.attrs['d']" [attr.stroke]="path.attrs['stroke']"
+        [attr.stroke-width]="path.attrs['stroke-width']" [attr.fill]="path.attrs['fill']" />
+    }
+    @case ('circle') {
+    <circle [attr.cx]="path.attrs['cx']" [attr.cy]="path.attrs['cy']" [attr.r]="path.attrs['r']"
+        [attr.stroke]="path.attrs['stroke']" [attr.stroke-width]="path.attrs['stroke-width']"
+        [attr.fill]="path.attrs['fill']" [attr.opacity]="path.attrs['opacity']" />
+    }
+    @case ('line') {
+    <line [attr.x1]="path.attrs['x1']" [attr.y1]="path.attrs['y1']" [attr.x2]="path.attrs['x2']"
+        [attr.y2]="path.attrs['y2']" />
+    }
+    @case ('polyline') {
+    <polyline [attr.points]="path.attrs['points']" />
+    }
+    @case ('rect') {
+    <rect [attr.x]="path.attrs['x']" [attr.y]="path.attrs['y']" [attr.width]="path.attrs['width']"
+        [attr.height]="path.attrs['height']" [attr.rx]="path.attrs['rx']" [attr.ry]="path.attrs['ry']" />
+    }
+    }
+    }
+</svg>

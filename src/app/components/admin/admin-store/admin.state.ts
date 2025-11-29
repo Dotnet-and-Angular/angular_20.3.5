@@ -1,4 +1,4 @@
-import { AdminState } from './admin.interface';
+import { AdminState } from '@interfaces';
 
 export const initialAdminState: AdminState = {
     admins: [],

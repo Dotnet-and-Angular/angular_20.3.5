@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { authToken } from "./user.interface";
+import { authToken } from "@interfaces";
 
 
 export enum USER_ACTIONS {

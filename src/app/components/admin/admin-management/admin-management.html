@@ -5,26 +5,22 @@
             <div class="toolbar-content">
                 <div class="toolbar-section-left">
                     <h1 class="page-title">{{ labels.TITLE }}</h1>
-                    <p class="page-subtitle">Manage and organize all administrators</p>
+                    <p class="page-subtitle">{{ labels.SUBTITLE }}</p>
                 </div>
 
                 <div class="toolbar-section-right">
                     <div class="search-wrapper">
-                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.35-4.35"></path>
-                        </svg>
-                        <input type="text" placeholder="Search by username or email..." [value]="searchQuery()"
+                        <app-svg-icon name="SEARCH" cssClass="search-icon"></app-svg-icon>
+                        <input type="text" [placeholder]="labels.SEARCH_PLACEHOLDER" [value]="searchQuery()"
                             (input)="onSearchInputChange($event)" (keyup.enter)="onSearch()" class="search-input" />
-                        <button class="search-btn" (click)="onSearch()" *ngIf="searchQuery()">Search</button>
+                        @if (searchQuery()) {
+                        <button class="search-btn" (click)="onSearch()">{{ labels.SEARCH_BUTTON }}</button>
+                        }
                     </div>
 
                     <button class="btn-add-primary" (click)="onAddAdmin()" [disabled]="showForm()">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="5" x2="12" y2="19"></line>
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                        </svg>
-                        Add Administrator
+                        <app-svg-icon name="PLUS"></app-svg-icon>
+                        {{ labels.ADD_ADMIN }}
                     </button>
                 </div>
             </div>
@@ -34,10 +30,7 @@
         @if (error()) {
         <div class="error-banner">
             <div class="banner-content">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
-                </svg>
+                <app-svg-icon name="ERROR"></app-svg-icon>
                 <span>{{ error() }}</span>
             </div>
             <button class="close-error" (click)="clearError()">×</button>
@@ -48,61 +41,53 @@
         <div class="main-content">
             <!-- Slide-over Panel -->
             <div class="slide-over-container" [class.open]="showForm()">
-                <div class="slide-over-overlay" (click)="onCancel()" *ngIf="showForm()"></div>
+                @if (showForm()) {
+                <div class="slide-over-overlay" (click)="onCancel()"></div>
+                }
                 <div class="slide-over-panel">
                     <div class="panel-header">
                         <div class="header-content">
                             <h2 class="panel-title">{{ isEditMode() ? labels.EDIT_ADMIN : labels.ADD_ADMIN }}</h2>
                             <p class="panel-subtitle">
-                                {{ isEditMode() ? 'Update administrator details' : 'Create a new administrator account'
-                                }}</p>
+                                {{ isEditMode() ? labels.FORM_SUBTITLE_EDIT : labels.FORM_SUBTITLE_ADD }}</p>
                         </div>
                         <button class="close-panel-btn" (click)="onCancel()">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
-                            </svg>
+                            <app-svg-icon name="CLOSE"></app-svg-icon>
                         </button>
                     </div>
 
                     <form [formGroup]="adminForm()" class="admin-form">
                         <div class="form-section">
                             <div class="section-header">
-                                <h3>Account Information</h3>
+                                <h3>{{ labels.ACCOUNT_INFORMATION }}</h3>
                             </div>
 
                             <div class="form-group">
                                 <label for="username" class="form-label">
-                                    <span class="label-text">Username</span>
-                                    <span class="required-badge">*</span>
+                                    <span class="label-text">{{ labels.USERNAME }}</span>
+                                    <span class="required-badge">{{ labels.REQUIRED_BADGE }}</span>
                                 </label>
                                 <input id="username" type="text" formControlName="username" class="form-control"
-                                    placeholder="Enter a unique username" />
+                                    [placeholder]="labels.USERNAME_PLACEHOLDER" />
                                 @if (adminForm().get('username')?.invalid && adminForm().get('username')?.touched) {
                                 <div class="validation-error">
-                                    <svg viewBox="0 0 24 24" fill="currentColor">
-                                        <path
-                                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
-                                    </svg>
-                                    <span>Username must be at least 3 characters</span>
+                                    <app-svg-icon name="ERROR"></app-svg-icon>
+                                    <span>{{ labels.REQUIRED_USERNAME }}</span>
                                 </div>
                                 }
                             </div>
 
                             <div class="form-group">
                                 <label for="email" class="form-label">
-                                    <span class="label-text">Email Address</span>
-                                    <span class="required-badge">*</span>
+                                    <span class="label-text">{{ labels.EMAIL }}</span>
+                                    <span class="required-badge">{{ labels.REQUIRED_BADGE }}</span>
                                 </label>
                                 <input id="email" type="email" formControlName="email" class="form-control"
-                                    placeholder="Enter a valid email address" />
+                                    [placeholder]="labels.EMAIL_PLACEHOLDER" />
                                 @if (adminForm().get('email')?.invalid && adminForm().get('email')?.touched) {
                                 <div class="validation-error">
-                                    <svg viewBox="0 0 24 24" fill="currentColor">
-                                        <path
-                                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
-                                    </svg>
-                                    <span>Please enter a valid email address</span>
+                                    <app-svg-icon name="ERROR"></app-svg-icon>
+                                    <span>{{ labels.REQUIRED_EMAIL }}</span>
                                 </div>
                                 }
                             </div>
@@ -110,31 +95,32 @@
 
                         <div class="form-section">
                             <div class="section-header">
-                                <h3>Permissions & Status</h3>
+                                <h3>{{ labels.PERMISSIONS_STATUS }}</h3>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="role" class="form-label">
-                                        <span class="label-text">Role</span>
-                                        <span class="required-badge">*</span>
+                                        <span class="label-text">{{ labels.ROLE }}</span>
+                                        <span class="required-badge">{{ labels.REQUIRED_BADGE }}</span>
                                     </label>
                                     <select id="role" formControlName="role" class="form-control">
-                                        <option value="">Select a role</option>
-                                        <option value="admin">Administrator</option>
-                                        <option value="editor">Editor</option>
-                                        <option value="viewer">Viewer</option>
+                                        <option value="">{{ labels.ROLE_PLACEHOLDER }}</option>
+                                        @for (option of roleOptions; track option.value) {
+                                        <option [value]="option.value">{{ option.label }}</option>
+                                        }
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="status" class="form-label">
-                                        <span class="label-text">Status</span>
-                                        <span class="required-badge">*</span>
+                                        <span class="label-text">{{ labels.STATUS }}</span>
+                                        <span class="required-badge">{{ labels.REQUIRED_BADGE }}</span>
                                     </label>
                                     <select id="status" formControlName="status" class="form-control">
-                                        <option value="active">Active</option>
-                                        <option value="inactive">Inactive</option>
+                                        @for (option of statusOptions; track option.value) {
+                                        <option [value]="option.value">{{ option.label }}</option>
+                                        }
                                     </select>
                                 </div>
                             </div>
@@ -200,16 +186,12 @@
                 @if (!loading() && admins().length === 0) {
                 <div class="empty-container">
                     <div class="empty-illustration">
-                        <svg viewBox="0 0 120 120" fill="none">
-                            <circle cx="60" cy="60" r="50" stroke="currentColor" stroke-width="2" opacity="0.1" />
-                            <path d="M60 40C48 40 40 48 40 60C40 72 48 80 60 80C72 80 80 72 80 60C80 48 72 40 60 40Z"
-                                stroke="currentColor" stroke-width="2" fill="none" />
-                        </svg>
+                        <app-svg-icon name="EMPTY_STATE"></app-svg-icon>
                     </div>
                     <h3>No administrators found</h3>
-                    <p>Get started by creating your first administrator account</p>
+                    <p>{{ labels.EMPTY_STATE_DESC }}</p>
                     <button class="btn-add-secondary" (click)="onAddAdmin()" [disabled]="showForm()">
-                        <span>+ Create Administrator</span>
+                        <span>+ {{ labels.CREATE_ADMIN_BTN }}</span>
                     </button>
                 </div>
                 }

@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { AdminState } from './admin.interface';
+import { AdminState } from '@interfaces';
 
 export const selectAdminState = createFeatureSelector<AdminState>('admin');
 

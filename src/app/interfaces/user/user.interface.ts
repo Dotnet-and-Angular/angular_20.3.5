@@ -1,4 +1,11 @@
-import { IUser } from "../dashboard/interface/person";
+import { ChartData } from "@interfaces";
+
+export interface IUser {
+    id: number;
+    name: string;
+    role: string;
+    permissions: string[];
+}
 
 export interface UserProfileData {
     id: number;
@@ -36,18 +43,13 @@ export interface AnalyticsStat {
     value: string;
 }
 
-export interface ChartData {
-    label: string;
-    value: number;
-}
-
 export interface UserAnalyticsData {
     stats: AnalyticsStat[];
     userGrowth: ChartData[];
     performanceData: ChartData[];
 }
 
-export interface User {
+export interface userState {
     username: string;
     role: string;
     isNewUser?: boolean;

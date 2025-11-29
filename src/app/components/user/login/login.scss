@@ -34,7 +34,7 @@ $alert-blue: #0052cc;
 .auth-left {
   flex: 1;
   background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e40af 100%);
-  display: flex;
+  display: grid;
   align-items: center;
   justify-content: center;
   padding: 3rem 2rem;

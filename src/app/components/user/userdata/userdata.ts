@@ -1,16 +1,16 @@
 
 import { Component, inject, OnInit, signal, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { AdminService } from '../../../services/admin/admin.service';
-
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
-import { IUser } from '../dashboard/interface/person';
-import { DataTableComponent, TableColumn } from '../../shared/data-table';
 import { CommonModule } from '@angular/common';
+
+import { AdminService } from '@services';
+import { IUser } from '@interfaces';
+import { DataTableComponent, TableColumn } from '@table';
 import { USER_MESSAGES } from '@constants';
-import * as AdminActions from '../../admin/admin-store/admin.actions';
-import * as AdminSelectors from '../../admin/admin-store/admin.selector';
+import * as AdminActions from '@store/admin';
+import * as AdminSelectors from '@store/admin';
 
 @Component({
   selector: 'app-userdata',

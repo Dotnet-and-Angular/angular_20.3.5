@@ -24,7 +24,9 @@
       "@constants": ["src/app/constants/index"],
       "@services": ["src/app/services/index"],
       "@store/admin": ["src/app/components/admin/admin-store/index"],
-      "@store/user": ["src/app/components/user/user-state-store/index"]
+      "@store/user": ["src/app/components/user/user-state-store/index"],
+      "@table": ["src/app/components/shared/index"],
+      "@interfaces": ["src/app/interfaces/index"]
     },
   },
   "angularCompilerOptions": {

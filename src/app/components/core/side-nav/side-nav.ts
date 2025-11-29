@@ -15,28 +15,17 @@ import { GLOBAL_MESSAGES } from '@constants';
 })
 export class SideNav {
   private store = inject(Store);
-
   labels = GLOBAL_MESSAGES.SIDEBAR;
 
   isOpen = input(true);
-  forceUserOnly = input(false);
   userRole = signal<string>('');
 
   sidenavItems = computed(() => {
     const role = this.userRole();
-    const forceUser = this.forceUserOnly();
 
-    // If forceUserOnly is true, only show user items regardless of role
-    if (forceUser) {
-      return SIDENAV_ITEMS.filter(item => !item.requiredRole || item.requiredRole === 'user');
-    }
-
-    // Show items based on role: admins see ONLY admin items, users see ONLY user items
     if (role === 'admin') {
       return ADMIN_ITEMS;
     }
-
-    // Default to user items for regular users
     return SIDENAV_ITEMS;
   });
 
@@ -45,7 +34,7 @@ export class SideNav {
 
   constructor() {
     this.store.pipe(select(selectUser)).subscribe((user: any) => {
-      this.userRole.set(user?.role || 'user');
+      this.userRole.set(user?.role);
     });
   }
 

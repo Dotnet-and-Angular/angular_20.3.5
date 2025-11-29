@@ -1,0 +1,90 @@
+.svg-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  flex-shrink: 0;
+
+  /* Default size */
+  width: 24px;
+  height: 24px;
+
+  /* Color inheritance */
+  color: inherit;
+
+  /* Smooth transitions */
+  transition: opacity 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  /* Size variants */
+  &.size-sm {
+    width: 16px;
+    height: 16px;
+  }
+
+  &.size-md {
+    width: 24px;
+    height: 24px;
+  }
+
+  &.size-lg {
+    width: 32px;
+    height: 32px;
+  }
+
+  &.size-xl {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Color variants */
+  &.color-primary {
+    color: #0066cc;
+  }
+
+  &.color-success {
+    color: #10b981;
+  }
+
+  &.color-warning {
+    color: #f59e0b;
+  }
+
+  &.color-danger {
+    color: #ef4444;
+  }
+
+  &.color-muted {
+    color: #9ca3af;
+  }
+
+  /* Disabled state */
+  &:disabled,
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Loading animation */
+  &.loading {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* RTL support */
+  &.rtl {
+    transform: scaleX(-1);
+  }
+}

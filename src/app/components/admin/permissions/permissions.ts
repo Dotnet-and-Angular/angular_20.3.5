@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Store, select } from '@ngrx/store';
 import { selectAllPermissions, selectAllRoles, selectAdminLoading, selectAdminError } from '@store/admin';
 import * as AdminActions from '@store/admin';
-import { Role } from '@store/admin';
+import { Role } from '@interfaces';
 import { ADMIN_MESSAGES } from '@constants';
 
 @Component({

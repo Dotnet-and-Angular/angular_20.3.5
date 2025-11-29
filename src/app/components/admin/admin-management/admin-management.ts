@@ -5,16 +5,17 @@ import { Store } from '@ngrx/store';
 import { ADMIN_MESSAGES } from '@constants';
 import * as AdminActions from '../admin-store/admin.actions';
 import * as AdminSelectors from '../admin-store/admin.selector';
-import { Admin } from '../admin-store/admin.interface';
+import { Admin } from '@interfaces';
 import { DataTableComponent } from '../../shared/data-table/data-table';
+import { SvgIconComponent } from '../../shared/svg-icon/svg-icon';
 import type { TableColumn } from '../../shared/data-table/data-table';
 
 @Component({
     selector: 'app-admin-management',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, DataTableComponent],
+    imports: [CommonModule, ReactiveFormsModule, DataTableComponent, SvgIconComponent],
     templateUrl: './admin-management.html',
-    styleUrl: './admin-management.scss',
+    styleUrls: ['./admin-management.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdminManagementComponent implements OnInit {
@@ -30,6 +31,8 @@ export class AdminManagementComponent implements OnInit {
     selectedAdmin = signal<Admin | null>(null);
 
     labels = ADMIN_MESSAGES.ADMIN_MANAGEMENT;
+    roleOptions = ADMIN_MESSAGES.ROLE_OPTIONS
+    statusOptions = ADMIN_MESSAGES.STATUS_OPTIONS;
 
     tableColumns: TableColumn[] = [
         { key: 'username', label: 'Username', sortable: true },
@@ -104,8 +107,8 @@ export class AdminManagementComponent implements OnInit {
         const adminData: Admin = {
             username: formData.username || '',
             email: formData.email || '',
-            role: (formData.role || 'admin') as 'admin' | 'user' | 'editor' | 'viewer',
-            status: (formData.status || 'active') as 'active' | 'inactive'
+            role: (formData.role || 'admin') as Admin['role'],
+            status: (formData.status || 'active') as Admin['status']
         };
 
         if (this.isEditMode()) {

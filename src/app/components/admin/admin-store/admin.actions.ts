@@ -1,15 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { User, Permission, Role, AnalyticsData, ChartData } from './admin.interface';
+import { User, Permission, Role, AnalyticsData, ChartData, Admin } from '@interfaces';
 
-// Admin Interface
-interface Admin {
-    id?: number;
-    username: string;
-    email: string;
-    role: 'admin' | 'user' | 'editor' | 'viewer';
-    status?: 'active' | 'inactive';
-    joinDate?: string;
-}
 
 // Load Admin Data
 export const loadAdminData = createAction('[Admin] Load Admin Data');

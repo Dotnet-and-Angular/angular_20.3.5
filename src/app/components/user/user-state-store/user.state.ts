@@ -1,8 +1,8 @@
-import { IUser } from "../dashboard/interface/person";
-import { authToken, User } from "./user.interface";
+import { IUser } from "@interfaces";
+import { authToken, userState } from "@interfaces";
 
 
-export const initialState: User = {
+export const initialState: userState = {
     username: '',
     role: '',
     persons: [] as IUser[],

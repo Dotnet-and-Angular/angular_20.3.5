@@ -17,7 +17,6 @@ import { USER_MESSAGES } from '@constants';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Login {
-  private http = inject(HttpClient);
   private userLogin = inject(UserLogin);
   private router = inject(Router);
   private store = inject(Store);
@@ -110,7 +109,11 @@ export class Login {
             profile
           }));
 
-          this.router.navigate(['/user']);
+          if (response.role === 'user' && response.token) {
+            this.router.navigate(['/user']);
+          } else if (response.role === 'admin' && response.token) {
+            this.router.navigate(['/admin']);
+          }
         },
         error: (error) => {
           this.isLoginLoading.set(false);
