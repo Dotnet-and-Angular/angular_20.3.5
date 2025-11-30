@@ -2,9 +2,9 @@ import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, catchError, switchMap, exhaustMap } from 'rxjs/operators';
-import * as AdminActions from './admin.actions';
-import { initialAdminState } from './admin.state';
-import { AdminService } from '../../../services/admin/admin.service';
+import * as AdminActions from '@store/admin';
+import { initialAdminState } from '@store/admin';
+import { AdminService } from '@services';
 
 @Injectable({ providedIn: 'root' })
 export class AdminEffects {

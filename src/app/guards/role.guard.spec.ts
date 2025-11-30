@@ -3,7 +3,6 @@ import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { RoleGuard } from './role.guard';
-import { selectUserRole } from '../components/user/user-state-store/user.selector';
 
 describe('RoleGuard', () => {
     let guard: RoleGuard;

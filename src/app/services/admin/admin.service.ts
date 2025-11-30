@@ -1,17 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { shareReplay, finalize } from 'rxjs/operators';
-import { User, Permission, Role, AnalyticsData, ChartData } from '@interfaces';
-
-interface Admin {
-    id?: number;
-    username: string;
-    email: string;
-    role: 'admin' | 'user' | 'editor' | 'viewer';
-    status?: 'active' | 'inactive';
-    joinDate?: string;
-}
+import { User, Permission, Role, AnalyticsData, ChartData, Admin } from '@interfaces';
 
 @Injectable({
     providedIn: 'root'

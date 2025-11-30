@@ -1,17 +1,9 @@
-<!-- Header with menu toggle -->
 <app-header (toggleSideNav)="toggleSideNav()"></app-header>
-
-<!-- Backdrop overlay for mobile - closes sidenav when clicked -->
 @if (sideNavOpen()) {
 <div class="sidenav-backdrop" (click)="toggleSideNav()"></div>
 }
-
-<!-- Side navigation and main content -->
 <div class="dashboard-layout" [class.sidenav-collapsed]="!sideNavOpen()">
-    <!-- Collapsible side-nav drawer - Only show USER items, not admin items -->
     <app-side-nav [isOpen]="sideNavOpen()"></app-side-nav>
-
-    <!-- Main content area -->
     <main class="dashboard-main">
         <router-outlet></router-outlet>
     </main>

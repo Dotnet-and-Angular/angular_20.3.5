@@ -1,14 +1,12 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy, signal, computed } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ADMIN_MESSAGES } from '@constants';
-import * as AdminActions from '../admin-store/admin.actions';
-import * as AdminSelectors from '../admin-store/admin.selector';
+import * as AdminActions from '@store/admin';
+import * as AdminSelectors from '@store/admin';
 import { Admin } from '@interfaces';
-import { DataTableComponent } from '../../shared/data-table/data-table';
-import { SvgIconComponent } from '../../shared/svg-icon/svg-icon';
-import type { TableColumn } from '../../shared/data-table/data-table';
+import { DataTableComponent, TableColumn, SvgIconComponent } from '@shared';
 
 @Component({
     selector: 'app-admin-management',

@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { selectUser } from '@store/user';
-import * as AdminSelectors from '../admin-store/admin.selector';
+import * as AdminSelectors from '@store/admin';
 import { ADMIN_MESSAGES } from '@constants';
-import * as AdminActions from '../admin-store/admin.actions';
+import * as AdminActions from '@store/admin';
 
 @Component({
     selector: 'app-admin-dashboard',

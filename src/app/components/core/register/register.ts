@@ -2,9 +2,9 @@ import { Component, signal, inject, ChangeDetectionStrategy } from '@angular/cor
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { createUser, } from '@store/user';
-import { CommonModule } from '@angular/common';
 import { USER_MESSAGES } from '@constants';
 
 @Component({
