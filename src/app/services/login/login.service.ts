@@ -4,7 +4,7 @@ import { inject, Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class UserLogin {
+export class LoginService {
   private http = inject(HttpClient);
 
   login(credentials: { usernameOrEmail: string; password: string; role: string }) {

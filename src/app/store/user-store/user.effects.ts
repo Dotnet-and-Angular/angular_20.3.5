@@ -1,14 +1,14 @@
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, map, mergeMap, of, tap } from "rxjs";
 import { createUser, createUserFailure, createUserSuccess, loadPersons, loadPersonsFailure, loadPersonsSuccess, loadUser, loadUserFailure, loadUserSuccess, setToken, setUser } from "./user.actions";
-import { UserLogin, AdminService } from "@services";
+import { LoginService, AdminService } from "@services";
 import { inject } from "@angular/core";
 import { Store } from "@ngrx/store";
 
 
 export class UserEffects {
     private actions$ = inject(Actions);
-    private userService = inject(UserLogin);
+    private LoginService = inject(LoginService);
     private adminService = inject(AdminService);
     private store = inject(Store);
 
@@ -16,7 +16,7 @@ export class UserEffects {
         this.actions$.pipe(
             ofType(loadUser),
             mergeMap((payload) =>
-                this.userService.login({ usernameOrEmail: payload.usernameOrEmail, password: payload.password, role: payload.role }).pipe(
+                this.LoginService.login({ usernameOrEmail: payload.usernameOrEmail, password: payload.password, role: payload.role }).pipe(
                     tap((res: any) => {
                         // Extract data from API response
                         const role = res?.role || 'user';
@@ -80,7 +80,7 @@ export class UserEffects {
                     password: payload.password,
                     role: payload.role
                 };
-                return this.userService.register(registrationData).pipe(
+                return this.LoginService.register(registrationData).pipe(
                     map((res: any) => {
                         return createUserSuccess({ action: res });
                     }),

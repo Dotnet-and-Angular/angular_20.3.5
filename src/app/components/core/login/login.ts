@@ -1,7 +1,7 @@
 import { Component, signal, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { UserLogin } from '@services';
+import { LoginService } from '@services';
 import { Store } from '@ngrx/store';
 import { setToken, setUser } from '@store/user';
 import { CommonModule } from '@angular/common';
@@ -16,7 +16,7 @@ import { USER_MESSAGES, ROLES } from '@constants';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Login {
-  private userLogin = inject(UserLogin);
+  private LoginService = inject(LoginService);
   private router = inject(Router);
   private store = inject(Store);
 
@@ -89,7 +89,7 @@ export class Login {
       const password = this.form().value.password ?? '';
       const role = this.form().value.role ?? 'user';
 
-      this.userLogin.login({ usernameOrEmail, password, role }).subscribe({
+      this.LoginService.login({ usernameOrEmail, password, role }).subscribe({
         next: (response: any) => {
           this.isLoginLoading.set(false);
           const token = response?.token;
@@ -140,7 +140,7 @@ export class Login {
       this.phoneForm().disable();
 
       const usernameOrEmail = this.phoneForm().value.usernameOrEmail ?? '';
-      this.userLogin.sendOtp(usernameOrEmail).subscribe({
+      this.LoginService.sendOtp(usernameOrEmail).subscribe({
         next: (response: any) => {
           this.isOtpSending.set(false);
           this.otpSent.set(true);
@@ -165,7 +165,7 @@ export class Login {
       const code = this.otpForm().get('otp')?.value ?? '';
       const role = this.otpForm().get('role')?.value ?? 'user';
 
-      this.userLogin.verifyOtp(usernameOrEmail, code, role).subscribe({
+      this.LoginService.verifyOtp(usernameOrEmail, code, role).subscribe({
         next: (response: any) => {
           this.isOtpVerifying.set(false);
           const token = response?.token;
