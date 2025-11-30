@@ -1,8 +1,12 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { USER_MESSAGES } from '@constants';
+import { Router } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { USER_MESSAGES, ROLES } from '@constants';
 import { GLOBAL_MESSAGES } from '@constants';
+import { selectUserRole } from '@store/user';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 interface ProfileFormData {
     firstName: string;
@@ -25,9 +29,27 @@ interface ProfileFormData {
     styleUrl: './edit-profile.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditProfileComponent {
+export class EditProfileComponent implements OnInit {
+    private store = inject(Store);
+    private router = inject(Router);
+
     labels = USER_MESSAGES.PROFILE;
     common = GLOBAL_MESSAGES.COMMON;
+    roles = ROLES;
+
+    userRole = toSignal(this.store.pipe(select(selectUserRole)), { initialValue: 'user' });
+    successMessage = signal('');
+
+    // Only show role field for admins
+    showRoleField = computed(() => this.userRole() === 'admin');
+
+    ngOnInit() {
+        // Only admins can edit profiles
+        if (this.userRole() !== 'admin') {
+            this.router.navigate(['/user/profile/view']);
+        }
+    }
+
     formData: ProfileFormData = {
         firstName: 'John',
         lastName: 'Doe',
@@ -41,16 +63,14 @@ export class EditProfileComponent {
         skills: 'Angular, TypeScript, SCSS, Node.js'
     };
 
-    successMessage = '';
-
     onSubmit() {
-        this.successMessage = this.labels.UPDATE_SUCCESS;
+        this.successMessage.set(this.labels.UPDATE_SUCCESS);
         setTimeout(() => {
-            this.successMessage = '';
+            this.successMessage.set('');
         }, 3000);
     }
 
     onCancel() {
-        this.successMessage = '';
+        this.successMessage.set('');
     }
 }

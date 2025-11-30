@@ -2,7 +2,7 @@ import { Component, OnInit, inject, ChangeDetectionStrategy, signal } from '@ang
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { ADMIN_MESSAGES } from '@constants';
+import { ADMIN_MESSAGES, ROLES, STATUSES } from '@constants';
 import * as AdminActions from '@store/admin';
 import * as AdminSelectors from '@store/admin';
 import { User } from '@interfaces';
@@ -30,6 +30,8 @@ export class UserManagementComponent implements OnInit {
 
     labels = ADMIN_MESSAGES.USER_MANAGEMENT;
     adminLabels = ADMIN_MESSAGES.ADMIN_MANAGEMENT;
+    roles = ROLES;
+    statuses = STATUSES;
 
     userForm = signal(new FormGroup({
         username: new FormControl('', [Validators.required, Validators.minLength(3)]),

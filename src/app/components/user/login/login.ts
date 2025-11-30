@@ -4,9 +4,9 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { UserLogin } from '@services';
 import { Store } from '@ngrx/store';
-import { loadUser, setToken, setUser } from '@store/user';
+import { setToken, setUser } from '@store/user';
 import { CommonModule } from '@angular/common';
-import { USER_MESSAGES } from '@constants';
+import { USER_MESSAGES, ROLES } from '@constants';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +22,7 @@ export class Login {
   private store = inject(Store);
 
   labels = USER_MESSAGES.LOGIN;
+  roles = ROLES;
 
   phoneMode = signal(false);
   otpSent = signal(false);
@@ -70,10 +71,20 @@ export class Login {
     window.open('https://example.com/survey', '_blank');
   }
 
+  private navigateBasedOnRole(role: string) {
+    if (role === 'admin' || role === 'user') {
+      this.router.navigate([`/${role}`]);
+    } else {
+      // Fallback for unknown roles
+      this.router.navigate(['/user']);
+    }
+  }
+
   onSubmit() {
     if (this.form().valid) {
       this.loginError.set('');
       this.isLoginLoading.set(true);
+      this.form().disable();
 
       const usernameOrEmail = this.form().value.usernameOrEmail ?? '';
       const password = this.form().value.password ?? '';
@@ -109,14 +120,13 @@ export class Login {
             profile
           }));
 
-          if (response.role === 'user' && response.token) {
-            this.router.navigate(['/user']);
-          } else if (response.role === 'admin' && response.token) {
-            this.router.navigate(['/admin']);
+          if (response.token) {
+            this.navigateBasedOnRole(responseRole);
           }
         },
         error: (error) => {
           this.isLoginLoading.set(false);
+          this.form().enable();
           const errorMsg = error?.error?.message || error?.message || 'Login failed. Please check your credentials.';
           this.loginError.set(errorMsg);
         }
@@ -128,6 +138,7 @@ export class Login {
     if (this.phoneForm().valid) {
       this.otpSendError.set('');
       this.isOtpSending.set(true);
+      this.phoneForm().disable();
 
       const usernameOrEmail = this.phoneForm().value.usernameOrEmail ?? '';
       this.userLogin.sendOtp(usernameOrEmail).subscribe({
@@ -137,6 +148,7 @@ export class Login {
         },
         error: (error) => {
           this.isOtpSending.set(false);
+          this.phoneForm().enable();
           const errorMsg = error?.error?.message || error?.message || 'Failed to send OTP. Please try again.';
           this.otpSendError.set(errorMsg);
         }
@@ -148,6 +160,7 @@ export class Login {
     if (this.otpForm().valid) {
       this.otpVerifyError.set('');
       this.isOtpVerifying.set(true);
+      this.otpForm().disable();
 
       const usernameOrEmail = this.phoneForm().get('usernameOrEmail')?.value ?? '';
       const code = this.otpForm().get('otp')?.value ?? '';
@@ -187,11 +200,12 @@ export class Login {
           }));
 
           if (response.token) {
-            this.router.navigate(['/user']);
+            this.navigateBasedOnRole(responseRole);
           }
         },
         error: (error) => {
           this.isOtpVerifying.set(false);
+          this.otpForm().enable();
           const errorMsg = error?.error?.message || error?.message || 'OTP verification failed. Please try again.';
           this.otpVerifyError.set(errorMsg);
         }

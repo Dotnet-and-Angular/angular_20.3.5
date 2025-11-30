@@ -7,10 +7,11 @@
         <li class="sidenav-item" [class.has-children]="item.children && item.children.length > 0" role="presentation">
             <!-- Main Menu Link -->
             <div class="sidenav-link-wrapper">
-                <a class="sidenav-link" [routerLink]="item.route" routerLinkActive="active"
-                    [routerLinkActiveOptions]="{ exact: !item.children || item.children.length === 0 }"
+                <a class="sidenav-link" [routerLink]="item.route"
+                    [routerLinkActive]="!item.children || item.children.length === 0 ? 'active' : ''"
+                    [routerLinkActiveOptions]="{ exact: true }"
                     [attr.aria-current]="item.route === '/user/user-data' ? 'page' : null" role="menuitem"
-                    (click)="item.children && item.children.length > 0 ? toggleExpanded(item.id, $event) : onNavClick()">
+                    (click)="item.children && item.children.length > 0 ? toggleExpanded(item.id, $event) : null">
                     <!-- Icon -->
                     <span class="sidenav-icon" aria-hidden="true">
                         {{ item.icon || '▸' }}
@@ -21,21 +22,23 @@
 
                 <!-- Expand/Collapse Indicator -->
                 @if (item.children && item.children.length > 0) {
-                <button class="sidenav-expand-btn" [class.expanded]="isItemExpanded()(item.id)"
-                    [attr.aria-expanded]="isItemExpanded()(item.id)" (click)="toggleExpanded(item.id, $event)"
-                    [attr.aria-label]="'Toggle ' + item.label + ' submenu'">
+                <button class="sidenav-expand-btn"
+                    [class.expanded]="isItemExpanded()(item.id) || isParentActive()(item.id)"
+                    [attr.aria-expanded]="isItemExpanded()(item.id) || isParentActive()(item.id)"
+                    (click)="toggleExpanded(item.id, $event)" [attr.aria-label]="'Toggle ' + item.label + ' submenu'">
                     <span class="expand-icon">›</span>
                 </button>
                 }
             </div>
 
             <!-- Submenu Section - Nested Items -->
-            @if (item.children && item.children.length > 0 && isItemExpanded()(item.id)) {
+            @if (item.children && item.children.length > 0 && (isItemExpanded()(item.id) || isParentActive()(item.id)))
+            {
             <ul class="sidenav-submenu" role="menu" [attr.aria-label]="item.label + ' submenu'">
                 @for (child of item.children; track trackBySidenavChildItem($index, child)) {
                 <li class="sidenav-submenu-item" role="presentation">
                     <a class="sidenav-submenu-link" [routerLink]="child.route" routerLinkActive="active"
-                        [routerLinkActiveOptions]="{ exact: true }" role="menuitem" (click)="onNavClick()">
+                        [routerLinkActiveOptions]="{ exact: true }" role="menuitem">
                         <!-- Submenu Icon -->
                         @if (child.icon) {
                         <span class="sidenav-icon" aria-hidden="true">{{ child.icon }}</span>

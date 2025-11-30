@@ -62,15 +62,17 @@
                     <input type="text" id="department" [(ngModel)]="formData.department" name="department"
                         placeholder="{{ labels.DEPARTMENT }}" />
                 </div>
+                @if (showRoleField()) {
                 <div class="form-group">
                     <label for="role">{{ labels.ROLE }}</label>
                     <select id="role" [(ngModel)]="formData.role" name="role">
                         <option value="">{{ labels.ROLE_PLACEHOLDER }}</option>
-                        <option value="user">{{ labels.ROLE_USER }}</option>
-                        <option value="moderator">{{ labels.ROLE_MODERATOR }}</option>
-                        <option value="admin">{{ labels.ROLE_ADMIN }}</option>
+                        @for (role of roles; track role.value) {
+                        <option [value]="role.value">{{ role.label }}</option>
+                        }
                     </select>
                 </div>
+                }
             </div>
 
             <div class="form-group full-width">
@@ -88,9 +90,9 @@
         </div>
     </form>
 
-    @if (successMessage) {
+    @if (successMessage()) {
     <div class="alert alert-success">
-        {{ successMessage }}
+        {{ successMessage() }}
     </div>
     }
 </div>

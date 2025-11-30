@@ -1,11 +1,17 @@
 <div class="profile-container">
     <div class="profile-tabs">
-        <a routerLink="/user/profile/view" routerLinkActive="active" class="tab">
+        <a [routerLink]="baseRoute() + '/profile/view'" routerLinkActive="active" class="tab">
             <span class="icon">👁️</span> {{ labels.VIEW_PROFILE }}
         </a>
-        <a routerLink="/user/profile/edit" routerLinkActive="active" class="tab">
+        @if (canEdit()) {
+        <a [routerLink]="baseRoute() + '/profile/edit'" routerLinkActive="active" class="tab">
             <span class="icon">✏️</span> {{ labels.EDIT_PROFILE }}
         </a>
+        } @else {
+        <button class="tab tab-disabled" type="button" title="Only admins can edit profiles" disabled>
+            <span class="icon">✏️</span> {{ labels.EDIT_PROFILE }}
+        </button>
+        }
     </div>
 
     <router-outlet></router-outlet>

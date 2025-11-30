@@ -1,5 +1,4 @@
 import { Routes } from "@angular/router";
-import { AuthGuard } from "src/app/guards/auth.guard";
 import {
     AnalyticsComponent, UserDashboard, EditProfileComponent, ProfileComponent, ViewProfileComponent,
     AccountSettingsComponent, Userdata, SettingsComponent, PrivacySettingsComponent, NotificationSettingsComponent
@@ -7,7 +6,7 @@ import {
 
 export const USER_ROUTES: Routes = [
     {
-        path: '', component: UserDashboard, canActivate: [AuthGuard],
+        path: '', component: UserDashboard,
         children: [
             { path: 'user-data', component: Userdata },
             {

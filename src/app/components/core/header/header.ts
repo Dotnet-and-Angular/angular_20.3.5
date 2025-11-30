@@ -71,6 +71,10 @@ export class Header implements OnDestroy {
     return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
   }
 
+  get settingsRoute(): string {
+    return this.userRole === 'admin' ? '/admin/profile/view' : '/user/settings';
+  }
+
   toggleMenu(): void {
     this.toggleSideNav.emit();
   }

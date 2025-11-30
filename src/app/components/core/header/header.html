@@ -44,7 +44,7 @@
         <!-- when authenticated show profile info and logout -->
         @if (isAuthenticated) {
         <div class="header-profile">
-            <button routerLink="/user/settings" class="profile-link" [title]="username || labels.USER_PROFILE">
+            <button [routerLink]="settingsRoute" class="profile-link" [title]="username || labels.USER_PROFILE">
                 <span class="avatar" [attr.aria-label]="usernameInitials || labels.USER_AVATAR">{{ usernameInitials ||
                     '👤'
                     }}</span>

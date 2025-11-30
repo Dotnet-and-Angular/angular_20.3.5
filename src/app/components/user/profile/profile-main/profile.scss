@@ -22,6 +22,9 @@
   transition: all 0.3s ease;
   border-bottom: 3px solid transparent;
   margin-bottom: -2px;
+  border: none;
+  background: none;
+  font-size: inherit;
 
   &:hover {
     color: #3b82f6;
@@ -30,6 +33,20 @@
   &.active {
     color: #3b82f6;
     border-bottom-color: #3b82f6;
+  }
+
+  &.tab-disabled {
+    color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+
+    &:hover {
+      color: #ccc;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 
   .icon {

@@ -1,11 +1,9 @@
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, map, mergeMap, of, tap, take, filter, withLatestFrom } from "rxjs";
+import { catchError, map, mergeMap, of, tap } from "rxjs";
 import { createUser, createUserFailure, createUserSuccess, loadPersons, loadPersonsFailure, loadPersonsSuccess, loadUser, loadUserFailure, loadUserSuccess, setToken, setUser } from "./user.actions";
 import { UserLogin, AdminService } from "@services";
 import { inject } from "@angular/core";
-import { Store, select } from "@ngrx/store";
-import { Router } from "@angular/router";
-import { selectUser } from "@store/user";
+import { Store } from "@ngrx/store";
 
 
 export class UserEffects {
@@ -13,7 +11,6 @@ export class UserEffects {
     private userService = inject(UserLogin);
     private adminService = inject(AdminService);
     private store = inject(Store);
-    private router = inject(Router);
 
     loadUser$ = createEffect(() =>
         this.actions$.pipe(
@@ -93,28 +90,4 @@ export class UserEffects {
         )
     );
 
-    // Navigate after successful login when user state is updated
-    navigateAfterLogin$ = createEffect(
-        () =>
-            this.actions$.pipe(
-                ofType(loadUserSuccess),
-                withLatestFrom(
-                    this.store.pipe(
-                        select(selectUser),
-                        filter(user => !!user?.role), // Wait until role is actually set
-                        take(1)
-                    )
-                ),
-                tap(([_, user]) => {
-                    if (user?.role === 'admin') {
-                        this.router.navigate(['/admin']);
-                    } else if (user?.role === 'user') {
-                        this.router.navigate(['/user']);
-                    } else {
-                        this.router.navigate(['/login']);
-                    }
-                })
-            ),
-        { dispatch: false }
-    );
 }

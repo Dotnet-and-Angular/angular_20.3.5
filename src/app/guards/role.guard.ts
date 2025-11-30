@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree, ActivatedRouteSnapshot } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { selectUser } from '../components/user/user-state-store/user.selector';
-import { map } from 'rxjs/operators';
+import { selectUserRole } from '@store/user';
+import { map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -15,17 +15,28 @@ export class RoleGuard implements CanActivate {
         const requiredRole = route.data['role'] as string;
 
         return this.store.pipe(
-            select(selectUser),
-            map((user) => {
-                if (!user || !user.role) {
+            select(selectUserRole),
+            take(1),
+            map((userRole) => {
+                if (!userRole || userRole.trim() === '') {
                     return this.router.parseUrl('/login');
                 }
-
-                if (requiredRole && user.role !== requiredRole) {
-                    return this.router.parseUrl('/user/user-data');
+                // Exact role match
+                if (userRole === requiredRole) {
+                    return true;
                 }
-
-                return true;
+                // Admins can access user routes as well
+                if (userRole === 'admin' && requiredRole === 'user') {
+                    return true;
+                }
+                // If not authorized, redirect to user home
+                if (userRole === 'user') {
+                    return this.router.parseUrl('/user');
+                } else if (userRole === 'admin') {
+                    return this.router.parseUrl('/admin');
+                } else {
+                    return this.router.parseUrl('/login');
+                }
             })
         );
     }

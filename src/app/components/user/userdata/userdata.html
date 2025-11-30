@@ -27,15 +27,17 @@
                     <label class="field">
                         <span class="label">Role</span>
                         <select formControlName="role" required>
-                            <option value="user">User</option>
-                            <option value="admin">Admin</option>
+                            @for (role of roles; track role.value) {
+                            <option [value]="role.value">{{ role.label }}</option>
+                            }
                         </select>
                     </label>
                     <label class="field">
                         <span class="label">Status</span>
                         <select formControlName="status" required>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
+                            @for (status of statuses; track status.value) {
+                            <option [value]="status.value">{{ status.label }}</option>
+                            }
                         </select>
                     </label>
                 </div>

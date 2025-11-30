@@ -106,8 +106,9 @@
                                     </label>
                                     <select id="role" formControlName="role" class="form-control">
                                         <option value="">Select a role</option>
-                                        <option value="user">User</option>
-                                        <option value="admin">Admin</option>
+                                        @for (role of roles; track role.value) {
+                                        <option [value]="role.value">{{ role.label }}</option>
+                                        }
                                     </select>
                                 </div>
 
@@ -117,8 +118,9 @@
                                         <span class="required-badge">*</span>
                                     </label>
                                     <select id="status" formControlName="status" class="form-control">
-                                        <option value="active">Active</option>
-                                        <option value="inactive">Inactive</option>
+                                        @for (status of statuses; track status.value) {
+                                        <option [value]="status.value">{{ status.label }}</option>
+                                        }
                                     </select>
                                 </div>
                             </div>

@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { AdminService } from '@services';
 import { IUser } from '@interfaces';
 import { DataTableComponent, TableColumn } from '@shared';
-import { USER_MESSAGES } from '@constants';
+import { USER_MESSAGES, ROLES, STATUSES } from '@constants';
 import * as AdminActions from '@store/admin';
 import * as AdminSelectors from '@store/admin';
 
@@ -29,6 +29,8 @@ export class Userdata implements OnInit, OnDestroy {
   showAdd = signal(false);
   selectedRow = signal<IUser | null>(null);
   labels = USER_MESSAGES.USERDATA;
+  roles = ROLES;
+  statuses = STATUSES;
 
   tableColumns: TableColumn[] = [
     { key: 'id', label: this.labels.ID, sortable: true, width: '80px' },

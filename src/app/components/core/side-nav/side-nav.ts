@@ -1,10 +1,11 @@
 import { CommonModule } from "@angular/common";
-import { Component, signal, input, computed, inject } from '@angular/core';
+import { Component, signal, input, computed, inject, ChangeDetectionStrategy } from '@angular/core';
 import { SIDENAV_ITEMS, ADMIN_ITEMS, SidenavItem } from './side-nav-list';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { selectUser } from '@store/user';
+import { selectUserRole } from '@store/user';
 import { GLOBAL_MESSAGES } from '@constants';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-side-nav',
@@ -12,13 +13,15 @@ import { GLOBAL_MESSAGES } from '@constants';
   imports: [RouterModule, CommonModule],
   templateUrl: './side-nav.html',
   styleUrl: './side-nav.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SideNav {
   private store = inject(Store);
+  private router = inject(Router);
   labels = GLOBAL_MESSAGES.SIDEBAR;
 
   isOpen = input(true);
-  userRole = signal<string>('');
+  userRole = toSignal(this.store.pipe(select(selectUserRole)), { initialValue: '' });
 
   sidenavItems = computed(() => {
     const role = this.userRole();
@@ -32,15 +35,29 @@ export class SideNav {
   expandedItems = signal<Set<string>>(new Set());
   currentYear = new Date().getFullYear();
 
-  constructor() {
-    this.store.pipe(select(selectUser)).subscribe((user: any) => {
-      this.userRole.set(user?.role);
-    });
-  }
-
   isItemExpanded = computed(() => {
     const expanded = this.expandedItems();
     return (itemId: string) => expanded.has(itemId);
+  });
+
+  // Auto-expand parent items if their child is in the current route
+  isParentActive = computed(() => {
+    const items = this.sidenavItems();
+    const url = this.router.url;
+    const activeParents = new Set<string>();
+
+    items.forEach(item => {
+      if (item.children) {
+        item.children.forEach(child => {
+          // Check if current URL starts with child route
+          if (url.startsWith(child.route)) {
+            activeParents.add(item.id);
+          }
+        });
+      }
+    });
+
+    return (itemId: string) => activeParents.has(itemId);
   });
 
   trackBySidenavItem(index: number, item: SidenavItem): string {
@@ -60,12 +77,5 @@ export class SideNav {
       expanded.add(itemId);
     }
     this.expandedItems.set(expanded);
-  }
-
-  onNavClick(): void {
-    // Close side-nav on mobile after navigation
-    if (window.innerWidth <= 768) {
-      // Parent component manages closing via toggleSideNav
-    }
   }
 }

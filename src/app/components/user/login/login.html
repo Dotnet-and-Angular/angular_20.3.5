@@ -72,33 +72,32 @@
                     <label class="field">
                         <span class="field-label">{{ labels.USERNAME_LABEL }}</span>
                         <input formControlName="usernameOrEmail" type="text" [placeholder]="labels.USERNAME_PLACEHOLDER"
-                            autocomplete="username" [disabled]="isLoginLoading()" />
+                            autocomplete="username" />
                         @if (form().get('usernameOrEmail')?.invalid && form().get('usernameOrEmail')?.touched) {
-                        <small class="error">Username is required</small>
+                        <small class="error">{{ labels.USERNAME_REQUIRED }}</small>
                         }
                     </label>
                     <label class="field">
                         <span class="field-label">{{ labels.PASSWORD_LABEL }}</span>
                         <input formControlName="password" type="password" [placeholder]="labels.PASSWORD_PLACEHOLDER"
-                            autocomplete="current-password" [disabled]="isLoginLoading()" />
+                            autocomplete="current-password" />
                         @if (form().get('password')?.invalid && form().get('password')?.touched) {
                         <small class="error">
                             @if (form().get('password')?.errors?.['required']) {
-                            Password is required
+                            {{ labels.PASSWORD_REQUIRED }}
                             }
                             @if (form().get('password')?.errors?.['minlength']) {
-                            Password must be at least 6 characters
+                            {{ labels.PASSWORD_MIN_LENGTH }}
                             }
                         </small>
                         }
                     </label>
                     <label class="field">
-                        <span class="field-label">Role</span>
-                        <select formControlName="role" class="role-select" [disabled]="isLoginLoading()">
-                            <option value="user">User</option>
-                            <option value="admin">Admin</option>
-                            <option value="editor">Editor</option>
-                            <option value="viewer">Viewer</option>
+                        <span class="field-label">{{ labels.ROLE_LABEL }}</span>
+                        <select formControlName="role" class="role-select">
+                            @for (role of roles; track role.value) {
+                            <option [value]="role.value">{{ role.label }}</option>
+                            }
                         </select>
                     </label>
                     <div class="actions">
@@ -119,10 +118,10 @@
                     <label class="field">
                         <span class="field-label">{{ labels.EMAIL_LABEL }}</span>
                         <input formControlName="usernameOrEmail" type="email" [placeholder]="labels.EMAIL_PLACEHOLDER"
-                            autocomplete="email" [disabled]="isOtpSending() || otpSent()" />
+                            autocomplete="email" />
                         @if (phoneForm().get('usernameOrEmail')?.invalid && phoneForm().get('usernameOrEmail')?.touched)
                         {
-                        <small class="error">Valid email address is required</small>
+                        <small class="error">{{ labels.EMAIL_REQUIRED }}</small>
                         }
                     </label>
 
@@ -154,26 +153,24 @@
                 <form [formGroup]="otpForm()" (ngSubmit)="verifyOtp()" class="otp-form">
                     <label class="field">
                         <span class="field-label">{{ labels.OTP_LABEL }}</span>
-                        <input formControlName="otp" type="text" maxlength="6" [placeholder]="labels.OTP_PLACEHOLDER"
-                            [disabled]="isOtpVerifying()" />
+                        <input formControlName="otp" type="text" maxlength="6" [placeholder]="labels.OTP_PLACEHOLDER" />
                         @if (otpForm().get('otp')?.invalid && otpForm().get('otp')?.touched) {
                         <small class="error">
                             @if (otpForm().get('otp')?.errors?.['required']) {
-                            OTP is required
+                            {{ labels.OTP_REQUIRED }}
                             }
                             @if (otpForm().get('otp')?.errors?.['minlength']) {
-                            OTP must be 6 digits
+                            {{ labels.OTP_LENGTH }}
                             }
                         </small>
                         }
                     </label>
                     <label class="field">
-                        <span class="field-label">Role</span>
-                        <select formControlName="role" class="role-select" [disabled]="isOtpVerifying()">
-                            <option value="user">User</option>
-                            <option value="admin">Admin</option>
-                            <option value="editor">Editor</option>
-                            <option value="viewer">Viewer</option>
+                        <span class="field-label">{{ labels.ROLE_LABEL }}</span>
+                        <select formControlName="role" class="role-select">
+                            @for (role of roles; track role.value) {
+                            <option [value]="role.value">{{ role.label }}</option>
+                            }
                         </select>
                     </label>
 

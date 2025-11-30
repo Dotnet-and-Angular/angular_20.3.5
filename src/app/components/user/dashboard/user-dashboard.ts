@@ -1,14 +1,11 @@
-import { Component, signal, inject, OnInit, effect } from '@angular/core';
+import { Component, signal, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
 
-import { Header } from '../../core/header/header';
-import { SideNav } from '../../core/side-nav/side-nav';
-import * as AdminActions from '../../admin/admin-store/admin.actions';
-import * as AdminSelectors from '../../admin/admin-store/admin.selector';
-import { selectUserRole } from '../user-state-store/user.selector';
+import { Header, SideNav } from '@core/components';
+import * as AdminActions from '@store/admin';
+import * as AdminSelectors from '@store/admin';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -18,19 +15,7 @@ import { selectUserRole } from '../user-state-store/user.selector';
 })
 export class UserDashboard implements OnInit {
   private store = inject(Store);
-  private router = inject(Router);
   sideNavOpen = signal(true);
-  userRole = this.store.selectSignal(selectUserRole);
-
-  constructor() {
-    // If user is admin, redirect to admin panel
-    effect(() => {
-      const role = this.userRole();
-      if (role === 'admin') {
-        this.router.navigate(['/admin']);
-      }
-    });
-  }
 
   ngOnInit(): void {
     // Load users data once when dashboard is initialized — only if store is empty

@@ -1,12 +1,12 @@
 <div class="settings-container">
     <div class="settings-tabs">
-        <a routerLink="/user/settings/account" routerLinkActive="active" class="tab">
+        <a [routerLink]="baseRoute() + '/settings/account'" routerLinkActive="active" class="tab">
             <span class="icon">🔐</span> {{ labels.ACCOUNT }}
         </a>
-        <a routerLink="/user/settings/privacy" routerLinkActive="active" class="tab">
+        <a [routerLink]="baseRoute() + '/settings/privacy'" routerLinkActive="active" class="tab">
             <span class="icon">🔒</span> {{ labels.PRIVACY }}
         </a>
-        <a routerLink="/user/settings/notifications" routerLinkActive="active" class="tab">
+        <a [routerLink]="baseRoute() + '/settings/notifications'" routerLinkActive="active" class="tab">
             <span class="icon">🔔</span> {{ labels.NOTIFICATIONS }}
         </a>
     </div>

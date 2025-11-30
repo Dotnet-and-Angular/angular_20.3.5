@@ -106,6 +106,18 @@ export const USER_MESSAGES = {
         FOOTER_SEPARATOR: '|',
         FOOTER_LINK_ABOUT: 'About',
         FOOTER_COPYRIGHT: '© Copyright Nexus Bank Ltd.',
+        // Validation error messages
+        USERNAME_REQUIRED: 'Username is required',
+        PASSWORD_REQUIRED: 'Password is required',
+        PASSWORD_MIN_LENGTH: 'Password must be at least 6 characters',
+        EMAIL_REQUIRED: 'Valid email address is required',
+        OTP_REQUIRED: 'OTP is required',
+        OTP_LENGTH: 'OTP must be 6 digits',
+        ROLE_LABEL: 'Role',
+        ROLE_USER: 'User',
+        ROLE_ADMIN: 'Admin',
+        ROLE_EDITOR: 'Editor',
+        ROLE_VIEWER: 'Viewer',
     },
     REGISTER: {
         TAGLINE: 'Join our growing community!',
