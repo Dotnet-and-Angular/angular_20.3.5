@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { Header } from '../../core/header/header';
 import { SideNav } from '../../core/side-nav/side-nav';
@@ -8,7 +8,7 @@ import { ADMIN_MESSAGES } from '@constants';
 @Component({
     selector: 'app-admin-layout',
     standalone: true,
-    imports: [Header, SideNav, RouterModule, CommonModule],
+    imports: [Header, SideNav, RouterModule],
     templateUrl: './admin-layout.html',
     styleUrls: ['./admin-layout.scss']
 })

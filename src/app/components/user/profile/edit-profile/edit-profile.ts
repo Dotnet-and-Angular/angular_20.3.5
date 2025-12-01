@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, inject, signal, computed, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
@@ -24,7 +24,7 @@ interface ProfileFormData {
 @Component({
     selector: 'app-edit-profile',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [FormsModule],
     templateUrl: './edit-profile.html',
     styleUrl: './edit-profile.scss',
     changeDetection: ChangeDetectionStrategy.OnPush

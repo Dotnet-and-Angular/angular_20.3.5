@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { SETTINGS_MESSAGES } from '@constants';
 
@@ -17,7 +17,7 @@ interface PrivacySettings {
 @Component({
   selector: 'app-privacy-settings',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './privacy-settings.html',
   styleUrl: './privacy-settings.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

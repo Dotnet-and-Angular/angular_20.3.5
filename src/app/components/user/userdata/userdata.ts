@@ -3,7 +3,7 @@ import { Component, inject, OnInit, signal, ChangeDetectionStrategy, OnDestroy }
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
-import { CommonModule } from '@angular/common';
+
 
 import { AdminService } from '@services';
 import { IUser } from '@interfaces';
@@ -15,7 +15,7 @@ import * as AdminSelectors from '@store/admin';
 @Component({
   selector: 'app-userdata',
   standalone: true,
-  imports: [ReactiveFormsModule, DataTableComponent, CommonModule],
+  imports: [ReactiveFormsModule, DataTableComponent],
   templateUrl: './userdata.html',
   styleUrl: './userdata.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ADMIN_MESSAGES, ROLES, STATUSES } from '@constants';
@@ -11,7 +11,7 @@ import { DataTableComponent, TableColumn, SvgIconComponent } from '@shared';
 @Component({
     selector: 'app-user-management',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, DataTableComponent, SvgIconComponent],
+    imports: [ReactiveFormsModule, DataTableComponent, SvgIconComponent],
     templateUrl: './user-management.html',
     styleUrls: ['./user-management.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

@@ -1,4 +1,4 @@
-import { CommonModule } from "@angular/common";
+
 import { Component, signal, input, computed, inject, ChangeDetectionStrategy } from '@angular/core';
 import { SIDENAV_ITEMS, ADMIN_ITEMS, SidenavItem } from './side-nav-list';
 import { RouterModule, Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-side-nav',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule],
   templateUrl: './side-nav.html',
   styleUrl: './side-nav.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

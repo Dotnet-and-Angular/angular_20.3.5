@@ -1,5 +1,5 @@
 import { Component, input, output, signal, computed, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { GLOBAL_MESSAGES } from '@constants';
 
 export interface TableColumn {
@@ -15,7 +15,7 @@ export type SortDirection = 'asc' | 'desc' | null;
 @Component({
     selector: 'app-data-table',
     standalone: true,
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './data-table.html',
     styleUrl: './data-table.scss',
     changeDetection: ChangeDetectionStrategy.OnPush

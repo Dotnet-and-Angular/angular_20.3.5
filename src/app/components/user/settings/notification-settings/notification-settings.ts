@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { SETTINGS_MESSAGES } from '@constants';
 
@@ -34,7 +34,7 @@ interface Device {
 @Component({
   selector: 'app-notification-settings',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './notification-settings.html',
   styleUrl: './notification-settings.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

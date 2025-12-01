@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, inject, computed, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule, RouterLink, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { USER_MESSAGES } from '@constants';
@@ -9,7 +9,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
     selector: 'app-settings',
     standalone: true,
-    imports: [CommonModule, RouterModule, RouterLink],
+    imports: [RouterModule, RouterLink],
     templateUrl: './settings.html',
     styleUrl: './settings.scss',
     changeDetection: ChangeDetectionStrategy.OnPush

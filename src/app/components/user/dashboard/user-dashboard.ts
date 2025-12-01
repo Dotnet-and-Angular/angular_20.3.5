@@ -1,5 +1,5 @@
 import { Component, signal, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -11,7 +11,7 @@ import * as AdminSelectors from '@store/admin';
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.html',
   styleUrls: ['./user-dashboard.scss'],
-  imports: [Header, SideNav, RouterModule, CommonModule]
+  imports: [Header, SideNav, RouterModule]
 })
 export class UserDashboard implements OnInit {
   private store = inject(Store);

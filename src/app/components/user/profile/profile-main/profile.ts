@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, inject, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule, RouterLink, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { USER_MESSAGES } from '@constants';
@@ -9,7 +9,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
     selector: 'app-profile',
     standalone: true,
-    imports: [CommonModule, RouterModule, RouterLink],
+    imports: [RouterModule, RouterLink],
     templateUrl: './profile.html',
     styleUrl: './profile.scss',
     changeDetection: ChangeDetectionStrategy.OnPush

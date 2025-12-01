@@ -4,13 +4,13 @@ import { Router, RouterModule } from '@angular/router';
 import { LoginService } from '@services';
 import { Store } from '@ngrx/store';
 import { setToken, setUser } from '@store/user';
-import { CommonModule } from '@angular/common';
+
 import { USER_MESSAGES, ROLES } from '@constants';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, CommonModule],
+  imports: [ReactiveFormsModule, RouterModule],
   templateUrl: './login.html',
   styleUrls: ['./login.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

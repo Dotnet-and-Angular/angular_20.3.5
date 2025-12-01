@@ -1,6 +1,6 @@
 import { Component, OnDestroy, output, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
@@ -13,7 +13,7 @@ import { SvgIconComponent } from '@shared';
   standalone: true,
   templateUrl: './header.html',
   styleUrls: ['./header.scss'],
-  imports: [RouterModule, CommonModule, SvgIconComponent],
+  imports: [RouterModule, SvgIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Header implements OnDestroy {

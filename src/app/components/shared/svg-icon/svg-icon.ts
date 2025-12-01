@@ -1,11 +1,11 @@
 import { Component, input, computed, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { SVG_ICONS } from '@constants';
 
 @Component({
     selector: 'app-svg-icon',
     standalone: true,
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './svg-icon.html',
     styleUrl: './svg-icon.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
